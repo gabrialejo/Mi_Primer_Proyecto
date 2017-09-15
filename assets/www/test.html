@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+<meta name="viewport" content="width=320;initial-scale=1.0; maximum-scale=1.0; user-scalable=1;" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+     <meta http-equiv="Content-type" content="text/html; charset=utf-8">		
+							
+	</head>
+    <style>
+body {
+	visibility: hidden;
+}
+
+html.mobile, .mobile body {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.mobile body {
+	overflow-x: hidden;
+	-webkit-text-size-adjust: none;
+	background-color: rgb(197,204,211);
+	font-family: arial;
+	font-size: 17px;
+}
+
+/* dojox.mobile.View */
+.mblView {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+.mblView.out {
+}
+
+.mblView.in {
+	position: absolute;
+}
+
+.slide.out {
+	-webkit-animation-duration: .4s;
+	-webkit-animation-name: slideOut;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform: translateX(-100%);
+}
+.slide.in {
+	-webkit-animation-duration: .4s;
+	-webkit-animation-name: slideIn;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform: translateX(0px);
+}
+.slide.out.reverse {
+	-webkit-animation-name: slideOutReverse;
+}
+.slide.in.reverse {
+	-webkit-animation-name: slideInReverse;
+}
+@-webkit-keyframes slideOut {
+	from { -webkit-transform: translateX(0px); }
+	to { -webkit-transform: translateX(-100%); }
+}
+@-webkit-keyframes slideIn {
+	from { -webkit-transform: translateX(100%); }
+	to { -webkit-transform: translateX(0px); }
+}
+@-webkit-keyframes slideOutReverse {
+	from { -webkit-transform: translateX(0px); }
+	to { -webkit-transform: translateX(100%); }
+}
+@-webkit-keyframes slideInReverse {
+	from { -webkit-transform: translateX(-100%); }
+	to { -webkit-transform: translateX(0px); }
+}
+
+.flip.out {
+	-webkit-animation-duration: .6s;
+	-webkit-animation-name: flipOut;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-transform: rotateY(90deg);
+}
+.flip.in {
+	-webkit-animation-duration: .6s;
+	-webkit-animation-name: flipIn;
+	-webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes flipOut {
+	0% { -webkit-transform: rotateY(0deg) scale(1); }
+	50% { -webkit-transform: rotateY(90deg) scale(.8); }
+	100% { -webkit-transform: rotateY(90deg) scale(.8); }
+}
+
+@-webkit-keyframes flipIn {
+	0% { -webkit-transform: rotateY(90deg) scale(.8); }
+	50% { -webkit-transform: rotateY(90deg) scale(.8); }
+	100% { -webkit-transform: rotateY(0deg) scale(1); }
+}
+
+.fade.out {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeOut;
+	-webkit-animation-timing-function: ease-in;
+}
+.fade.out.fast {
+	-webkit-animation-duration: 0.3s;
+}
+.fade.in {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeIn;
+	-webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* dojox.mobile.Heading */
+.mblHeading {
+	position: relative;
+	height: 42px;
+	margin: 0px;
+	padding: 0px;
+	background-color: #7AB800;
+	background: -webkit-gradient(linear, left top, left bottom, from(#A8C201), to(#A8C201), color-stop(0.5, #7AB800), color-stop(0.5, #7AB800));
+	border-top: 1px solid #7AB800;
+	border-bottom: 1px solid #A8C201;
+	font-family: arial;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	line-height: 44px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	z-index: 1;
+}
+
+		</style>
+		
+       <script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+        <script type="text/javascript" src="json.js" charset="utf-8"></script>
+        <script type="text/javascript" src="jquery.zoomableGalaxyTab.js"></script>
+        <script type="text/javascript" src="jquery.zoomableFixedGalaxyTab.js"></script>
+        <script type="text/javascript" src="jquery.zoomableFixedGalaxyTabInternal.js"></script>
+		<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="main.js"></script>  
+
+		<script language="JavaScript" type="text/javascript">	
+		
+		dojo.require("dojo.data.ItemFileWriteStore");			//dojo.require("dojo.parser"); // Use the lightweight parser.
+		dojo.require("dojox.mobile.parser");
+		dojo.require("dojox.mobile");
+		dojo.require("dojox.mobile.FixedSplitter");
+		dojo.require("dojox.mobile.ScrollableView");
+		dojo.require("dojox.mobile.RoundRectDataList");
+
+        dojo.require("dojo.data.ItemFileReadStore");
+        dojo.require("dojo.window");
+        
+		dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+		dojo.requireIf(!dojo.isWebKit, "dojo.fx");
+		dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");		
+		
+		<table width="100%">
+
+		<tr>
+
+		</tr>
+		<tr>
+		
+			<td><span class="bold"></span></td>
+		
+			<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeNote()">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="cancelChangeHours()">Cancelar</button></td>
+
+		</tr>
+
+	</table>
+</html>

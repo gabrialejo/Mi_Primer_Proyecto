@@ -1,0 +1,142 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:background="@drawable/rounded_textview_blanco"
+	android:orientation="vertical"
+	tools:context=".Estimacion" >
+
+	<RelativeLayout
+		android:id="@+id/relati_1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="0dp"
+		android:layout_marginTop="0dp" >
+
+		<TextView
+			android:id="@+id/title1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:layout_marginLeft="30dp"
+			android:text="@string/titulo1"
+			android:textColor="@drawable/Blue_title"
+			android:textSize="30sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/title2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_marginLeft="35dp"
+			android:layout_toRightOf="@+id/title1"
+			android:text="@string/titulo2"
+			android:textColor="@drawable/Blue_title"
+			android:textSize="30sp"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/title3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_marginLeft="40dp"
+			android:layout_toRightOf="@+id/title2"
+			android:text="@string/titulo3"
+			android:textColor="@drawable/Blue_title"
+			android:textSize="30sp"
+			android:textStyle="bold" />
+		
+<!-- 		<TextView -->
+<!-- 			android:id="@+id/title4" -->
+<!-- 			android:layout_width="wrap_content" -->
+<!-- 			android:layout_height="wrap_content" -->
+<!-- 			android:layout_alignParentTop="true" -->
+<!-- 			android:layout_marginLeft="25dp" -->
+<!-- 			android:layout_toRightOf="@+id/title3" -->
+<!-- 			android:text="@string/titulo4" -->
+<!-- 			android:textColor="@drawable/Blue_title" -->
+<!-- 			android:textSize="30sp" -->
+<!-- 			android:textStyle="bold" /> -->
+		
+<!-- 		<TextView -->
+<!-- 			android:id="@+id/title5" -->
+<!-- 			android:layout_width="wrap_content" -->
+<!-- 			android:layout_height="wrap_content" -->
+<!-- 			android:layout_alignParentTop="true" -->
+<!-- 			android:layout_marginLeft="30dp" -->
+<!-- 			android:layout_toRightOf="@+id/title4" -->
+<!-- 			android:text="@string/titulo5" -->
+<!-- 			android:textColor="@drawable/Blue_title" -->
+<!-- 			android:textSize="30sp" -->
+<!-- 			android:textStyle="bold" /> -->
+		
+<!-- 		<TextView -->
+<!-- 			android:id="@+id/title6" -->
+<!-- 			android:layout_width="wrap_content" -->
+<!-- 			android:layout_height="wrap_content" -->
+<!-- 			android:layout_alignParentTop="true" -->
+<!-- 			android:layout_marginLeft="600dp" -->
+<!-- 			android:layout_toRightOf="@+id/title2" -->
+<!-- 			android:text="@string/titulo6" -->
+<!-- 			android:textColor="@drawable/Blue_title" -->
+<!-- 			android:textSize="30sp" -->
+<!-- 			android:textStyle="bold" -->
+<!-- 			android:visibility="invisible" /> -->
+
+		<Button
+			android:id="@+id/button1"
+			style="?android:attr/buttonStyleSmall"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="false"
+			android:layout_alignParentTop="false"
+			android:layout_marginLeft="415dp"
+			android:layout_toRightOf="@id/title3"
+			android:background="@drawable/regresar"
+			android:text=" "
+			android:textColor="@drawable/Blue"
+			android:textSize="12sp"
+			android:textStyle="bold" />
+
+<!-- 		<GridView -->
+<!-- 			android:id="@+id/gridView1" -->
+<!-- 			android:layout_width="match_parent" -->
+<!-- 			android:layout_height="wrap_content" -->
+<!-- 			android:layout_alignParentLeft="true" -->
+<!-- 			android:layout_below="@+id/button1" -->
+<!-- 			android:background="@drawable/transp" -->
+<!-- 			android:numColumns="3" > -->
+
+<!-- 		</GridView> -->
+
+    <ListView
+    	android:id="@android:id/list"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:layout_below="@+id/button1"
+    	android:layout_marginLeft="5dp"
+    	android:background="@drawable/Blue"
+    	android:fitsSystemWindows="false"
+    	android:headerDividersEnabled="true"
+    	android:listSelector="@drawable/rounded_textview_negro"
+    	android:scrollingCache="true"
+    	android:stackFromBottom="false" />
+
+			</RelativeLayout>
+ 
+    <TextView
+    	android:id="@id/android:empty"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginLeft="450dp"
+    	android:layout_marginTop="200dp"
+    	android:text="@string/lista_vacia"
+    	android:textColor="@drawable/Blue"
+    	android:textSize="35sp"
+    	android:textStyle="bold" />
+
+     
+</LinearLayout>

@@ -1,0 +1,1418 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<meta name="viewport" content="width=1024;initial-scale=1.0; maximum-scale=1.0; user-scalable=1;" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>INMAEst Movil</title>
+    
+    
+   <style>
+body {
+	visibility: hidden;
+}
+
+html.mobile, .mobile body {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.mobile body {
+	overflow-x: hidden;
+	-webkit-text-size-adjust: none;
+	background-color: rgb(197,204,211);
+	font-family: arial;
+	font-size: 17px;
+}
+
+/* dojox.mobile.View */
+.mblView {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+.mblView.out {
+}
+
+.mblView.in {
+	position: absolute;
+}
+
+.slide.out {
+	-webkit-animation-duration: .4s;
+	-webkit-animation-name: slideOut;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform: translateX(-100%);
+}
+.slide.in {
+	-webkit-animation-duration: .4s;
+	-webkit-animation-name: slideIn;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform: translateX(0px);
+}
+.slide.out.reverse {
+	-webkit-animation-name: slideOutReverse;
+}
+.slide.in.reverse {
+	-webkit-animation-name: slideInReverse;
+}
+@-webkit-keyframes slideOut {
+	from { -webkit-transform: translateX(0px); }
+	to { -webkit-transform: translateX(-100%); }
+}
+@-webkit-keyframes slideIn {
+	from { -webkit-transform: translateX(100%); }
+	to { -webkit-transform: translateX(0px); }
+}
+@-webkit-keyframes slideOutReverse {
+	from { -webkit-transform: translateX(0px); }
+	to { -webkit-transform: translateX(100%); }
+}
+@-webkit-keyframes slideInReverse {
+	from { -webkit-transform: translateX(-100%); }
+	to { -webkit-transform: translateX(0px); }
+}
+
+.flip.out {
+	-webkit-animation-duration: .6s;
+	-webkit-animation-name: flipOut;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-transform: rotateY(90deg);
+}
+.flip.in {
+	-webkit-animation-duration: .6s;
+	-webkit-animation-name: flipIn;
+	-webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes flipOut {
+	0% { -webkit-transform: rotateY(0deg) scale(1); }
+	50% { -webkit-transform: rotateY(90deg) scale(.8); }
+	100% { -webkit-transform: rotateY(90deg) scale(.8); }
+}
+
+@-webkit-keyframes flipIn {
+	0% { -webkit-transform: rotateY(90deg) scale(.8); }
+	50% { -webkit-transform: rotateY(90deg) scale(.8); }
+	100% { -webkit-transform: rotateY(0deg) scale(1); }
+}
+
+.fade.out {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeOut;
+	-webkit-animation-timing-function: ease-in;
+}
+.fade.out.fast {
+	-webkit-animation-duration: 0.3s;
+}
+.fade.in {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeIn;
+	-webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* dojox.mobile.Heading */
+.mblHeading {
+	position: relative;
+	height: 42px;
+	margin: 0px;
+	padding: 0px;
+	background-color: #23B5EB;
+	background: -webkit-gradient(linear, left top, left bottom, from(#A8C201), to(#A8C201), color-stop(0.5, #23B5EB), color-stop(0.5, #23B5EB));
+	border-top: 1px solid #23B5EB;
+	border-bottom: 1px solid #A8C201;
+	font-family: arial;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	line-height: 44px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	z-index: 1;
+}
+
+/* Heading Arrow Button */
+.mblArrowButton {
+	position: relative;
+	float: left;
+	height: 42px;
+	margin-right: 6px;
+}
+.mblArrowButtonHead {
+	position: absolute;
+	top: 11px;
+	left: 8px;
+	width: 19px;
+	height: 19px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #A8C201;
+	-webkit-transform: scale(.8,1) rotate(45deg);
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685), color-stop(0.5, #044685), color-stop(0.5, #044685));
+}
+.mblArrowButtonBody {
+	position: absolute;
+	top: 6px;
+	left: 19px;
+	padding: 0px 10px 0px 3px;
+	height: 29px;
+	border-width: 1px 1px 1px 0px;
+	border-style: inset;
+	border-color: #A8C201;
+	font-family: arial;
+	font-size: 13px;
+	color: white;
+	line-height: 29px;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background-color: #A8C201;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblArrowButtonNeck {
+	position: absolute;
+	top: 6px;
+	left: 19px;
+	width: 4px;
+	height: 29px;
+	border-width: 1px 0px 1px 0px;
+	border-style: inset;
+	border-color: #9CACC0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+}
+.mblArrowButtonSelected .mblArrowButtonHead {
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685), color-stop(0.5, #394D77), color-stop(0.5, #243B69));
+}
+.mblArrowButtonSelected .mblArrowButtonBody, .mblArrowButtonSelected .mblArrowButtonNeck {
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685), color-stop(0.5, #394D77), color-stop(0.5, #243B69));
+}
+
+/* ToolBarButton */
+.mblToolbarButton {
+	float: left;
+	position: relative;
+	margin: 0px;
+	padding: 0px 0px;
+	height: 43px;
+	/*border: 1px inset #9CACC0;*/
+	font-family: arial;
+	font-size: 13px;
+	font-weight: bold;
+	color: white;
+	line-height: 29px;
+	text-align: center;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* dojox.mobile.TabBar */
+.mblTabBar {
+	position: relative;
+	height: 48px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: #000000;
+	background: -webkit-gradient(linear, left top, left bottom, from(#2D2D2D), to(#000000), color-stop(0.5, #141414), color-stop(0.5, #000000));
+	border-top: 1px solid #000000;
+	color: white;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.mblTabBar .mblTabBarButton {
+	position: relative;
+	list-style-type: none;
+	float: left;
+}
+
+/* dojox.mobile.TabBarButton */
+.mblTabBarButton {
+}
+.mblTabBarButtonAnchor {
+	display: block;
+	text-decoration: none;
+}
+.mblTabButton .mblTabBarButtonAnchor {
+	height: 28px;
+}
+.mblTabBarButtonDiv {
+	position: relative;
+	height: 34px;
+	width: 29px;
+	left: 50%;
+}
+.mblTabButton .mblTabBarButtonDiv {
+	display: none;
+}
+.mblTabBarButtonDivInner {
+	left: -50%;
+}
+.mblTabBarButtonIcon {
+	position: absolute;
+	left: 0px;
+	top: 2px;
+}
+.mblTabBar .mblTabBarButton.mblTabButtonSelected {
+	background-color: #404040;
+	background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#242424), color-stop(0.5, #353535), color-stop(0.5, #242424));
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+.mblTabBarButtonTextBox {
+	color: #979797;
+	font-family: "arial Neue", arial;
+	font-size: 11px;
+}
+.mblTabButtonSelected .mblTabBarButtonTextBox {
+	color: white;
+}
+
+/* dojox.mobile.RoundRect */
+.mblRoundRect {
+	margin: 7px 9px 16px 9px;
+	padding: 8px;
+	border: 1px solid #ADAAAD;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	background-color: white;
+}
+.mblRoundRect.mblShadow {
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* dojox.mobile.EdgeToEdgeCategory */
+.mblEdgeToEdgeCategory {
+	position: relative;
+	height: 22px;
+	margin: 0px;
+	padding: 0px 10px;
+	border-top: 1px solid #A4B0B9;
+	border-bottom: 1px solid #979DA3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#8F9EA9), to(#B7C0C7));
+	font-family: arial;
+	font-weight: bold;
+	font-size: 16px;
+	color: white;
+	line-height: 22px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* dojox.mobile.RoundRectCategory */
+.mblRoundRectCategory {
+	color: #4C566C;
+	padding: 18px 0px 0px 20px;
+	margin: 0px;
+	text-shadow: rgba(255, 255, 255, 1) 0px 1px 0px;
+	font-family: arial;
+	font-size: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* dojox.mobile.RoundRectList */
+.mblRoundRectList {
+	margin: 7px 9px 16px 9px;
+	padding: 0px;
+	border: 1px solid #ADAAAD;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	background-color: white;
+	position: relative; /* IE needs this */
+}
+
+/* dojox.mobile.EdgeToEdgeList */
+.mblEdgeToEdgeList {
+	padding: 0px;
+	background-color: white;
+	position: relative; /* IE needs this */
+	margin: 0px; /* IE needs this */
+}
+
+/* dojox.mobile.ListItem */
+.mblListItem {
+	list-style-type: none;
+	height: 100%;
+	border-bottom: 1px solid #ADAAAD;
+	line-height: 43px;
+	font-weight: bold;
+	position: relative;
+	color: black;
+	vertical-align: bottom; /* To avoid IE6 LI bug */
+	padding-left: 8px;
+}
+.mblListItemIcon {
+	position: absolute;
+	top: 7px;
+}
+.mblListItem.mblVariableHeight {
+	line-height: normal;
+	height: auto;
+	padding: 11px 6px 10px 6px;
+}
+.mblItemSelected {
+	background-color: #048BF4;
+	background: -webkit-gradient(linear, left top, left bottom, from(#048BF4), to(#005CE5));
+}
+.mblListItemTextBox {
+	padding-right: 28px;
+	width: 520px;
+}
+.mblListItemTextBoxSelected {
+	background-color: #048BF4;
+}
+.mblRoundRectList .mblListItem:first-child {
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+}
+.mblRoundRectList .mblListItem:last-child {
+	border-bottom-width: 0px;
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-moz-border-radius-bottomright: 8px;
+}
+.mblEdgeToEdgeList .mblListItem:last-child {
+	border-bottom-color: #707C84;
+}
+.mblListItem a.mblListItemAnchor {
+	background-position: 9px 7px;
+	display: block;
+	padding-left: 40px;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.mblListItem a.mblListItemAnchorNoIcon {
+	padding-left: 10px;
+}
+.mblItemSelected a.mblListItemAnchor {
+	color: white;
+}
+.mblListItem a.mblListItemAnchorHasRightButton {
+	padding-right: 40px;
+}
+
+.mblListItem .mblArrow {
+	position: absolute;
+	top: 18px;
+	right: 12px;
+	width: 6px;
+	height: 6px;
+	font-size: 1px;
+	-webkit-transform: rotate(45deg);
+	border-width: 3px 3px 0px 0px;
+	border-style: solid;
+	border-color: #808080;
+}
+.mblItemSelected .mblArrow {
+	border-color: white;
+}
+.mblVariableHeight div.mblArrow {
+	top: 50%;
+	margin-top: -4px;
+}
+
+.mblRightText {
+	position: absolute;
+	top: 12px;
+	right: 30px;
+	color: #324F85;
+	line-height: normal;
+}
+.mblListItem .mblRightButtonContainer {
+	position: absolute;
+	top: 50%;
+	right: 12px;
+}
+.mblListItem .mblRightButton {
+	position: absolute;
+	top: -50%;
+}
+
+/* Switch */
+.mblSwitch {
+	position: relative;
+	width: 94px;
+	height: 27px;
+	overflow: hidden;
+}
+.mblItemSwitch {
+	position: absolute;
+	top: 8px;
+	right: 12px;
+}
+.mblSwitchInner {
+	position: absolute;
+	top: 0px;
+	height: 27px;
+}
+.mblSwitchAnimation .mblSwitchInner {
+	-webkit-transition-property: left;
+	-webkit-transition-duration: .3s;
+}
+.mblSwitchOn .mblSwitchInner {
+	left: 0px;
+}
+.mblSwitchOff .mblSwitchInner {
+	left: -53px;
+}
+.mblSwitchBg {
+	position: absolute;
+	top: 0px;
+	height: 27px;
+	border-width: 1px;
+	border-style: inset;
+	border-color: #9CACC0;
+	font-family: arial;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 29px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+}
+.mblSwitchBgLeft {
+	left: 0px;
+	width: 94px;
+	color: white;
+	background-color: #3F84EB;
+	background: -webkit-gradient(linear, left top, left bottom, from(#2859B1), to(#75ACFB), color-stop(0.5, #3F84EB), color-stop(0.5, #4C8EEE));
+}
+.mblSwitchBgRight {
+	left: 53px;
+	width: 94px;
+	color: #7F7F7F;
+	background-color: #EEEEEE;
+	background: -webkit-gradient(linear, left top, left bottom, from(#CECECE), to(#FDFDFD), color-stop(0.5, #EEEEEE), color-stop(0.5, #F8F8F8));
+}
+.mblSwitchKnob {
+	position: absolute;
+	top: 1px;
+	left: 53px;
+	width: 41px;
+	height: 26px;
+	font-size: 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #EFEFEF #A5A5A5 #969696 #325E9E;
+	line-height: 29px;
+	background-color: #CCCCCC;
+	background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#FAFAFA));
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.mblSwitchText {
+	position: relative;
+	top: 0px;
+	width: 53px;
+	height: 27px;
+	padding: 0px;
+	text-align: center;
+}
+.mblSwitchTextLeft {
+	left: 0px;
+}
+.mblSwitchTextRight {
+	left: 40px;
+}
+
+/* Icon Container */
+.mblIconContainer {
+	padding: 0px;
+	margin: 20px 0px 0px 10px;
+	padding: 0px 0px 40px 0px;
+}
+.mblIconItem {
+	list-style-type: none;
+	float: left;
+}
+.mblIconItemTerminator {
+	list-style-type: none;
+	height: 20px;
+	clear: both;
+}
+.mblIconItemSub {
+	list-style-type: none;
+	margin-left: -10px;
+	background-color: white;
+}
+
+.mblIconArea {
+	font-family: arial;
+	font-size: 12px;
+	height: 78px;
+	width: 74px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.mblIconArea DIV {
+	position: relative;
+	height: 65px;
+}
+
+.mblIconArea IMG {
+	position: absolute;
+	top: 0px;
+	left: 6px;
+}
+
+.mblContent {
+	clear: both;
+	padding-bottom: 20px;
+}
+
+table.mblClose {
+	clear: both;
+	cursor: pointer;
+}
+
+.mblVibrate{
+	position: relative;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: 20;
+	-webkit-animation-name: vibrate;
+	-webkit-transform: rotate(0deg);
+}
+@-webkit-keyframes vibrate{
+	0%{
+		-webkit-transform: rotate(-2deg);
+		bottom: -1px;
+		left: -1px;
+	}
+	25% {
+		-webkit-transform: rotate(1deg);
+		bottom: 2px;
+		left: 1px;
+	}
+	50% {
+		-webkit-transform: rotate(-1deg);
+		bottom: -2px;
+		left: -1px;
+	}
+	75% {
+		-webkit-transform: rotate(2deg);
+		bottom: 2px;
+		left: 1px;
+	}
+	100% {
+		-webkit-transform: rotate(-2deg);
+		bottom: -1px;
+		left: -1px;
+	}
+}
+
+.mblCloseContent{
+	-webkit-animation-duration: .3s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-name: shrink;
+	-webkit-transform: scale(0.01);
+}
+.mblCloseContent.mblShrink0{
+	-webkit-animation-name: shrink0;
+}
+.mblCloseContent.mblShrink1{
+	-webkit-animation-name: shrink1;
+}
+.mblCloseContent.mblShrink2{
+	-webkit-animation-name: shrink2;
+}
+.mblCloseContent.mblShrink3{
+	-webkit-animation-name: shrink3;
+}
+@-webkit-keyframes shrink{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: scale(0.01); }
+}
+@-webkit-keyframes shrink0{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(-40%,-70%) scale(0.01); }
+}
+@-webkit-keyframes shrink1{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(-14%,-70%) scale(0.01); }
+}
+@-webkit-keyframes shrink2{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(14%,-70%) scale(0.01); }
+}
+@-webkit-keyframes shrink3{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(40%,-70%) scale(0.01); }
+}
+
+/* Icon Content Heading */
+.mblIconContentHeading {
+	position: relative;
+	clear: both;
+	height: 25px;
+	padding-left: 40px;
+	margin-top: 0px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#E0E4E7), to(#B4BEC6), color-stop(0.5, #C4CCD2), color-stop(0.5, #BFC8CE));
+	border-top: 1px solid #F1F3F4;
+	border-bottom: 1px solid #717D85;
+	font-family: arial;
+	font-size: 14px;
+	color: white;
+	line-height: 26px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* dojox.mobile.Button */
+.mblButton {
+	padding: 0px 10px;
+	height: 29px;
+	border-width: 1px 1px 1px 1px;
+	border-style: outset;
+	color: white;
+	font-family: arial;
+	font-size: 13px;
+	line-height: 29px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-tap-highlight-color: transparent;
+}
+.mblBlueButton {
+	border-color: #9CACC0;
+	background-color: #366EDF;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7A9DE9), to(#2362DD), color-stop(0.5, #366EDF), color-stop(0.5, #215FDC));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblBlueButtonSelected {
+	background: -webkit-gradient(linear, left top, left bottom, from(#8EA4C1), to(#4A6C9B), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+}
+.mblRedButton {
+	border-color: #9CACC0;
+	background-color: #366EDF;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FA9D58), to(#EE4115), color-stop(0.5, #FF4D25), color-stop(0.5, #ED4D15));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblRedButtonSelected {
+	background: -webkit-gradient(linear, left top, left bottom, from(#C1A48E), to(#9B6C4A), color-stop(0.5, #A27758), color-stop(0.5, #996947));
+}
+
+/* Tab Container */
+.mblTabContainer {
+}
+
+.mblTabButton {
+	float: left;
+	position: relative;
+	list-style-type: none;
+	width: 100px;
+	text-align: center;
+	height: 28px;
+	border-width: 1px 1px 1px 0px;
+	border-style: inset;
+	border-color: #9CACC0;
+	border-right-color: #5E708A;
+	font-family: arial;
+	font-size: 13px;
+	color: white;
+	cursor: pointer;
+	line-height: 29px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ABB9CA), to(#788DA9), color-stop(0.5, #8297AF), color-stop(0.5, #768BA7));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblTabButton:first-child {
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-left-width: 1px;
+}
+.mblTabButton:last-child {
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-right-color: #9CACC0;
+}
+.mblTabPanelHeader .mblTabButton.mblTabButtonSelected {
+	background-color: #5877A2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#8EA4C1), to(#4A6C9B), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+}
+.mblTabButtonImgDiv {
+	display: none;
+}
+
+.mblTabPanelHeader {
+	position: relative;
+	height: 39px;
+	margin: 0px;
+	padding: 3px 0px 0px 0px;
+	background-color: #889BB3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#B0BCCD), to(#6D84A2), color-stop(0.5, #889BB3), color-stop(0.5, #8195AF));
+	border-top: 1px solid #CDD5DF;
+	border-bottom: 1px solid #2D3642;
+	font-family: arial;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	line-height: 44px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.mblTabPanelPane {
+}
+
+.mblTabPane {
+}
+
+/* Progress Indicator */
+.mblProgContainer {
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	top: 180px;
+	left: 50%;
+	margin: -18px 0px 0px -18px;
+}
+.mblProg {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 11px;
+	font-size: 1px;
+	height: 4px;
+	overflow: hidden;
+	-webkit-transform-origin: 0 2px;
+	background-color: #C0C0C0;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+.mblProg0 {
+	-webkit-transform: translate(18px,10px) rotate(-90deg);
+}
+.mblProg1 {
+	-webkit-transform: translate(22px,11px) rotate(-60deg);
+}
+.mblProg2 {
+	-webkit-transform: translate(25px,14px) rotate(-30deg);
+}
+.mblProg3 {
+	-webkit-transform: translate(26px,18px) rotate(0deg);
+}
+.mblProg4 {
+	-webkit-transform: translate(25px,22px) rotate(30deg);
+}
+.mblProg5 {
+	-webkit-transform: translate(22px,25px) rotate(60deg);
+}
+.mblProg6 {
+	-webkit-transform: translate(18px,26px) rotate(90deg);
+}
+.mblProg7 {
+	-webkit-transform: translate(14px,25px) rotate(120deg);
+}
+.mblProg8 {
+	-webkit-transform: translate(11px,22px) rotate(150deg);
+}
+.mblProg9 {
+	-webkit-transform: translate(10px,18px) rotate(180deg);
+}
+.mblProg10 {
+	-webkit-transform: translate(11px,14px) rotate(210deg);
+}
+.mblProg11 {
+	-webkit-transform: translate(14px,11px) rotate(240deg);
+}
+
+/* Button Colors */
+.mblColorBlue {
+	background-color: #366EDF;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7A9DE9), to(#2362DD), color-stop(0.5, #366EDF), color-stop(0.5, #215FDC));
+}
+
+/* Default Button Colors */
+.mblColorDefault { /* Dark Blue */
+/*	
+	background-color: #5877A2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#8EA4C1), to(#4A6C9B), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+*/
+}
+
+.mblColorDefaultSel { /* More Dark Blue */
+	background-color: #394D77;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7C87A4), to(#263E6C), color-stop(0.5, #394D77), color-stop(0.5, #243B69));
+}
+
+/* dojox.mobile.View */
+
+/* dojox.mobile.Heading */
+.mblHeading {
+	background-color: #23B5EB;
+	background: -webkit-gradient(linear, left top, left bottom, from(#23B5EB), to(#23B5EB));
+	border-top: 1px solid #FEFEFE;
+	border-bottom: 1px solid #787E8F;
+	color: White;
+	text-shadow: rgba(256,256,256,0.6) 0px 1px 0px;
+}
+
+/* Heading Arrow Button */
+.mblArrowButtonHead {
+	border-color: #044685;
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685));
+}
+.mblArrowButtonBody {
+	border-color: #A8C201;
+	background-color: #A8C201;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685));
+	-webkit-tap-highlight-color: transparent;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+}
+.mblArrowButtonNeck {
+	border-color: #C0C0C0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685));
+}
+.mblArrowButtonSelected .mblArrowButtonHead {
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685));
+}
+.mblArrowButtonSelected .mblArrowButtonBody, .mblArrowButtonSelected .mblArrowButtonNeck {
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685));
+}
+
+/* dojox.mobile.RoundRect */
+.mblRoundRect {
+	margin: 7px 30px 30px 30px;
+}
+.mblHeading + .mblRoundRect {
+	margin-top: 30px;
+}
+
+/* dojox.mobile.EdgeToEdgeCategory */
+/* dojox.mobile.RoundRectCategory */
+.mblRoundRectCategory {
+	margin: 18px 0px 0px 41px;
+}
+
+/* dojox.mobile.RoundRectList */
+.mblRoundRectList {
+	margin: 7px 30px 30px 30px;
+}
+.mblHeading + .mblRoundRectList {
+	margin-top: 30px;
+}
+
+/* dojox.mobile.EdgeToEdgeList */
+/* dojox.mobile.ListItem */
+/* Switch */
+/* Icon Container */
+/* Icon Content Heading */
+/* dojox.mobile.Button */
+/* Tab Container */
+/* Progress Indicator */
+
+.mblFixedSpliter {
+	width: 100%;
+	height: 100%;
+}
+
+.mblFixedSplitterPane {
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.mblFixedSplitterPaneH {
+	position: absolute;
+	height: 100%;
+	top: 0px;
+}
+
+.mblFixedSplitterPaneV {
+	position: absolute;
+	width: 100%;
+	left: 0px;
+}
+
+
+/* provide proper spacing at the bottom of the scrollable views */
+.mblScrollableViewContainer {
+    padding-bottom:40px !important;
+}
+		html, body{
+			height: 100%;
+			overflow: hidden;
+			background:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+			background-color:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+		}
+		.mblEdgeToEdgeList {
+			background:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+			background-color:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+		}
+.tweetviewRefresh img   {
+    margin-top:-5px;
+}	
+
+
+div.jsonSuggestResults {
+    position:relative;
+    border:0px solid #CCC;
+    padding:0px;
+    margin:0px 0px;
+    z-index:199;
+    overflow:scroll;
+    overflow-x: hidden;
+    left:0px;
+    top:0px;
+}
+
+div.jsonSuggestResults div.resultItem {
+    margin:0px;
+    padding:20px;
+    position:relative;
+    height:auto;
+    cursor:pointer;
+}
+
+div.jsonSuggestResults div.resultItem.odd {
+    background-color:#9ADFFE;
+}
+div.jsonSuggestResults div.resultItem.even {
+    background-color:#FFFFFF;
+}
+
+div.jsonSuggestResults div.resultItem.hover {
+    background-color:#3399FF;
+}
+
+div.jsonSuggestResults div.resultItem img {
+    float:left;
+    margin-right:10px;
+}
+
+div.jsonSuggestResults div.resultItem p {
+    margin:0px;
+    padding:0px;
+}
+
+div.jsonSuggestResults div.resultItem p strong {
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+div.jsonSuggestResults div.resultItem p.extra {
+    font-size: x-small !important;
+    position:absolute;
+    bottom:3px;
+    right: 3px;
+    
+}
+
+ .container { 
+   border: thin groove #C0C0C0;
+   width: 350px; 
+   height: 150px; 
+   background-color: white;
+   position:absolute;
+   left: 25%;
+   top: 30%; 
+   margin-left: -10px;
+   margin-top: -10px; 
+ } 
+
+		</style>
+
+		</style>
+       <script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+        <script type="text/javascript" src="json.js" charset="utf-8"></script>
+        <script type="text/javascript" src="jquery.zoomableGalaxyTab.js"></script>
+        <script type="text/javascript" src="jquery.zoomableFixedGalaxyTab.js"></script>
+        <script type="text/javascript" src="jquery.zoomableFixedGalaxyTabInternal.js"></script>
+		<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="main.js"></script>  
+
+		<script language="JavaScript" type="text/javascript">
+
+			dojo.require("dojo.data.ItemFileWriteStore");
+			dojo.require("dojox.mobile.parser");
+			dojo.require("dojox.mobile");
+			dojo.require("dojox.mobile.FixedSplitter");
+			dojo.require("dojox.mobile.ScrollableView");
+			dojo.require("dojox.mobile.RoundRectDataList");
+
+            dojo.require("dojo.data.ItemFileReadStore");
+            dojo.require("dojo.window");
+            
+			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.requireIf(!dojo.isWebKit, "dojo.fx");
+			dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
+			
+
+            var static_data = { 
+				items: [ 
+				]
+			};
+
+            var partSelector_store_static_data = { 
+				identifier: 'id',
+				items:[ 
+				]
+			};
+
+//            var DATAIMAGES = new Array();
+//            var search_store = null;
+//			var searchResult_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var year_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var mark_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var model_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var submodel_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var submodelx_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var category_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var partSelector_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(partSelector_store_static_data)});
+//			var panelType_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var panelDamageType_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var DAMAGESIZEID_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//			var REPAIRTIME_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+//            var carsSelector = null;
+//            //var localhost = "www.inma.com.ve";
+//            var localhost = "192.168.0.241";
+//            var actualOEM = "22";
+//            var viewsSelector = new Array(9);
+//            var actualIndexView = 0;
+//            var actualIndexImage = 0;
+//            var actualView = 0;
+//            var actualBodyStyle = 0;
+//            var actualService = 0;
+//            var actualMano = null;
+//            var actualPartes = null;
+//            var actualParts = null;
+//            var actualRoundRectList = null;
+//            var actualCallout = null;
+//            var actualItem = null;
+//            var actualImages = new Array();
+//            var panelid = "";
+//            var paneltypeid = "";
+//            var PANELDAMAGETYPEID = "";
+//            var haveP = false;
+//            var haveMO = false;
+//            var modelName="";
+//			var actualNewItem = null;
+//			var EstimateId = "";
+//			var EstimateDate = new Date();
+//			var existe = 0;
+//			var odometer = "";
+//			var estimator = "";
+//			var anio = "";
+//			var vColor = "";
+//			var Color="";
+//			var Plate = "";
+//			var Nombre = "";
+//			var vvMessage03="Y";
+//			var vehicleIdNumber = "";
+//			var submodellabel = "";
+//			var Nombre = ""
+//			var sName = "";
+//			var UName = "";
+//			var PName = "";
+//			var sDescripcion="";
+//            localStorage.setItem("viewsSelector", null);
+//            localStorage.setItem("views", null);
+//            var sIndex="Normal";
+//            var sNoManual="SI";
+//            var Manualidt="";
+//            var arrDescriptor = new Array();
+//            var arrManual = new Array();
+//            var d = 0;
+//            var k = 1;
+//            var sDataInd = "";
+//            var ovpri=-1;
+//            var CEGpri=0.00;
+//            var sLabOp=1;
+//            var sLabOp2=1;
+//            var sLabAnt=1;
+//            var Dprevio=false;
+//            var jsonMark="";
+//            var jsonModel="";
+//            var submodellabel="";
+            var basedatos = "";
+            
+            function properties() {
+
+                this.i = "";
+                this.w = "";
+                this.h = "";
+
+            }
+            function itemArray() {
+
+                this.r = "";
+
+
+            }            
+            function callOutsViews() {
+
+                this.d = "";
+                this.w = "";
+                this.h = "";
+                this.x = "";
+                this.y = "";
+
+            }
+            function actualImage() {
+
+                this.w = "";
+                this.h = "";
+                this.id = 0;
+
+            }
+            var actualImage = new actualImage();
+             
+        dojo.addOnLoad(function() {
+        
+            
+            dojo.style(dojo.byId('tools'), {
+                    display: "none"
+            });
+            dojo.style(dojo.byId('content'), {
+                    left: "0px",
+                    width: "1024px"
+            });
+  
+            var bodyStyle = 0;
+        
+        function resizeIt(){
+            //alert(dojo.window.getBox().w);
+            window.scrollTo(0, 1);
+            if((dojo.window.getBox().w > 400)){
+                dojo.style(dojo.byId('main'), {
+                        display: ""
+                });
+                dojo.style(dojo.byId('turnscreen'), {
+                        display: "none"
+                });
+                if(dijit.byId("treeSelector").getShowingView().id=="treeSelector"){
+                    dojo.style(dojo.byId('viewNavigation'), {display: ""});
+                }
+            }else{
+                dojo.style(dojo.byId('main'), {
+                        display: "none"
+                });
+                dojo.style(dojo.byId('turnscreen'), {
+                        display: ""
+                });
+                
+                dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+            }
+
+        }
+        
+        function getBodyStyleViews(bodyStyle) {
+            dojo.byId("carTitle").style.display = "";
+            dojo.byId("imageTitle").style.display = "none";
+            viewsConstructor(viewsSelector[bodyStyle - 1]);
+            actualView = bodyStyle;
+        }
+
+        var viewInternal = 0;
+
+function showTools(){
+    hideAllViews();
+    dojo.byId("imageTitle").style.display = "";
+    dojo.byId("treeSelector").style.display = "";
+    dojo.byId("imageCanvasInternal").style.display = "none";
+    dojo.byId("imageCanvasExternal").style.display = "none";
+    dojo.byId("imageCanvas").style.display = "";
+	dojo.style(dojo.byId('tools'), {display: ""});
+    dojo.style(dojo.byId('content'), {left: "151px",width: "530px"}); 
+    dojo.style(dojo.byId('viewNavigation'), {display: ""});
+    dojo.byId("settings").style.display = "";
+    
+    if(actualImages.length>1){
+   	 dojo.style(dojo.byId('viewNavigation'), {display: ""});
+    }else{
+   	 dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+    }
+
+    if(haveMO)
+    	dojo.byId("BUTTON_MANODEOBRA").style.display = "";
+    if(haveP)
+    	dojo.byId("BUTTON_PARTES").style.display = "";
+    
+    
+    
+}
+
+function hideTools(){
+    dojo.byId("imageTitle").style.display = "none";
+    dojo.byId("carTitle").style.display = "none";
+    dojo.style(dojo.byId('tools'), {display: "none"});
+    dojo.style(dojo.byId('content'), {left: "0px",width: "100%"}); 
+    dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+    dojo.byId("imageCanvasInternal").style.display = "none";
+    dojo.byId("imageCanvasExternal").style.display = "none";
+    dojo.byId("imageCanvas").style.display = "none";
+}
+
+function showLoader(){
+    
+    dojo.byId("progressLoader").style.display = "";
+    //dojo.fadeOut({ node: dojo.byId("progressLoader") }).play();
+}
+
+function hideLoader(){
+    dojo.byId("main").style.display = "";
+    dojo.byId("progressLoader").style.display = "none";
+}
+
+function registerData(id,data){
+
+	dojo.when(dojo.fromJson(data), function(data){
+		DATAIMAGES[id] = data;
+	});
+
+	return true;
+}
+
+function showMeAllViews(id){
+	var views = dojo.query('.mblView');
+	for(var i in views){
+		if(typeof views[i] == 'object'&&views[i].id==id){
+			dojox.mobile.currentView = dojo.byId('modelSelector');
+			dojo.byId(views[i].id).style.display = "";
+		}else if(typeof views[i] == 'object'){
+			dojo.byId(views[i].id).style.display = "none";
+		}
+		if(typeof views[i] == 'object'){
+			//console.info("id: "+views[i].id+", display: "+dojo.byId(views[i].id).style.display+", showingView: "+dijit.byId(views[i].id).getShowingView());
+		}
+	}
+}
+
+function hideAllViews(){
+	var views = dojo.query('.mblView');
+	for(var i in views){
+		if(typeof views[i] == 'object'&&views[i].id!='submodelSelectorX'){
+			dojo.byId(views[i].id).style.display = "none";
+		}
+	}
+}
+
+  </script>
+  </head>
+  <body onload="init();" id="stage" class="theme">
+	<div id="progressLoader" style="left:200px; display:none;padding:5px; background-color:white;bottom: 0;overflow: auto;position: fixed;width: 550px; z-index:999999999999999;" >
+		<div style="float:left"></div>
+	</div>
+
+		<div id="main" dojoType="dojox.mobile.FixedSplitter" orientation="H">
+
+				<div id="tools" dojoType="dojox.mobile.FixedSplitterPane" style="width:950px;border-right:1px solid black;">
+					<div id="settings" dojoType="dojox.mobile.View" selected="true">
+						<h1 id="headerTitle" dojoType="dojox.mobile.Heading" fixed="top" transition="slide" style="font-size: 10px; font-weight: normal;">
+						</h1>						
+ 
+						<table width="100%" heigth="90%">
+  	  	  	  	  	  	  <tr>
+  	  	  	  	  	  	  	  <br></br>
+  	  	  	  	  	  	  </tr>
+  							<tr>
+								<td align="center">
+									<div style="position: relative; margin-left:0px;top: 0px;" selected="true">
+										<img alt="INMA" id="madeInma" usemap="#map" src="icons/LogoInmaEst.png" style="position: relative;  margin-left:0px;left: 0px; top: 0px; margin: 0pt; width: 350px; height: 90px; display: inline-block;">						
+										<div id="versionTitle" style="font-family: Tahoma;font-size: 10px;position: relative; margin-left:150px; top:0px;padding:0px;width:130px;height:10px; text-align: center;color: blue;">Version 2.0</div>
+												
+										<font style="font-family: Tahoma;font-size: 10px;margin-left:75px">Powered by Grupo INMA, C.A. Copyright 2013</font>
+										<br>
+									</div>									
+								</td>
+							</tr>
+							  <tr>
+	  	  	  	  	  	  	  	 <br></br>
+								<td align="center"><h1><STRONG><span class="bold" style="vertical-align: middle;">           *** ATENCION ***</span></h1></STRONG></td>
+							</tr>	
+							<tr>
+							</tr>			
+							<tr>
+								<td align="center"><h3><span class="bold" style="vertical-align: middle;">         *** LA BASE DE DATOS CARSELECTOR.db, NO SE PUEDE ABRIR O NO EXISTE! ***</span></h3></td>
+							</tr>
+							<tr>
+							</tr>											
+							<tr>
+								<td align="center"><STRONG><span class="bold" style="vertical-align: bottom;">           *** PARA RETORNAR; PULSE BOTON DE ESCAPE/RETORNO [ESC]! ***</span></STRONG></td>
+							</tr>	
+
+						</table> 
+					</div>
+				</div>
+		</div>
+			
+		<div id="treeSelector" dojoType="dojox.mobile.View" style="background-color:WHITE;
+								position: RELATIVE; overflow: hidden; width: 100%;
+								height: 100%; padding: 0; vertical-align: middle; text-align: center; display: table-cell;
+								overflow: hidden;">
+			<div id="imageCanvasExternal" style="position: RELATIVE; overflow: hidden; width: 550px;
+								height: 100%; padding: 0; vertical-align: middle; text-align: center; display: table-cell;
+								overflow: hidden;">
+								<img alt="INMA" id="externalImage" usemap="#mapViews" src="../../images/inmawait.png" style="position: relative;
+									left: 0px; top: 0px; margin: 0pt; width: 173px; height: 48px; display: inline-block;">
+			</div>
+			<div id="imageCanvasInternal" style="position: RELATIVE; overflow: hidden; width: 550px;
+								height: 100%; padding: 0; vertical-align: middle; text-align: center; display: table-cell;
+								overflow: hidden;">
+								<img alt="INMA" id="internalImage" usemap="#mapInternals" src="../../images/inmawait.png" style="position: relative;
+									left: 0px; top: 0px; margin: 0pt; width: 173px; height: 48px; display: inline-block;">
+			</div>
+			<div id="imageCanvas" style="position: RELATIVE; overflow: hidden; width: 530px;
+								height: 100%; padding: 0; vertical-align: middle; text-align: center; display: table-cell;
+								overflow: hidden;">
+								<img alt="INMA" id="image" usemap="#map" src="" style="position: relative;
+									left: 0px; top: 0px; margin: 0pt; width: 173px; height: 48px; display: inline-block;">
+			</div>
+		</div>
+
+		<img alt="" id="fakeImage" usemap="#originalMap" src="images/inmawait.png" style="width: 0px; height: 0px; position: relative; left: 0px; top: 0px; margin: 0pt; display: inline-block;">
+		<map id="map" name="map">
+		</map>
+		<map id="originalMap" name="originalMap">
+		</map>
+		<map id="mapViews" name="mapViews">
+		</map>
+		<map id="originalMapViews" name="originalMapViews">
+		</map>
+		<map id="mapInternals" name="mapInternals">
+		</map>
+		<map id="originalMapInternals" name="originalMapInternals">
+		</map>
+
+
+	 <input type="hidden" id="f1" value="0" /> 
+	 <input type="hidden" id="f2" value="0" /> 
+	 <input type="hidden" id="f3" value="0" /> 
+  </body>
+</html>

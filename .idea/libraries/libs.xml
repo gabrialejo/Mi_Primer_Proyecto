@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/microsoft-translator-java-api-0.6-mod.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-codec-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-lang3-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpcore-nio-4.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpclient-cache-4.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jtar-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpcore-4.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-api-translate-java-0.98-mod2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/gson-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/json_simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpclient-4.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpasyncclient-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpmime-4.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpasyncclient-cache-4.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/ksoap2-android-assembly-2.6.0-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

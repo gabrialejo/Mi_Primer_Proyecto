@@ -1,0 +1,4403 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<meta name="viewport" content="width=320;initial-scale=1.0; maximum-scale=1.0; user-scalable=1;" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>INMAEst Movil 4.1</title>
+	<!-- Desarrollado   por José A. Azpurua - Septiembre 2011 -->
+	<!-- Modificación:  por José A. Azpurua - 27 Mayo 2015 -->
+	<!-- Modificación:  por José A. Azpurua - 24 Feb. 2016 -->
+	<!-- Modificación:  por José A. Azpurua - 08 Abr. 2016 - Se agrega capacidad para Ingreso Manual de Vehiculos por Homologacion-->
+	<!-- Modificación:  por José A. Azpurua - 18 Jul. 2016 - Se agrega Funcionalidad para manejar valor obtenido de Spinner/ComboBox de talleres-->
+    
+   <style>
+body {
+	visibility: hidden;
+}
+
+html.mobile, .mobile body {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.mobile body {
+	overflow-x: hidden;
+	-webkit-text-size-adjust: none;
+	background-color: rgb(197,204,211);
+	font-family: arial;
+	font-size: 17px;
+}
+
+/* dojox.mobile.View */
+.mblView {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+.mblView.out {
+}
+
+.mblView.in {
+	position: absolute;
+}
+
+.slide.out {
+	-webkit-animation-duration: .4s;
+	-webkit-animation-name: slideOut;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform: translateX(-100%);
+}
+.slide.in {
+	-webkit-animation-duration: .4s;
+	-webkit-animation-name: slideIn;
+	-webkit-animation-timing-function: linear;
+	-webkit-transform: translateX(0px);
+}
+.slide.out.reverse {
+	-webkit-animation-name: slideOutReverse;
+}
+.slide.in.reverse {
+	-webkit-animation-name: slideInReverse;
+}
+@-webkit-keyframes slideOut {
+	from { -webkit-transform: translateX(0px); }
+	to { -webkit-transform: translateX(-100%); }
+}
+@-webkit-keyframes slideIn {
+	from { -webkit-transform: translateX(100%); }
+	to { -webkit-transform: translateX(0px); }
+}
+@-webkit-keyframes slideOutReverse {
+	from { -webkit-transform: translateX(0px); }
+	to { -webkit-transform: translateX(100%); }
+}
+@-webkit-keyframes slideInReverse {
+	from { -webkit-transform: translateX(-100%); }
+	to { -webkit-transform: translateX(0px); }
+}
+
+.flip.out {
+	-webkit-animation-duration: .6s;
+	-webkit-animation-name: flipOut;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-transform: rotateY(90deg);
+}
+.flip.in {
+	-webkit-animation-duration: .6s;
+	-webkit-animation-name: flipIn;
+	-webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes flipOut {
+	0% { -webkit-transform: rotateY(0deg) scale(1); }
+	50% { -webkit-transform: rotateY(90deg) scale(.8); }
+	100% { -webkit-transform: rotateY(90deg) scale(.8); }
+}
+
+@-webkit-keyframes flipIn {
+	0% { -webkit-transform: rotateY(90deg) scale(.8); }
+	50% { -webkit-transform: rotateY(90deg) scale(.8); }
+	100% { -webkit-transform: rotateY(0deg) scale(1); }
+}
+
+.fade.out {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeOut;
+	-webkit-animation-timing-function: ease-in;
+}
+.fade.out.fast {
+	-webkit-animation-duration: 0.3s;
+}
+.fade.in {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-name: fadeIn;
+	-webkit-animation-timing-function: ease-out;
+}
+@-webkit-keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+/* dojox.mobile.Heading #7AB800*/
+.mblHeading {
+	position: relative;
+	height: 42px;
+	margin: 0px;
+	padding: 0px;
+	background-color: #2bc0fe;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5d7ffe), to(#5d7ffe), color-stop(0.5, #5d7ffe), color-stop(0.5, #5d7ffe));
+	border-top: 1px solid #2bc0fe;
+	border-bottom: 1px solid #2bc0fe;
+	font-family: arial;
+	font-size: 24px;
+	color: white;
+	text-align: center;
+	line-height: 44px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	z-index: 1;
+}
+
+/* Heading Arrow Button */
+.mblArrowButton {
+	position: relative;
+	float: left;
+	height: 42px;
+	margin-right: 6px;
+}
+.mblArrowButtonHead {
+	position: absolute;
+	top: 11px;
+	left: 8px;
+	width: 19px;
+	height: 19px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #5d7ffe;
+	-webkit-transform: scale(.8,1) rotate(45deg);
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685), color-stop(0.5, #044685), color-stop(0.5, #044685));
+}
+.mblArrowButtonBody {
+	position: absolute;
+	top: 6px;
+	left: 19px;
+	padding: 0px 10px 0px 3px;
+	height: 29px;
+	border-width: 1px 1px 1px 0px;
+	border-style: inset;
+	border-color: #5d7ffe;
+	font-family: arial;
+	font-size: 13px;
+	color: white;
+	line-height: 29px;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background-color: #1143fe;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblArrowButtonNeck {
+	position: absolute;
+	top: 6px;
+	left: 19px;
+	width: 4px;
+	height: 29px;
+	border-width: 1px 0px 1px 0px;
+	border-style: inset;
+	border-color: #9CACC0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+}
+.mblArrowButtonSelected .mblArrowButtonHead {
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685), color-stop(0.5, #394D77), color-stop(0.5, #243B69));
+}
+.mblArrowButtonSelected .mblArrowButtonBody, .mblArrowButtonSelected .mblArrowButtonNeck {
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685), color-stop(0.5, #394D77), color-stop(0.5, #243B69));
+}
+
+/* ToolBarButton */
+.mblToolbarButton {
+	float: left;
+	position: relative;
+	margin: 0px;
+	padding: 0px 0px;
+	height: 43px;
+	/*border: 1px inset #9CACC0;*/
+	font-family: arial;
+	font-size: 13px;
+	font-weight: bold;
+	color: white;
+	line-height: 29px;
+	text-align: center;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* dojox.mobile.TabBar */
+.mblTabBar {
+	position: relative;
+	height: 48px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: #000000;
+	background: -webkit-gradient(linear, left top, left bottom, from(#2D2D2D), to(#000000), color-stop(0.5, #141414), color-stop(0.5, #000000));
+	border-top: 1px solid #000000;
+	color: white;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.mblTabBar .mblTabBarButton {
+	position: relative;
+	list-style-type: none;
+	float: left;
+}
+
+/* dojox.mobile.TabBarButton */
+.mblTabBarButton {
+}
+.mblTabBarButtonAnchor {
+	display: block;
+	text-decoration: none;
+}
+.mblTabButton .mblTabBarButtonAnchor {
+	height: 28px;
+}
+.mblTabBarButtonDiv {
+	position: relative;
+	height: 34px;
+	width: 29px;
+	left: 50%;
+}
+.mblTabButton .mblTabBarButtonDiv {
+	display: none;
+}
+.mblTabBarButtonDivInner {
+	left: -50%;
+}
+.mblTabBarButtonIcon {
+	position: absolute;
+	left: 0px;
+	top: 2px;
+}
+.mblTabBar .mblTabBarButton.mblTabButtonSelected {
+	background-color: #404040;
+	background: -webkit-gradient(linear, left top, left bottom, from(#484848), to(#242424), color-stop(0.5, #353535), color-stop(0.5, #242424));
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+.mblTabBarButtonTextBox {
+	color: #979797;
+	font-family: "arial Neue", arial;
+	font-size: 11px;
+}
+.mblTabButtonSelected .mblTabBarButtonTextBox {
+	color: white;
+}
+
+/* dojox.mobile.RoundRect */
+.mblRoundRect {
+	margin: 7px 9px 16px 9px;
+	padding: 8px;
+	border: 1px solid #ADAAAD;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	background-color: white;
+}
+.mblRoundRect.mblShadow {
+	-webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* dojox.mobile.EdgeToEdgeCategory */
+.mblEdgeToEdgeCategory {
+	position: relative;
+	height: 22px;
+	margin: 0px;
+	padding: 0px 10px;
+	border-top: 1px solid #A4B0B9;
+	border-bottom: 1px solid #979DA3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#8F9EA9), to(#B7C0C7));
+	font-family: arial;
+	font-weight: bold;
+	font-size: 16px;
+	color: white;
+	line-height: 22px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* dojox.mobile.RoundRectCategory */
+.mblRoundRectCategory {
+	color: #4C566C;
+	padding: 18px 0px 0px 20px;
+	margin: 0px;
+	text-shadow: rgba(255, 255, 255, 1) 0px 1px 0px;
+	font-family: arial;
+	font-size: 16px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* dojox.mobile.RoundRectList */
+.mblRoundRectList {
+	margin: 7px 9px 16px 9px;
+	padding: 0px;
+	border: 1px solid #ADAAAD;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	background-color: white;
+	position: relative; /* IE needs this */
+}
+
+/* dojox.mobile.EdgeToEdgeList */
+.mblEdgeToEdgeList {
+	padding: 0px;
+	background-color: white;
+	position: relative; /* IE needs this */
+	margin: 0px; /* IE needs this */
+}
+
+/* dojox.mobile.ListItem */
+.mblListItem {
+	list-style-type: none;
+	height: 100%;
+/* 	border-bottom: 1px solid #ADAAAD; */
+	border-bottom: 1px solid #A2CFEC;
+	line-height: 43px;
+	font-weight: bold;
+	position: relative;
+	color: black;
+	vertical-align: bottom; /* To avoid IE6 LI bug */
+	padding-left: 8px;
+}
+.mblListItemIcon {
+	position: absolute;
+	top: 7px;
+}
+.mblListItem.mblVariableHeight {
+	line-height: normal;
+	height: auto;
+	padding: 11px 6px 10px 6px;
+}
+.mblItemSelected {
+	background-color: #048BF4;
+	background: -webkit-gradient(linear, left top, left bottom, from(#048BF4), to(#005CE5));
+}
+.mblListItemTextBox {
+	padding-right: 28px;
+/* 	width: 520px; */
+	width: 770px;
+}
+.mblListItemTextBoxSelected {
+	background-color: #048BF4;
+}
+.mblRoundRectList .mblListItem:first-child {
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-topright: 8px;
+}
+.mblRoundRectList .mblListItem:last-child {
+	border-bottom-width: 0px;
+	-webkit-border-bottom-left-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	-moz-border-radius-bottomright: 8px;
+}
+.mblEdgeToEdgeList .mblListItem:last-child {
+	border-bottom-color: #707C84;
+}
+.mblListItem a.mblListItemAnchor {
+	background-position: 9px 7px;
+	display: block;
+	padding-left: 40px;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.mblListItem a.mblListItemAnchorNoIcon {
+	padding-left: 10px;
+}
+.mblItemSelected a.mblListItemAnchor {
+	color: white;
+}
+.mblListItem a.mblListItemAnchorHasRightButton {
+	padding-right: 40px;
+}
+
+.mblListItem .mblArrow {
+	position: absolute;
+	top: 18px;
+	right: 12px;
+	width: 6px;
+	height: 6px;
+	font-size: 1px;
+	-webkit-transform: rotate(45deg);
+	border-width: 3px 3px 0px 0px;
+	border-style: solid;
+	border-color: #808080;
+}
+.mblItemSelected .mblArrow {
+	border-color: white;
+}
+.mblVariableHeight div.mblArrow {
+	top: 50%;
+	margin-top: -4px;
+}
+
+.mblRightText {
+	position: absolute;
+	top: 12px;
+	right: 30px;
+	color: #324F85;
+	line-height: normal;
+}
+.mblListItem .mblRightButtonContainer {
+	position: absolute;
+	top: 50%;
+	right: 12px;
+}
+.mblListItem .mblRightButton {
+	position: absolute;
+	top: -50%;
+}
+
+/* Switch */
+.mblSwitch {
+	position: relative;
+	width: 94px;
+	height: 27px;
+	overflow: hidden;
+}
+.mblItemSwitch {
+	position: absolute;
+	top: 8px;
+	right: 12px;
+}
+.mblSwitchInner {
+	position: absolute;
+	top: 0px;
+	height: 27px;
+}
+.mblSwitchAnimation .mblSwitchInner {
+	-webkit-transition-property: left;
+	-webkit-transition-duration: .3s;
+}
+.mblSwitchOn .mblSwitchInner {
+	left: 0px;
+}
+.mblSwitchOff .mblSwitchInner {
+	left: -53px;
+}
+.mblSwitchBg {
+	position: absolute;
+	top: 0px;
+	height: 27px;
+	border-width: 1px;
+	border-style: inset;
+	border-color: #9CACC0;
+	font-family: arial;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 29px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+}
+.mblSwitchBgLeft {
+	left: 0px;
+	width: 94px;
+	color: white;
+	background-color: #3F84EB;
+	background: -webkit-gradient(linear, left top, left bottom, from(#2859B1), to(#75ACFB), color-stop(0.5, #3F84EB), color-stop(0.5, #4C8EEE));
+}
+.mblSwitchBgRight {
+	left: 53px;
+	width: 94px;
+	color: #7F7F7F;
+	background-color: #EEEEEE;
+	background: -webkit-gradient(linear, left top, left bottom, from(#CECECE), to(#FDFDFD), color-stop(0.5, #EEEEEE), color-stop(0.5, #F8F8F8));
+}
+.mblSwitchKnob {
+	position: absolute;
+	top: 1px;
+	left: 53px;
+	width: 41px;
+	height: 26px;
+	font-size: 1px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #EFEFEF #A5A5A5 #969696 #325E9E;
+	line-height: 29px;
+	background-color: #CCCCCC;
+	background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#FAFAFA));
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.mblSwitchText {
+	position: relative;
+	top: 0px;
+	width: 53px;
+	height: 27px;
+	padding: 0px;
+	text-align: center;
+}
+.mblSwitchTextLeft {
+	left: 0px;
+}
+.mblSwitchTextRight {
+	left: 40px;
+}
+
+/* Icon Container */
+.mblIconContainer {
+	padding: 0px;
+	margin: 20px 0px 0px 10px;
+	padding: 0px 0px 40px 0px;
+}
+.mblIconItem {
+	list-style-type: none;
+	float: left;
+}
+.mblIconItemTerminator {
+	list-style-type: none;
+	height: 20px;
+	clear: both;
+}
+.mblIconItemSub {
+	list-style-type: none;
+	margin-left: -10px;
+	background-color: white;
+}
+
+.mblIconArea {
+	font-family: arial;
+	font-size: 12px;
+	height: 78px;
+	width: 74px;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.mblIconArea DIV {
+	position: relative;
+	height: 65px;
+}
+
+.mblIconArea IMG {
+	position: absolute;
+	top: 0px;
+	left: 6px;
+}
+
+.mblContent {
+	clear: both;
+	padding-bottom: 20px;
+}
+
+table.mblClose {
+	clear: both;
+	cursor: pointer;
+}
+
+.mblVibrate{
+	position: relative;
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: 20;
+	-webkit-animation-name: vibrate;
+	-webkit-transform: rotate(0deg);
+}
+@-webkit-keyframes vibrate{
+	0%{
+		-webkit-transform: rotate(-2deg);
+		bottom: -1px;
+		left: -1px;
+	}
+	25% {
+		-webkit-transform: rotate(1deg);
+		bottom: 2px;
+		left: 1px;
+	}
+	50% {
+		-webkit-transform: rotate(-1deg);
+		bottom: -2px;
+		left: -1px;
+	}
+	75% {
+		-webkit-transform: rotate(2deg);
+		bottom: 2px;
+		left: 1px;
+	}
+	100% {
+		-webkit-transform: rotate(-2deg);
+		bottom: -1px;
+		left: -1px;
+	}
+}
+
+.mblCloseContent{
+	-webkit-animation-duration: .3s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-name: shrink;
+	-webkit-transform: scale(0.01);
+}
+.mblCloseContent.mblShrink0{
+	-webkit-animation-name: shrink0;
+}
+.mblCloseContent.mblShrink1{
+	-webkit-animation-name: shrink1;
+}
+.mblCloseContent.mblShrink2{
+	-webkit-animation-name: shrink2;
+}
+.mblCloseContent.mblShrink3{
+	-webkit-animation-name: shrink3;
+}
+@-webkit-keyframes shrink{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: scale(0.01); }
+}
+@-webkit-keyframes shrink0{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(-40%,-70%) scale(0.01); }
+}
+@-webkit-keyframes shrink1{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(-14%,-70%) scale(0.01); }
+}
+@-webkit-keyframes shrink2{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(14%,-70%) scale(0.01); }
+}
+@-webkit-keyframes shrink3{
+	from { -webkit-transform: scale(1); }
+	to { -webkit-transform: translate(40%,-70%) scale(0.01); }
+}
+
+/* Icon Content Heading */
+.mblIconContentHeading {
+	position: relative;
+	clear: both;
+	height: 25px;
+	padding-left: 40px;
+	margin-top: 0px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#E0E4E7), to(#B4BEC6), color-stop(0.5, #C4CCD2), color-stop(0.5, #BFC8CE));
+	border-top: 1px solid #F1F3F4;
+	border-bottom: 1px solid #717D85;
+	font-family: arial;
+	font-size: 14px;
+	color: white;
+	line-height: 26px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+/* dojox.mobile.Button */
+.mblButton {
+	padding: 0px 10px;
+	height: 29px;
+	border-width: 1px 1px 1px 1px;
+	border-style: outset;
+	color: white;
+	font-family: arial;
+	font-size: 13px;
+	line-height: 29px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-tap-highlight-color: transparent;
+}
+.mblBlueButton {
+	border-color: #9CACC0;
+/* 	background-color: #366EDF; */
+	background-color: #1143fe;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7A9DE9), to(#2362DD), color-stop(0.5, #366EDF), color-stop(0.5, #215FDC));
+/* 		background: -webkit-gradient(linear, left top, left bottom, from(#9de97a), to(#62dd23), color-stop(0.5, #008f08), color-stop(0.5, #469b18)); */
+	-webkit-tap-highlight-color: transparent;
+}
+.mblBlueButtonSelected {
+	background: -webkit-gradient(linear, left top, left bottom, from(#8EA4C1), to(#4A6C9B), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+}
+.mblRedButton {
+	border-color: #9CACC0;
+	background-color: #366EDF;
+	background: -webkit-gradient(linear, left top, left bottom, from(#FA9D58), to(#EE4115), color-stop(0.5, #FF4D25), color-stop(0.5, #ED4D15));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblRedButtonSelected {
+	background: -webkit-gradient(linear, left top, left bottom, from(#C1A48E), to(#9B6C4A), color-stop(0.5, #A27758), color-stop(0.5, #996947));
+}
+
+/* Tab Container */
+.mblTabContainer {
+}
+
+.mblTabButton {
+	float: left;
+	position: relative;
+	list-style-type: none;
+	width: 100px;
+	text-align: center;
+	height: 28px;
+	border-width: 1px 1px 1px 0px;
+	border-style: inset;
+	border-color: #9CACC0;
+	border-right-color: #5E708A;
+	font-family: arial;
+	font-size: 13px;
+	color: white;
+	cursor: pointer;
+	line-height: 29px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ABB9CA), to(#788DA9), color-stop(0.5, #8297AF), color-stop(0.5, #768BA7));
+	-webkit-tap-highlight-color: transparent;
+}
+.mblTabButton:first-child {
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-left-width: 1px;
+}
+.mblTabButton:last-child {
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-right-color: #9CACC0;
+}
+.mblTabPanelHeader .mblTabButton.mblTabButtonSelected {
+	background-color: #5877A2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#8EA4C1), to(#4A6C9B), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+}
+.mblTabButtonImgDiv {
+	display: none;
+}
+
+.mblTabPanelHeader {
+	position: relative;
+	height: 39px;
+	margin: 0px;
+	padding: 3px 0px 0px 0px;
+	background-color: #889BB3;
+	background: -webkit-gradient(linear, left top, left bottom, from(#B0BCCD), to(#6D84A2), color-stop(0.5, #889BB3), color-stop(0.5, #8195AF));
+	border-top: 1px solid #CDD5DF;
+	border-bottom: 1px solid #2D3642;
+	font-family: arial;
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	line-height: 44px;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.mblTabPanelPane {
+}
+
+.mblTabPane {
+}
+
+/* Progress Indicator */
+.mblProgContainer {
+	position: absolute;
+	width: 36px;
+	height: 36px;
+	top: 180px;
+	left: 50%;
+	margin: -18px 0px 0px -18px;
+}
+.mblProg {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 11px;
+	font-size: 1px;
+	height: 4px;
+	overflow: hidden;
+	-webkit-transform-origin: 0 2px;
+	background-color: #C0C0C0;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+.mblProg0 {
+	-webkit-transform: translate(18px,10px) rotate(-90deg);
+}
+.mblProg1 {
+	-webkit-transform: translate(22px,11px) rotate(-60deg);
+}
+.mblProg2 {
+	-webkit-transform: translate(25px,14px) rotate(-30deg);
+}
+.mblProg3 {
+	-webkit-transform: translate(26px,18px) rotate(0deg);
+}
+.mblProg4 {
+	-webkit-transform: translate(25px,22px) rotate(30deg);
+}
+.mblProg5 {
+	-webkit-transform: translate(22px,25px) rotate(60deg);
+}
+.mblProg6 {
+	-webkit-transform: translate(18px,26px) rotate(90deg);
+}
+.mblProg7 {
+	-webkit-transform: translate(14px,25px) rotate(120deg);
+}
+.mblProg8 {
+	-webkit-transform: translate(11px,22px) rotate(150deg);
+}
+.mblProg9 {
+	-webkit-transform: translate(10px,18px) rotate(180deg);
+}
+.mblProg10 {
+	-webkit-transform: translate(11px,14px) rotate(210deg);
+}
+.mblProg11 {
+	-webkit-transform: translate(14px,11px) rotate(240deg);
+}
+
+/* Button Colors */
+.mblColorBlue {
+	background-color: #366EDF;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7A9DE9), to(#2362DD), color-stop(0.5, #366EDF), color-stop(0.5, #215FDC));
+}
+
+/* Default Button Colors */
+.mblColorDefault { /* Dark Blue */
+/*	
+	background-color: #5877A2;
+	background: -webkit-gradient(linear, left top, left bottom, from(#8EA4C1), to(#4A6C9B), color-stop(0.5, #5877A2), color-stop(0.5, #476999));
+*/
+}
+
+.mblColorDefaultSel { /* More Dark Blue */
+	background-color: #394D77;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7C87A4), to(#263E6C), color-stop(0.5, #394D77), color-stop(0.5, #243B69));
+}
+
+/* dojox.mobile.View */
+
+/* dojox.mobile.Heading */
+.mblHeading {
+	/*background-color: #7AB800;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7AB800), to(#7AB800)); */
+	background: -webkit-gradient(linear, left top, left bottom, from(#5d7ffe), to(#5d7ffe));
+	border-top: 1px solid #FEFEFE;
+	border-bottom: 1px solid #5d7ffe;
+	color: White;
+	text-shadow: rgba(256,256,256,0.6) 0px 1px 0px;
+}
+
+/* Heading Arrow Button */
+.mblArrowButtonHead {
+	border-color: #044685;
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685));
+}
+.mblArrowButtonBody {
+	border-color: #5d7ffe;
+	background-color: #5d7ffe;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685));
+	-webkit-tap-highlight-color: transparent;
+	text-shadow: rgba(0,0,0,0.6) 0px -1px 0px;
+}
+.mblArrowButtonNeck {
+	border-color: #C0C0C0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685));
+}
+.mblArrowButtonSelected .mblArrowButtonHead {
+	background: -webkit-gradient(linear, left top, right bottom, from(#044685), to(#044685));
+}
+.mblArrowButtonSelected .mblArrowButtonBody, .mblArrowButtonSelected .mblArrowButtonNeck {
+	background: -webkit-gradient(linear, left top, left bottom, from(#044685), to(#044685));
+}
+
+/* dojox.mobile.RoundRect */
+.mblRoundRect {
+	margin: 7px 30px 30px 30px;
+}
+.mblHeading + .mblRoundRect {
+	margin-top: 30px;
+}
+
+/* dojox.mobile.EdgeToEdgeCategory */
+/* dojox.mobile.RoundRectCategory */
+.mblRoundRectCategory {
+	margin: 18px 0px 0px 41px;
+}
+
+/* dojox.mobile.RoundRectList */
+.mblRoundRectList {
+	margin: 7px 30px 30px 30px;
+}
+.mblHeading + .mblRoundRectList {
+	margin-top: 30px;
+}
+
+/* dojox.mobile.EdgeToEdgeList */
+/* dojox.mobile.ListItem */
+/* Switch */
+/* Icon Container */
+/* Icon Content Heading */
+/* dojox.mobile.Button */
+/* Tab Container */
+/* Progress Indicator */
+
+.mblFixedSpliter {
+	width: 100%;
+	height: 100%;
+}
+
+.mblFixedSplitterPane {
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.mblFixedSplitterPaneH {
+	position: absolute;
+	height: 100%;
+	top: 0px;
+}
+
+.mblFixedSplitterPaneV {
+	position: absolute;
+	width: 100%;
+	left: 0px;
+}
+
+
+/* provide proper spacing at the bottom of the scrollable views */
+.mblScrollableViewContainer {
+    padding-bottom:40px !important;
+}
+		html, body{
+			height: 100%;
+			overflow: hidden;
+			background:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+			background-color:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+		}
+		.mblEdgeToEdgeList {
+			background:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+			background-color:  -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF), color-stop(0.5, #FFFFFF), color-stop(0.5, #FFFFFF));
+		}
+.tweetviewRefresh img   {
+    margin-top:-5px;
+}	
+
+.flagButtonV {
+  width:90px;
+  height: 61px;
+  border-color: #cc3333;
+  background-image: url(icons/venezuelaflagpeq.png);
+  <!-- background: -webkit-gradient(linear, left top, left bottom, from(#D3656D), to(#BC1320), color-stop(0.5, #C9404B), color-stop(0.5, #BC1421)); -->
+}
+.flagButtonP {
+  width:90px;
+  height: 61px;
+  border-color: #cc3333;
+  background-image: url(icons/panamaflagpeq.png);
+  <!-- background: -webkit-gradient(linear, left top, left bottom, from(#D3656D), to(#BC1320), color-stop(0.5, #C9404B), color-stop(0.5, #BC1421)); -->
+}
+.flagButtonC {
+  width:92px;
+  height: 62px;
+  border-color: #cc3333;
+  background-image: url(icons/costaricaflagpeq.png);
+  <!-- background: -webkit-gradient(linear, left top, left bottom, from(#D3656D), to(#BC1320), color-stop(0.5, #C9404B), color-stop(0.5, #BC1421)); -->
+}
+
+div.jsonSuggestResults {
+    position:relative;
+    border:0px solid #CCC;
+    padding:0px;
+    margin:0px 0px;
+    z-index:199;
+    overflow:scroll;
+    overflow-x: hidden;
+    left:0px;
+    top:0px;
+}
+
+div.jsonSuggestResults div.resultItem {
+    margin:0px;
+    padding:20px;
+    position:relative;
+    height:auto;
+    cursor:pointer;
+}
+
+div.jsonSuggestResults div.resultItem.odd {
+    background-color:#9ADFFE;
+}
+div.jsonSuggestResults div.resultItem.even {
+    background-color:#FFFFFF;
+}
+
+div.jsonSuggestResults div.resultItem.hover {
+    background-color:#3399FF;
+}
+
+div.jsonSuggestResults div.resultItem img {
+    float:left;
+    margin-right:10px;
+}
+
+div.jsonSuggestResults div.resultItem p {
+    margin:0px;
+    padding:0px;
+}
+
+div.jsonSuggestResults div.resultItem p strong {
+    font-weight:bold;
+    text-decoration:underline;
+}
+
+div.jsonSuggestResults div.resultItem p.extra {
+    font-size: x-small !important;
+    position:absolute;
+    bottom:3px;
+    right: 3px;
+    
+}
+
+ .container { 
+   border: thin groove #C0C0C0;
+   width: 380px; 
+/*    height: 170px; */ 
+   height: 220px; 
+   background-color: white;
+   position:absolute;
+   left: 35%;
+   top: 25%; 
+   margin-left: -10px;
+   margin-top: -10px; 
+ } 
+ 
+ .containerf { 
+   border: thin groove #C0C0C0;
+   width: 430px; 
+/*    height: 170px; */ 
+   height: 270px; 
+   background-color: white;
+   position:absolute;
+   left: 35%;
+   top: 25%; 
+   margin-left: -10px;
+   margin-top: -10px; 
+ } 
+ 
+ .containerh { 
+   border: thin groove #C0C0C0;
+   width: 380px; 
+/*    height: 170px; */ 
+   height: 300px; 
+   background-color: white;
+   position:absolute;
+   left: 32%;
+   top: 10%; 
+   margin-left: -10px;
+   margin-top: -10px; 
+ }
+		</style>
+
+<!-- 		</style> -->
+       <script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+        <script type="text/javascript" src="json.js" charset="utf-8"></script>
+        <script type="text/javascript" src="jquery.zoomableGalaxyTab.js"></script>
+        <script type="text/javascript" src="jquery.zoomableFixedGalaxyTab.js"></script>
+        <script type="text/javascript" src="jquery.zoomableFixedGalaxyTabInternal.js"></script>
+		<!-- <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>	-->
+		<script type="text/javascript" charset="utf-8" src="cordova-2.1.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="main.js"></script>  
+
+		<script language="JavaScript" type="text/javascript">
+
+		// Wait for PhoneGap to load	    //
+	    //document.addEventListener("deviceready", onDeviceReady, false);
+
+	    // PhoneGap is ready	    //
+		
+         
+			dojo.require("dojo.data.ItemFileWriteStore");			//dojo.require("dojo.parser"); // Use the lightweight parser.
+			dojo.require("dojox.mobile.parser");
+			dojo.require("dojox.mobile");
+			dojo.require("dojox.mobile.FixedSplitter");
+			dojo.require("dojox.mobile.ScrollableView");
+			dojo.require("dojox.mobile.RoundRectDataList");
+
+            dojo.require("dojo.data.ItemFileReadStore");
+            dojo.require("dojo.window");
+            
+			dojo.requireIf(!dojo.isWebKit, "dojox.mobile.compat");
+			dojo.requireIf(!dojo.isWebKit, "dojo.fx");
+			dojo.requireIf(!dojo.isWebKit, "dojo.fx.easing");
+			
+
+            var static_data = { 
+				items: [ 
+				]
+			};
+
+            var partSelector_store_static_data = { 
+				identifier: 'id',
+				items:[ 
+				]
+			};
+			
+            var partBackUp_store_static_data = { 
+				identifier: 'id',
+				items:[ 
+				]
+			};	
+			
+            var partBackUp_Mod_store_static_data = { 
+				identifier: 'id',
+				items:[ 
+				]
+			};				
+
+            var DATAIMAGES = new Array();
+            var search_store = null;
+			var searchResult_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var year_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var mark_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var model_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var submodel_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var submodelx_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var category_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var partSelector_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(partSelector_store_static_data)});
+			var partBackUp_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(partBackUp_store_static_data)});
+			var partBackUp_Mod_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(partBackUp_Mod_store_static_data)});
+			var panelType_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var panelDamageType_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var DAMAGESIZEID_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var DAMAGETYPEID_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+			var REPAIRTIME_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+            var carsSelector = null;
+            //var localhost = "www.inma.com.ve";
+            var localhost = "192.168.0.241";
+            var actualOEM = "1";
+            var viewsSelector = new Array(9);
+            var actualIndexView = 0;
+            var actualIndexImage = 0;
+            var actualView = 0;
+            var actualBodyStyle = 0;
+            var actualService = 0;
+            var actualMano = null;
+            var actualPartes = null;
+            var actualParts = null;
+            var actualRoundRectList = null;
+            var actualCallout = null;
+            var actualItem = null;
+            var actualImages = new Array();
+            var panelid = "";
+            var paneltypeid = "";
+            var PANELDAMAGETYPEID = "";
+            var haveP = false;
+            var haveMO = false;
+            var modelName="";
+			var actualNewItem = null;
+			var EstimateId = "";
+			var EstimateDate = new Date();
+			var existe = 1;
+			var odometer = "";
+			var estimator = "";
+			var anio = "";
+			var vColor = "";
+			var Color="";
+			var Plate = "";
+			var Nombre = "";
+			var vvMessage03="";
+			var vehicleIdNumber = "";
+			var submodellabel = "";
+			var Nombre = ""
+			var sName = "";
+			var UName = "";
+			var PName = "";
+			var sDescripcion="";
+            localStorage.setItem("viewsSelector", null);
+            localStorage.setItem("views", null);
+            var sIndex="Normal";
+            var sNoManual="SI";
+            var Manualidt="";
+            var arrDescriptor = new Array();
+            var arrManual = new Array();
+            var arrItems = new Array();
+            var ItemId = "";
+            var sControlItem = 0;
+            var m = 0;
+            var d = 0;
+            var k = 1;
+            //var num = 0;
+            var numAnt = 0;
+            var sDataInd = "";
+            var ovpri=-1;
+            var CEGpri=0.00;
+            var sLabOp=1;
+            var sLabOp2=1;
+            var sLabAnt=1;
+            var Dprevio=false;
+            var jsonMark="";
+            var jsonModel="";
+            var jsonSubModel="";
+            var jsonProfileName="";
+            var jsonTallerName="";
+            var submodellabel="";
+            var jsonNumSiniestro="";
+            var rutaAjuste="";
+            var sTitulo = "";
+            var jsonEstimator = "";
+            var arrEstimateBkp = new Array();
+            var arrEstimateBkp0 = new Array();
+    		var arrEstimateBkpTemp = new Array();
+    		var arrVeces = new Array(); 
+    		var sId = 0;
+    		var sLabel = "";
+    		var iId = 0;
+    		var dlo = 0;
+    		var dlc = 0;
+    		var ipt = 0;
+    		var irt = 0;
+    		var doh = 0;
+    		var dol = 0;
+    		var doc = 0;
+    		var dop = 0;
+			var dp = 0;
+    		var dCEGLabor = 0;
+    		var dCEGLabor2 = 0;
+    		var iCEGPartType = 0;
+    		var iautoIncl = 0;
+    		var iauto = 0;
+    		var spt = "";
+    		var iop = 0;
+    		var iai = 0;
+    		var sRightText = "";
+    		var sOrigen = "";
+    		var sPartId = 0;
+        	var sIdReg="";
+        	var sIdRegAnt="";
+        	var sIdRegAnterior="";
+        	//var sPRTCi=";"
+        	var iVeces=0;
+    		var dbServiceLic = "";
+    		var dbVersionLic = "";
+    		var dbChkLic = "";
+    		var dbService = "";
+    		var dbVersion = "";	
+    		var dbServiceLicDB = "";
+    		var dbVersionLicDB = "";
+    		var dbChkLicDB = "";
+    		var dbChk = "";
+			var iCantidad=0;
+			var FotosEstatus = "NO";
+			var jsonInput=""
+			var sProfileName="";
+
+			var vista="";
+			var vistaEsp="";
+			var actualFlag = "P";
+			var srcflag ="GUATEMALA";
+
+			var sannio = "";
+			var smarca = "";
+			var smodel = "";
+			var sversion = "";
+        	
+            //******************************************************************************************************************
+            //** Funcion invocada desde DroidGap para recuperar los valores de los Items seleccionados en una Sesion anterior **
+            //** la cual se cerro intespestivamente por error del Sistema, de recursos de memoria u otra causa no definida.   **
+            //******************************************************************************************************************
+            function getRestoreDataEstimations(Estimaciones){
+            	var strinput="";
+            	var sTemporal="";
+            	var sTem="";
+            	var sLT="";
+            	var s3="";
+            	var s4="";
+            	var s5="";
+//             	var sAI="";
+            	var iPartId = 0;
+            	
+	           	//alert("getRestoreDataEstimations: "+Estimaciones); 
+	           	var s=Estimaciones;
+				//** Reemplazamos todas las comas por el signo 'igual' (=), como separador entre Atributos/valor. **
+	           	s=replaceAll(s,',','=');
+	            //** Reemplazamos todas los signos 'llave inicio' ({) por el signo 'igual' (=), para los inicios de items. **
+	           	var s2 = replaceAll(s,'{','=');
+	           	
+	            //** Reemplazamos la expresion '="ai":=}', por la expresion: ''="ai":||'', eliminando las llaves como separador. **
+	           	s2=replaceAll(s2,'="ai":=}','="ai":()');
+				// Eliminamos el primer caracter '=' del json original, para evitar procesar un atributo vacio al inicio. **
+	           	s2=s2.substring(1,s2.length);
+	           	//alert("s2: "+s2);
+	           	//**  Reemplazamos todas las 'llaves de cierre': '}' por el signo 'igual' (;), como separador entre Items. **
+	           	s2 = replaceAll(s2,'}',';');
+
+	           	//alert("s2: "+s2);
+				//**  Separamos toda la expresion en items separados por signo ';'. **
+	           	var sRestore=s2.split(";"); 
+				// Iteramos todos los elementos/items de la expresion contenida en sRestore. **
+	            for(var i = 0 in sRestore){
+					//alert("sRestore: "+sRestore[i]);
+					strinput=sRestore[i];
+
+					if(strinput.length>0){
+						if(i>0){
+							//**  Tomamos el Item sin el primer caracter '='. ** 
+							strinput=strinput.substring(1,strinput.length);
+						}
+						//**  Separamos toda la expresion contenida en 'strinput', en pares 'Atributos/valor', separados por signo '='. **
+						sTemporal=strinput.split("=");
+						//**  Iteramos todos los elementos/'Atributos/valor' de la expresion contenida en sTemporal. **
+						for(var j = 0 in sTemporal){
+							//** Tomamos el par 'Atributos/valor' de la posicion '1' (segundo elemento) (tipo de Item/Line Type). **
+							sLT=sTemporal[1];
+							//alert("sLT: "+sLT);
+							//**  Separamos el elemento Line Type, separados por signo ':'. **
+							s=sLT.split(":");
+							//**  Tomamos el valor del par 'Atributos/valor' (tipo de Item/Line Type). **
+							sLT=String(s[1]);
+							sLT=sLT.substring(1,sLT.length-1);
+// 				           	sAI = sTemporal[1];
+							//alert("sTemporal: "+sTemporal[j]);
+							//** Asignamos el par 'Atributo/valor'  a la variable 'sTem'. **
+							sTem=String(sTemporal[j]);
+							s3=sTem.split(":");
+							s4=s3[1];
+							s5=s3[0];
+							s4 = replaceAll(s4,'(','{');
+							s4 = replaceAll(s4,')','}');
+							s4 = replaceAll(s4,'%',',');
+							s4 = replaceAll(s4,'^',';');
+ 							s4 = replaceAll(s4,'~',':');
+// 							s4 = replaceAll(s4,<`>,'":"');
+							if(s4==undefined){
+								s4="";
+							}
+							if(s5!="id" && s5!="ti" && s4!=undefined && isNaN(s4)){
+								s4=s4.substring(1,s4.length-1);
+								//alert("s4: "+s4);
+							}
+							//if()
+							//alert("s4: "+s4);
+							//**  Amacenamos el valor obtenido en el arreglo. **
+							//arrEstimateBkp[j]=reverseAcute(s4);
+							arrEstimateBkp[j]=s4;
+							//alert(s5+": "+s4);
+						}
+// 						var sItemId="";
+// 					 	for (var k=0; k<arrEstimateBkp.length; k++) {
+// 							sItemId=String(arrEstimateBkp[k]);
+							//alert("sItemId: "+sItemId);
+// 						}	
+
+						//alert("sLT "+sLT);
+						//alert("L");
+						if(sLT == 'S'){
+							//alert("sLT manual: "+sLT);
+							createManualEntryRestore();
+						}else{
+							//alert("sLT NORMAL: "+sLT);
+							createNewListRestore();
+						}						
+
+					}					
+
+				}	           	
+
+// 				hideAllViews();
+// 				dijit.byId("partSelector").domNode.style.display = "";
+// 				dojo.byId("partSelector").style.left = 0;
+// 				dijit.byId("partSelector").selected = true;
+// 				dijit.byId("partSelector").startup();
+
+				if(EstimateStatus==""){
+				 EstimateStatus="COMPLETE";
+				}
+				 
+				//inicio();
+				 
+				Android.showToastL("Se ha recuperado la Sesion anterior!"); 
+				
+				Android.appendLogJS(" file: Index2.html - PROC: getRestoreDataEstimations() Se ha recuperado la Sesion anterior, con los valores guardados en el archivo: FileBackUpJson! ");
+           	
+            }
+                    
+          //****************************************************************************************************************
+          //***       FIN DEL BLOQUE DE CODIGO DE LA FUNCION DE RECUPERACION DE SESION: 'getRestoreDataEstimations()'    ***
+          //****************************************************************************************************************
+            
+            function replaceAll(text, busca, reemplaza) {
+            	//alert("text: "+text);
+            	if(text!=undefined){
+                	while(text.toString().indexOf(busca) != -1)
+                		text = text.toString().replace(busca, reemplaza);
+                		//alert("text: "+text);	
+            	}
+
+            		
+            	return text;
+            }
+            
+            function properties() {
+
+                this.i = "";
+                this.w = "";
+                this.h = "";
+
+            }
+            function itemArray() {
+
+                this.r = "";
+
+
+            }            
+            function callOutsViews() {
+
+                this.d = "";
+                this.w = "";
+                this.h = "";
+                this.x = "";
+                this.y = "";
+
+            }
+            function actualImage() {
+
+                this.w = "";
+                this.h = "";
+                this.id = 0;
+
+            }
+            var actualImage = new actualImage();
+            
+//**********************************************************************************************
+//*******************            function goYear()         *************************************
+//**********************************************************************************************
+            
+			function goYear(year){
+//          		 dijit.byId("submodelSelector").domNode.style.display = "none";
+//          		 dijit.byId("yearSelector").domNode.style.display = "none";
+				Android.appendLogJS(" file: Index2.html - PROC: goYear() - Dentro de function goYear(): year: " + year);
+				dojo.byId('yearheading').style.display = 'none';
+				anio=year;
+//				alert("Year: "+year);
+				if(year==""){
+//					alert("Paso por goYear( con anio VACIO");
+					dojo.byId('yearheading').style.display = '';
+					dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/root.json"+"';")), function(data){
+						carsSelector = data.items;
+
+						for (var i in carsSelector) {
+							if (carsSelector[i].type == "cars") {
+								dijit.byId("yearSelector").domNode.style.display = "";
+								
+								year_store.newItem({label: carsSelector[i].name, moveTo: "markSelector", value:i, id:"year_"+carsSelector[i].name, year: carsSelector[i].year });
+								yearNode=year;
+								dojo.connect(dijit.byId("year_"+carsSelector[i].name.toString()),"onClick",function(){
+										dojo.byId('yearheading').style.display = 'none';
+										dojo.byId('markheading').style.display = '';
+										getMarks_2(this.value, this.label, this.year);
+								});
+							}
+						}
+					});	
+				} else{
+				dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/root.json"+"';")), function(data){
+//					alert("Paso por goYear( con anio lleno");
+					dijit.byId("BUTTON_FOTOS").domNode.style.display = "";
+					dijit.byId("fot").domNode.style.display = "";
+					carsSelector = data.items;
+			        for (var i in carsSelector) {
+			            if (carsSelector[i].type == "cars") {
+			                if(year==carsSelector[i].year){
+							// Suministran el aÃ±o desde Peritaje Mercantil, se empareja con el registro de aÃ±o en CarSelector.db
+			                	 if(jsonMark==""){
+			                		 dijit.byId("submodelSelector").domNode.style.display = "none";
+			                		 dijit.byId("yearSelector").domNode.style.display = "none";
+			                		 //dojo.byId('yearheading').style.display = 'none';
+			                		 dijit.byId("markSelector").domNode.style.display="";
+			                		 //year_store.newItem({label: carsSelector[i].name, 	moveTo: "markSelector", value:i, id:"year_"+carsSelector[i].name, year: carsSelector[i].year });	
+			                       	 //Para ir a buscar Marcas
+			                       	 //alert("yearNode"+i);
+			                       	 //alert("Parametro"+carsSelector[i].year);
+			                       	  yearNode=year;
+			                       	  getMarks_2(i,year_store.item, carsSelector[i].year);
+			                       	  Android.appendLogJS(" file: Index2.html - PROC: goYear() El json de entrada suministro el Ano, pero no la Marca. Se llena la lista de Marcas a escoger. Llama al Proc.: getMarks_2()! "+year);
+			                      } else{
+			                       		Android.appendLogJS(" file: Index2.html - PROC: goYear() El json de entrada suministro el Ano y la Marca. Llama al Proc.: getMarks() - Marca: " + " - " + i + " - Ano: " + year);
+			                       		 getMarks(i, year, year);
+			                      }
+			               	
+			                }
+							dojo.byId('yearheading').style.display = 'none';
+							dojo.byId('markheading').style.display = '';
+			            }
+			        }
+			    }); 
+				dojo.byId('yearheading').style.display = 'none';
+				dojo.byId('submodelheadingX').style.display = 'none';
+				dojo.byId('submodelheading').style.display = 'none';
+				dojo.byId('markheading').style.display = 'none';
+				dojo.byId('modelheading').style.display = 'none';
+				}
+			    
+			}
+            
+			function getEstimator(estimator){
+				jsonEstimator=estimator;
+				//alert("getEstimator jsonEstimator: "+jsonEstimator);
+			}
+             
+        dojo.addOnLoad(function() {
+        	
+        	Android.openDatabaseCarSelector();
+        	Android.openDatabaseViewSelector();
+        	//Abrimos Bases de Datos de Parámetros de la Aplicación...
+        	//Android.openDatabaseParam();
+    		
+        	dijit.byId("w0").wid = 0;
+        	dijit.byId("w1").wid = 1;
+        	dijit.byId("w2").wid = 2;
+        	dijit.byId("w3").wid = 3;
+        	dijit.byId("w4").wid = 4;
+        	dijit.byId("w5").wid = 5;
+        	dijit.byId("w6").wid = 6;
+        	dijit.byId("w7").wid = 7;
+
+
+        	dijit.byId("wt0").wtid = 0;
+        	dijit.byId("wt1").wtid = 4;
+        	dijit.byId("wt2").wtid = 6;
+        	dijit.byId("wt3").wtid = 10;
+        	dijit.byId("wt4").wtid = 11;
+        	dijit.byId("wt5").wtid = 12;
+
+        	dijit.byId(dojo.query(dijit.byId("wt0").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeWorkForceType("0")})
+        	dijit.byId(dojo.query(dijit.byId("wt1").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeWorkForceType("4")})
+        	dijit.byId(dojo.query(dijit.byId("wt2").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeWorkForceType("6")})
+        	dijit.byId(dojo.query(dijit.byId("wt3").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeWorkForceType("10")})
+        	dijit.byId(dojo.query(dijit.byId("wt4").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeWorkForceType("11")})
+        	dijit.byId(dojo.query(dijit.byId("wt5").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeWorkForceType("12")})
+
+        	dijit.byId("t0").wtid = 0;
+        	dijit.byId("t1").wtid = 1;
+        	dijit.byId("t2").wtid = 2;
+        	dijit.byId("t3").wtid = 3;
+        	dijit.byId("t4").wtid = 17;
+        	dijit.byId("t5").wtid = 18;
+        	dijit.byId("t6").wtid = 19;
+        	dijit.byId("t7").wtid = 20;
+        	dijit.byId("t8").wtid = 21;
+
+
+        	dijit.byId(dojo.query(dijit.byId("t0").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("0")})
+        	dijit.byId(dojo.query(dijit.byId("t1").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("1")})
+        	dijit.byId(dojo.query(dijit.byId("t2").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("2")})
+        	dijit.byId(dojo.query(dijit.byId("t3").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("3")})
+        	dijit.byId(dojo.query(dijit.byId("t4").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("17")})
+        	dijit.byId(dojo.query(dijit.byId("t5").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("18")})
+        	dijit.byId(dojo.query(dijit.byId("t6").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("19")})
+        	dijit.byId(dojo.query(dijit.byId("t7").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("20")})
+        	dijit.byId(dojo.query(dijit.byId("t8").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePartType("21")})
+
+
+
+        	dijit.byId(dojo.query(dijit.byId("w0").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){isAutomaticFix(actualItem[8])})
+        	dijit.byId(dojo.query(dijit.byId("w1").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){dojo.byId("horas").focus(); $("#horas").focus(); dojo.byId("horas").value = actualItem[6];})
+        	dijit.byId(dojo.query(dijit.byId("w2").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeMountChange();})
+        	dijit.byId(dojo.query(dijit.byId("w3").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeMountDes();})
+        	dijit.byId(dojo.query(dijit.byId("w4").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeRevAjus();})
+        	dijit.byId(dojo.query(dijit.byId("w5").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changePintura();})
+        	dijit.byId(dojo.query(dijit.byId("w6").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeReparacion();})
+        	dijit.byId(dojo.query(dijit.byId("w7").domNode).query(".mblListItemAnchor.mblListItemAnchorNoIcon")).attr("onclick",function(){changeAlinear();})
+        	
+
+        	dojo.connect(dijit.byId("finderControl"),"onAnimationEnd",function(){ 
+        		dojo.byId('finder').focus();
+        		dojo.byId('finder').value = "";
+        		Android.requestFocus('finder');
+        	});
+
+        	dojo.connect(dijit.byId("noteEditor"),"onAnimationEnd",function(){ 
+        		dojo.byId('note').focus();
+        		Android.requestFocus('note');
+        	});
+
+
+        	dojo.connect(dijit.byId("descriptionEditor"),"onAnimationEnd",function(){ 
+        		dojo.byId('descriptionTA').focus();
+        		Android.requestFocus('descriptionTA');
+        	});
+
+        	dojo.connect(dijit.byId("priceEditor"),"onAnimationEnd",function(){ 
+        		dojo.byId('precio').focus();
+        		Android.requestFocus('precio');
+        	});
+			
+        	dojo.connect(dijit.byId("hourEditor"),"onAnimationEnd",function(){ 
+        		dojo.byId('horas').focus();
+        		Android.requestFocus('horas');
+        	});
+        	
+        	dojo.connect(dijit.byId("hourEditor2"),"onAnimationEnd",function(){ 
+        		dojo.byId('horas2').focus();
+        		Android.requestFocus('horas2');
+        	});
+
+        	
+			/*/ Add change event to the switch*/
+			dojo.connect(dijit.byId("pd"), "onStateChanged", this, function(newState) {
+				var s = false;
+				if(newState=="on"){
+					s = true;
+				}else{
+					s = false;
+				}
+				
+				partSelector_store.fetch( { query: { id: actualItem[9]},  
+		               onItem: function(item) {
+							partSelector_store.setValue(item,"pd",s);
+							partSelector_store.setValue(item,"bException",s);
+							partSelector_store.save();
+							dijit.byId(actualItem[9]).set("pd",s);
+							dijit.byId("itemEditor").domNode.style.display="none";
+							dijit.byId("partSelector").domNode.style.display = "";
+							sId = partSelector_store.getValue(item,"CEGDataIndex");
+					        Android.showToast("¡Se ha actualizado el registro!");
+		               }
+				});
+				
+				//***********************************************************************************
+				//*** Aqui se itera el 'partBackUp_Mod_store', para guardar el cambio  respectivo y
+				//** se invoca la Funcion de AutoSave de Modificaciones: 'SaveUpdateToJson2' ***
+				//***********************************************************************************
+				partBackUp_Mod_store.fetch( { query: { id: sId},  
+					onItem: function(item) {
+						partBackUp_Mod_store.setValue(item,"pd",s);
+						partBackUp_Mod_store.save();
+					}
+				});
+						
+				SaveUpdateToJson2("onStateChanged-Previos Damage");
+				
+				//***********************************************************************************  			
+				
+				//Android.appendLogJS(" file: Index2.html - PROC: addOnLoad() Se guardaron los valores iniciales en partSelector_store y en partBackUp_Mod_store:  " + actualItem[9] " - pd: " + s);
+				Android.appendLogJS(" file: Index2.html - PROC: addOnLoad() Se guardaron los valores iniciales en partSelector_store y en partBackUp_Mod_store! ");
+				
+			});        	
+        	
+          
+            
+            dojo.style(dojo.byId('tools'), {
+                    display: "none"
+            });
+            dojo.style(dojo.byId('content'), {
+                    left: "0px",
+                    width: "1024px"
+            });
+  
+            var bodyStyle = 0;
+        	dojo.when(dojo.fromJson(Android.getDataViewSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/views/data.json"+"';")), function(data){
+                items = data.items;
+                for (var i in items) {
+                    var viewsArray = new Array(items[i].views.length);
+                    bodyStyle++;
+                    //alert("item: "+bodyStyle+" - "+items[i].views)
+                    var bodyStyleLayer = 0;
+                    for (var e in items[i].views) {
+                    	var datax = dojo.fromJson(Android.getDataViewSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/views/" + items[i].views[e].id + ".json"+"';"));
+                    	//alert("datax: "+bodyStyleLayer+" - "+datax)
+                    	//alert("items[i].views[e].id: "+items[i].views[e].id)
+                    		bodyStyleLayer++;
+                            var p = new properties();
+                            p.i = bodyStyle + "_" + bodyStyleLayer;
+                            p.w = datax.w;
+                            p.h = datax.h;
+                            p.c = items[i].views[e].c.length;
+                            p.s = "c_" + bodyStyle + "_" + bodyStyleLayer + "_";
+                            //alert("p.s: "+p.s)
+                            viewsArray[e] = p;
+                            
+                            for (var v in items[i].views[e].c) {
+                                var c = new callOutsViews();
+                                c.d = items[i].views[e].c[v].d;
+                                c.w = items[i].views[e].c[v].w;
+                                c.h = items[i].views[e].c[v].h;
+                                c.x = items[i].views[e].c[v].x;
+                                c.y = items[i].views[e].c[v].y;
+                                localStorage.setItem("c_" + bodyStyle + "_" + bodyStyleLayer + "_" + v, JSON.stringify(c));
+                            }
+                       
+                    }
+                    viewsSelector[i] = viewsArray;
+                }
+                var out = JSON.stringify(viewsSelector);
+				//alert("out: "+out);
+                for (var view in viewsSelector) {
+                	//alert("view: "+view)
+                    for (var image in viewsSelector[view]) {
+                        //jQuery.preLoadImages("http://" + localhost + "/services/views/" + viewsSelector[view][image].i.replace("_", "") + ".png");
+                        //alert("image: "+viewsSelector[view][image].i.replace("_", "") + ".png")
+                    }
+                }                
+                //alert("out: "+out.toString())
+                localStorage.setItem("views", out.toString());
+                Android.appendLogJS(" file: Index2.html - PROC: addOnLoad() Se busco y se seleccionan el BodyStyle y las vistas - out: " + out.toString());
+                //alert("localStorage: "+localStorage.Item.toString())
+//                 if (dojo.isIE || dojo.isChrome || dojo.isSafari) {
+//                     for (var view in viewsSelector) {
+//                         for (var image in viewsSelector[view]) {
+//                             jQuery.preLoadImages("http://" + localhost + "/services/views/" + viewsSelector[view][image].i.replace("_", "") + ".png");
+//                         }
+//                     }
+//                 }
+            });
+        	
+//            //*********************************************
+//            // Llenado de arreglos Damage, etc..
+//        	  //alert("Antes de llamar a getParam: "+damageSizeAR);
+//            	dojo.when(dojo.fromJson(Android.getParam("SELECT * FROM damageSize;")), function(data){
+//            		damageSizeAR = data.items;
+//            		//alert("damageSizeAR: "+damageSizeAR);
+//				});	
+//            //*********************************************   
+        });
+
+        function getHeadList(service) {
+        	//alert("getHeadList service: "+service);
+            actualService = service;
+            dijit.byId("categoryList").setStore();
+            category_store.save();
+            //alert("category_store: "+category_store);
+            category_store.clearOnClose=true;
+            category_store.close();
+			category_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+// 			alert("category_store: "+category_store);
+// 			alert("static_data: "+static_data);
+            dijit.byId("categoryList").setStore(category_store);
+
+            dojo.style(dojo.byId("categoryList").parentNode, "webkitTransform", "translate3d(0,0,0)"); 
+
+
+            
+			dojo.when(dojo.fromJson(Android.getData("SELECT * FROM SERVICES WHERE PATH = '"+"/services/parts/4_" + actualOEM + "_" + service + "/root.json"+"';")), function(data){
+			//dojo.when(DATA["/services/parts/4_" + actualOEM + "_" + service + "/root.json"], function(data){
+			//alert("Query data.items: "+"SELECT * FROM SERVICES WHERE PATH = /services/parts/4_" + actualOEM + "_" + service + "/root.json")
+                var categorySelector = data.items;
+//                 alert("categorySelector: "+categorySelector)
+                for (var i in categorySelector) {
+                	//alert("categorySelector[i].type: "+categorySelector[i].type)
+                	if (categorySelector[i].type == "cars") {
+                        var html = document.createElement("div");
+                        //*** Construye la Lista agregando cada Elemento ***
+                        html.innerHTML = categorySelector[i].name;
+                        //alert("getHeadList html.innerHTML: "+html.innerHTML)
+
+                        category_store.newItem({parentCat:categorySelector[i].id, partes: null, manodeobra: null, label: html.innerHTML, moveTo: "partsList",value:categorySelector[i].id, image: categorySelector[i].image, _id:"partsList", id: "category_"+categorySelector[i].id, items: [categorySelector[i].children], url: "http://" + localhost + "/services/parts/4_" + actualOEM + "_" + service + "/"});
+                        dojo.connect(dijit.byId("category_"+categorySelector[i].id),"onClick",function(){ 
+                        
+
+
+                        	//alert("categorySelector onClick: ")
+ 							if(this.items.length > 0){
+ 								if (this.items[0].r.toString().indexOf("_2") > 0) {	
+ 									//alert("getHeadList createNewList: "+this.value+this.url);
+ 									dojo.when(createNewList(this.value,this.items,this.label,this.url,"partsList",true,this.value), function(data){dojo.byId("progressLoader").style.display = "none";});
+ 								}else{
+
+ 									//alert("getHeadList else: ")
+                                    dojo.byId("BUTTON_MANODEOBRA").style.display = "none";
+                             		dojo.byId("BUTTON_PARTES").style.display = "none";
+                             
+                             		dojo.byId("imageTitle").innerHTML = this.label;
+                                
+                             	
+                                    for (var e in this.items) {
+                                        try{
+                                        	if (this.items[e].r.toString().indexOf("_10") > 0) {
+                                        		this.manodeobra = this.items[e].r.toString();
+                                                dojo.byId("BUTTON_MANODEOBRA").style.display = ""; haveMO = true;
+                                        	}
+                                        }catch(e){
+											Android.appendLogJS(" file: Index2.html - PROC: getHeadList() - Error al intentar establecer el Boton MANO DE OBRA visible " + e);
+                                       	 
+                                        }
+                                        
+
+                                        try{
+                                        	if (this.items[e].r.toString().indexOf("_4") > 0) {
+                                        		this.partes = this.items[e].r.toString();
+                                         		dojo.byId("BUTTON_PARTES").style.display = ""; haveP = true;
+                                        	}
+                                        }catch(e){
+											Android.appendLogJS(" file: Index2.html - PROC: getHeadList() - Error al intentar establecer el Boton PARTES visible " + e);
+                                       	 
+                                        }
+                                    }
+ 										
+ 									actualParts = this;
+                                    hideAllViews();
+                                    dojo.byId("treeSelector").style.display = "";
+                                    dojo.byId("imageCanvasInternal").style.display = "none";
+                                    dojo.byId("imageCanvasExternal").style.display = "none";
+                                    dojo.byId("imageCanvas").style.display = "";
+                                    showTools();
+                                    var imageId = this.image.slice(0,this.image.length-1);
+                                    actualImages = imageId.split("|");
+                                    //alert("actualImages: "+actualImages)
+                                  	dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+                                    if(actualImages.length>1){
+										dojo.style(dojo.byId('viewNavigation'), {display: ""});
+	                                    dijit.byId("buttonNavL").set("onClick",function(){ navigationControl("P","L") });
+	                                    dijit.byId("buttonNavR").set("onClick",function(){ navigationControl("P","R") });
+                                    }else{
+                                      	dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+                                    	
+                                    }
+                                    getImage(actualImages[0], actualService); 									
+ 								}
+ 							}
+    						
+                        });
+                    }
+                }
+
+			
+			});
+           
+			Android.appendLogJS(" file: Index2.html - PROC: getHeadList() Se inicializan los canvas y los objetos de las vistas para el vehiculo seleccionado con Service:  " + service);
+  
+        }
+ 
+
+         function workforceTypeSelection(){
+			 hideAllViews();
+             dijit.byId("workforceTypeSelector").domNode.style.display = "";
+             dojo.byId("workforceTypeSelector").style.left = 0;
+             dijit.byId("workforceTypeSelector").selected = true;
+             dijit.byId("workforceTypeSelector").startup();
+             
+             var nodes = dijit.byId(dojo.query(dijit.byId("workforceTypeSelector").domNode).query(".mblRoundRectList")[0].id).domNode.childNodes;
+             for (var i in nodes) {
+					var item = dijit.byId(nodes[i].id);
+					if(item!=undefined){
+						//alert("item.id: "+item.id)
+// 						if(item.id=="wt3"){
+// 							dijit.byId(item.id).set("rightText","Exito");
+// 						}else{
+ 							dijit.byId(item.id).set("rightText","");
+// 						}
+						
+						//alert("item.id: "+item.id)
+						var wt = null;
+						if(actualItem[2]==dijit.byId(item.id).wtid.toString()){
+							dijit.byId(item.id).set("rightText","&#10003;");
+						}
+					            	
+					}
+             }
+		}
+                      
+         function partTypeSelection(){
+			 //alert("partTypeSelection")
+        	 hideAllViews();
+             dijit.byId("partTypex").domNode.style.display = "";
+             dojo.byId("partTypex").style.left = 0;
+             dijit.byId("partTypex").selected = true;
+             dijit.byId("partTypex").startup();
+             
+             var nodes = dijit.byId(dojo.query(dijit.byId("partTypex").domNode).query(".mblRoundRectList")[0].id).domNode.childNodes;
+             for (var i in nodes) {
+					var item = dijit.byId(nodes[i].id);
+					if(item!=undefined){
+						dijit.byId(item.id).set("rightText","");
+						if(actualItem[10]==dijit.byId(item.id).wtid.toString()){
+// 							alert("actualItem[10]: "+actualItem[10].toString());
+// 							var swtid=wtid.toString();
+// 							alert("wtid: "+swtid);
+							dijit.byId(item.id).set("rightText","&#10003;");
+						}
+					            	
+					}
+             }
+//      		partSelector_store.fetch( { query: { id: actualItem[9]},  
+//     			onItem: function(item) {
+// 		             sId = partSelector_store.getValue(item,"CEGDataIndex");
+// 		             partSelector_store.save();
+// 		 	         Android.showToast("¡Se ha actualizado el registro!");
+//     			}
+//     		});
+		}
+
+         function priceEdition(){
+        	 
+    	     console.info(dojo.toJson(actualItem));
+         
+			 hideAllViews();
+			 if(actualItem[15]==undefined){
+				 dojo.byId("precio").value  = 0.00;
+			 }else{
+				 dojo.byId("precio").value  = actualItem[15];
+			 }
+			 
+			 dojo.byId("precio").focus();
+             dijit.byId("priceEditor").domNode.style.display = "";
+			 // Agregado el: 26 Marzo 2014
+             dojo.byId("priceEditor").style.left = 0.00;
+             dijit.byId("priceEditor").selected = true;
+             dijit.byId("priceEditor").startup();
+		}
+         function LaborEdition(){
+        	 
+    	     console.info(dojo.toJson(actualItem));
+			 hideAllViews();
+			 if(actualItem[12]==undefined){
+				 dojo.byId("horas2").value  = 0;
+			 }else{
+				 dojo.byId("horas2").value  = actualItem[12];
+			 }
+			 
+			 dojo.byId("horas2").focus();
+             dijit.byId("hourEditor2").domNode.style.display = "";
+             dojo.byId("hourEditor2").style.left = 0;
+             dijit.byId("hourEditor2").selected = true;
+             dijit.byId("hourEditor2").startup();
+		} 
+         function LaborEdition_MO(){
+        	 
+    	     console.info(dojo.toJson(actualItem));
+   
+			 hideAllViews();
+			 if(actualItem[12]==undefined){
+				 dojo.byId("horas").value  = 0;
+			 }else{
+				 dojo.byId("horas").value  = actualItem[12];
+			 }
+			 
+			 dojo.byId("horas").focus();
+             dijit.byId("hourEditor").domNode.style.display = "";
+             dojo.byId("hourEditor").style.left = 0;
+             dijit.byId("hourEditor").selected = true;
+             dijit.byId("hourEditor").startup();
+		} 
+         function noteEdition(){
+			 hideAllViews();
+			 dojo.byId("note").value  = actualItem[13];
+			 dojo.byId("note").focus();
+             dijit.byId("noteEditor").domNode.style.display = "";
+             dojo.byId("noteEditor").style.left = 0;
+             dijit.byId("noteEditor").selected = true;
+             dijit.byId("noteEditor").startup();
+		}            
+         
+         function descriptionEdition(){
+			 hideAllViews();
+			 dojo.byId("descriptionTA").value  = actualItem[3];
+			 dojo.byId("descriptionTA").focus();
+             dijit.byId("descriptionEditor").domNode.style.display = "";
+             dojo.byId("descriptionEditor").style.left = 0;
+             dijit.byId("descriptionEditor").selected = true;
+             dijit.byId("descriptionEditor").startup();
+		}            
+         
+        function limpiatextarea(){
+     		if(dojo.byId("descriptionTA").value=="!Haga click aqui!"){
+     			dojo.byId("descriptionTA").value = "";
+     		}
+     	}         
+         
+/*         function worksSelection(){
+			 hideAllViews();
+             dijit.byId("worksSelector").domNode.style.display = "";
+             dojo.byId("worksSelector").style.left = 0;
+             dijit.byId("worksSelector").selected = true;
+             dijit.byId("worksSelector").startup();
+             
+             var nodes = dijit.byId(dojo.query(dijit.byId("worksSelector").domNode).query(".mblRoundRectList")[0].id).domNode.childNodes;
+             for (var i in nodes) {
+					var item = dijit.byId(nodes[i].id);
+					if(item!=undefined){
+						dijit.byId(item.id).set("rightText","");
+						
+						var wt = null;
+						
+					    switch(actualItem[1])
+					    {
+					    case "16":
+					      wt = "0";
+					      sLabOp=parseInt(Item[1]);
+					      alert("Seleccion:"+wt);
+					      alert("Trabajo:" + sLabOp);
+					      break;
+					    case "9":
+					    	wt =  "1";
+					    	alert("Seleccion:" + wt);
+					    	sLabOp=parseInt(actualItem[1]);
+					    	alert("Trabajo:" + sLabOp);
+					      break;
+					    case "1":
+					    	wt =  "2";
+					      break;
+					    case "2":
+					    	wt =  "3";
+					      break;
+					    case "8":
+					    	wt =  "4";
+					      break;
+					    case "6":
+					    	wt =  "5";
+					      break;
+					    case "5":
+					    	wt =  "6";
+					      break;
+					    case "7":
+					    	wt =  "7";
+					      break;
+					    }  
+						
+						if(wt==dijit.byId(item.id).wid.toString()){
+							dijit.byId(item.id).set("rightText","&#10003;");
+						}
+					            	
+					}
+             }
+		}
+             */
+        function worksSelection(){
+           	
+           	hideAllViews();
+            dijit.byId("worksSelector").domNode.style.display = "";
+            dojo.byId("worksSelector").style.left = 0;
+            dijit.byId("worksSelector").selected = true;
+            dijit.byId("worksSelector").startup();
+            
+            var nodes = dijit.byId(dojo.query(dijit.byId("worksSelector").domNode).query(".mblRoundRectList")[0].id).domNode.childNodes;
+            for (var i in nodes) {
+					var item = dijit.byId(nodes[i].id);
+
+					if(item!=undefined){
+						dijit.byId(item.id).set("rightText","");
+
+						var wt = null;
+						
+						//Android.showToast("actualItem[1]: " + actualItem[1]);
+						
+					    switch(actualItem[1])
+					    {
+					    case "16":
+					      wt = "0";
+					      break;
+					    case "9":
+					    	wt =  "1";
+					      break;
+					    case "1":
+					    	wt =  "2";
+					      break;
+					    case "2":
+					    	wt =  "3";
+					      break;
+					    case "8":
+					    	wt =  "4";
+					      break;
+					    case "6":
+					    	wt =  "5";
+					      break;
+					    case "5":
+					    	wt =  "6";
+					      break;
+					    case "7":
+					    	wt =  "7";
+					      break;
+					    }  
+						
+						if(wt==dijit.byId(item.id).wid.toString()){
+							dijit.byId(item.id).set("rightText","&#10003;");
+						}
+						//sLabOp=wt;
+						//alert("worksSelection() sLabOp: "+sLabOp)
+					}
+            }
+		}
+             
+        function showPartsByCallout(c){
+        	//alert("showPartsByCallout c: "+c)
+        	
+        	actualCallout = c;
+
+            hideTools();
+            dijit.byId('partsList').show();
+//             var parts = dojo.query(dijit.byId("partsList").domNode).query(".mblListItem");
+            //alert("showPartsByCallout: "+c+" - "+actualParts.value)
+//           	alert("parts: "+parts.partes)            
+            //alert("actualParts.value: "+actualParts.value)
+  			//alert("actualParts.partes: "+actualParts.partes)
+// 			alert("actualParts.url: "+actualParts.url)
+//  			alert("actualParts._id: "+actualParts._id.toString())
+//  			alert("actualParts.parentCat: "+actualParts.parentCat)
+//  			alert("actualParts.id: "+actualParts.id.toString())
+//  			alert("actualParts.actualCategory: "+actualParts.actualCategory)
+			
+            createNewList(actualParts.value,actualParts.partes,'PARTES',actualParts.url,actualParts._id.toString(),true,actualParts.parentCat,actualParts.id,actualParts.id,actualParts.actualCategory);
+            actualCallout = null;
+            Android.appendLogJS(" file: Index2.html - PROC: showPartsByCallout() Se ejecuta el Proc.: createNewList(PARTES): " + actualParts.value);
+            return true;			
+		}
+
+		$.fn.imageLoad = function(fn){
+			this.load(fn);
+			this.each(function(){
+				if(this.complete && this.naturalWidth!==0){
+					$(this).trigger('load');
+				}
+		});
+
+}
+
+        function getImage(i, service) {
+
+        	//alert("getImage(i: "+i+" - "+service)
+            dijit.byId("buttonNavL").set("onClick",function(){ navigationControl("P","L") });
+            dijit.byId("buttonNavR").set("onClick",function(){ navigationControl("P","R") });
+            
+                $("Div[id^='callout_']").remove();
+                $('#image').remove();
+                dojo.place('<img alt="INMA" id="image" usemap="#map" src="icons/inmawait.png" style="position: relative; left: 0px; top: 0px; margin: 0pt; width:750px;height:100%; display: inline-block;" class="ui-draggable">', "imageCanvas", "first");
+
+				if(i=="")return;
+                dojo.when(dojo.fromJson(Android.getData("SELECT * FROM SERVICES WHERE PATH = '"+"/services/parts/4_" + actualOEM + "_" + service + "/images/" + i + ".json"+"';")), function(data){
+
+                    $('#image').remove();
+                    dojo.place('<img alt="INMA" id="image" usemap="#map" src="http://' + localhost + '/final-sandbox/javascript/dojo/resources/blank.gif" style="position: relative; left: 0px; top: 0px; margin: 0pt;width:0px; height:0px;  display: inline-block;" >', "imageCanvas", "first");
+
+                    actualImage.id = data.id;
+                    //alert("actualImage.id: "+actualImage.id)
+                    dojo.byId("map").innerHTML = "";
+                    dojo.byId("originalMap").innerHTML = "";
+                    
+                    for (var c in data.c) {
+						//alert("data.id :"+data.id)
+                     	//alert(" data.c[c].c :"+ data.c[c].c)
+                        dojo.place('<area alt="' + data.c[c].c + '" coords="' + data.c[c].x + ',' + data.c[c].y + ',' + data.c[c].w + ',' + data.c[c].h + '" shape="rect">', "map", "last");
+                        dojo.place('<area onmousedown="showPartsByCallout(' + data.c[c].c + ');"  coords="' + data.c[c].x + ',' + data.c[c].y + ',' + data.c[c].w + ',' + data.c[c].h + '" shape="rect">', "originalMap", "last");
+                        dojo.place('<div onmousedown="showPartsByCallout(' + data.c[c].c + ');"  c="' + data.c[c].c + '"  id="callout_' + c + '" style="border:solid 2px;position:absolute;background-color:lightgray;filter:alpha(opacity=30);-moz-opacity: 0.3;opacity: 0.3;"></div>', "imageCanvas", "last");
+                    }
+                        dojo.byId("image").src = "data:image/png;base64," + data.base64;
+//                     alert("data.c[c].c: "+data.c[c].c)"
+//                     alert("data.c[c]: "+data.c[c])"
+//                     alert("data.c: "+data.c)"
+                    dojo.style(dojo.byId('image'), {
+                        width: data.rw + "px"
+                    });
+                    dojo.style(dojo.byId('image'), {
+                        height: data.rh + "px"
+                    });
+
+                    $('#image').zoomableGalaxyTab();
+                    $('#image').zoomableGalaxyTab('zoomFitToControl');
+ 					
+                });
+
+        }
+        
+        function resizeIt(){
+            //alert(dojo.window.getBox().w);
+            window.scrollTo(0, 1);
+            if((dojo.window.getBox().w > 400)){
+                dojo.style(dojo.byId('main'), {
+                        display: ""
+                });
+                dojo.style(dojo.byId('turnscreen'), {
+                        display: "none"
+                });
+                if(dijit.byId("treeSelector").getShowingView().id=="treeSelector"){
+                    dojo.style(dojo.byId('viewNavigation'), {display: ""});
+                }
+            }else{
+                dojo.style(dojo.byId('main'), {
+                        display: "none"
+                });
+                dojo.style(dojo.byId('turnscreen'), {
+                        display: ""
+                });
+                
+                dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+            }
+
+        }
+
+        var yearNode =  null;
+        var sNoHay = 0;
+        var sNo = 0;
+        var EstimateStatus = ""
+        var markName = "";
+        var fPrecio = 0;
+        var vColor="";
+        
+        // Función para buscar el vehículo, dado el año y la marca (year y jsonMark)
+        function getMarks(i, node, year) {
+			Android.appendLogJS(" file: Index2.html - PROC: getMarks() - Dentro de function getMarks(): " + i + " node : " + node + " year: " + year);
+            yearNode = node;
+           
+            var selector = null;
+            selector = carsSelector[i].children;
+
+            
+            if(selector.length < 1){
+            	Android.goNormalApp();	
+            }
+          
+            for (var e in carsSelector[i].children) {
+                for (var x in carsSelector) {
+                    if (carsSelector[x].id == carsSelector[i].children[e]._reference) {
+                    	
+                        if(carsSelector[x].name.toLowerCase() == jsonMark.toLowerCase()){
+                        	markName = carsSelector[x].name;
+                        	existe=1;
+                        	Android.appendLogJS(" file: Index2.html - PROC: getMarks() Dado el Ano: " + year + " y Marca: " + markName + " . Se llama al Proc: getModels(), para procesar el Modelo: " + x);
+                        	dojo.byId('markheading').style.display = 'none';
+                        	getModels(x);
+                        	
+                        } else{existe=0;}
+                        dojo.byId('markheading').style.display = 'none';	
+                        dojo.byId('modelheading').style.display = '';
+                    }
+                }
+            	if(existe==1){
+            		break;
+            	}
+            }
+            if(existe==0){
+            	//Android.SetEstimateStatus();
+            	//alert("Información Incorrecta para esta Marca: "+ jsonMark.toUpperCase()+",Favor realizar la busqueda manual");
+            	alert("Para la marca: "+ jsonMark.toUpperCase()+ ", por favor realizar la busqueda manual");
+            	vvMessage03 = "Marca No Existe";
+            	Android.appendLogJS(" file: Index2.html - PROC: getMarks() - La Marca: No existe. Se llama al Proc: getEstimate(), para finalizar la Aplicacion, luego de notificar al Usuario!");
+            	dojo.byId('markheading').style.display = 'none';
+            	dojo.byId('modelheading').style.display = '';
+            	//getEstimate();
+            }
+        }
+        
+        // Función para buscar el vehículo, dado el año y la marca viene vacía (year y jsonMark=vacío)
+        function getMarks_2(i, label_year, year) {
+
+            Android.appendLogJS(" file: Index2.html - PROC: getMarks_2() - Dentro de function getMarks_2(): " + i + " label_year : " + label_year + " year: " + year);
+            dijit.byId("markList").setStore();
+            mark_store.save();
+            mark_store.clearOnClose=true;
+            mark_store.close();
+			mark_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+            dijit.byId("markList").setStore(mark_store);
+            yearNode = label_year;
+//            Android.showToast("¡Se ha actualizado el registro!"+ yearNode);       
+            dojo.style(dojo.byId("markList").parentNode, "webkitTransform", "translate3d(0,0,0)"); 
+            //console.info(dojo.toJson(carsSelector));
+            var selector = null;
+            selector = carsSelector[i].children;
+
+            for (var e in carsSelector[i].children) {
+                for (var x in carsSelector) {
+                    if (carsSelector[x].id == carsSelector[i].children[e]._reference) {
+                    	existe=1;
+                    	mark_store.newItem({label: carsSelector[x].name, 	moveTo: "modelSelector", value:x, id:"mark_"+x});
+                        dojo.connect(dijit.byId("mark_"+x.toString()),"onClick",function(){ dojo.byId('markheading').style.display = 'none';dojo.byId('modelheading').style.display = '';markName = this.label;jsonMark = this.label; getModels_2(this.value);Android.appendLogJS(" file: Index2.html - PROC: getMarks_2() - La Marca seleccionada de la lista es: " + markName + " . Se llama al Proc: getModels_2(), para seleccionar el Modelo:" + this.value);});
+                    } else{existe=0;}
+                }
+            }
+//            	Android.appendLogJS(" file: Index2.html - PROC: getMarks() - La Marca: No existe. Se llama al Proc: getEstimate(), para finalizar la Aplicacion, luego de notificar al Usuario!");
+//            	dojo.byId('markheading').style.display = 'none';
+//            	dojo.byId('modelheading').style.display = '';
+
+
+
+//            }
+            //Android.appendLogJS(" file: Index2.html - PROC: getMarks_2() - La Marca seleccionada de la lista es: " + markName + " . Se llama al Proc: getModels_2(), para seleccionar el Modelo:" + this.value);
+            //dojo.byId('markheading').style.display = 'none';
+        }        
+        
+        // Función para buscar el Modelo del vehículo, dado el año y el Modelo viene vacío (year,jsonMark y jsonModel=vacío)
+        function getModels_2(i) {
+//        	alert("Submodel_2 i: "+i);
+//        	alert("carsSelector[i].id: "+carsSelector[i].id);
+//        	getTree(231,1,"SIN SIGLAS - 4Pt, Sedan - 6Cil., 8i - Automatic");
+			Android.appendLogJS(" file: Index2.html - PROC: getModels_2() - Dentro de function getModels_2(): " + i);
+            dijit.byId("modelList").setStore();
+            model_store.save();
+            model_store.clearOnClose=true;
+            model_store.close();
+			model_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+
+            dijit.byId("modelList").setStore(model_store);
+
+            dojo.style(dojo.byId("modelList").parentNode, "webkitTransform", "translate3d(0,0,0)"); 
+
+        	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/data.json"+"';")), function(data){
+                var model = data.children;
+                //alert("model: "+model);
+                for (var x in model) {
+                	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + model[x].stub + "/data.json"+"';")), function(datax){
+                        model_store.newItem({label: datax.name, moveTo: "submodelSelector", value:i, id:datax.id, submodel: datax.id});
+                        dojo.connect(dijit.byId(datax.id),"onClick",function(){ dojo.byId('modelheading').style.display = 'none';dojo.byId('submodelheading').style.display = '';modelName=this.label;jsonModel= this.label;existe=1;getSubModels(this.value,this.submodel); Android.appendLogJS(" file: Index2.html - PROC: getModels_2() - El Modelo seleccionado de la lista es: " + modelName + " . Se llama al Proc: getSubModels(), para seleccionar el SubModelo:" + this.value); });
+                    });				
+//                 	alert("modelName: "+modelName)
+//                 	alert("jsonModel: "+jsonModel)
+                }
+        	});
+        	//Android.appendLogJS(" file: Index2.html - PROC: getMarks_2() - El Modelo seleccionado de la lista es: " + modelName + " . Se llama al Proc: getSubModels(), para seleccionar el SubModelo:" + this.value);
+        	//dojo.byId('modelheading').style.display = 'none';
+        }        
+        
+        // Función para buscar el Modelo del vehículo, dado el año y el Modelo (year,jsonMark y jsonModel)
+        function getModels(i) {
+        	//alert("Submodel_1: "+jsonSubModel);
+        	 
+	        	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/data.json"+"';")), function(data){
+	                var model = data.children;
+	                //alert("model: "+data.name);
+	               
+	                if(model.length < 1){
+	                	
+	                	//Android.goNormalApp();	
+	
+	                }
+					Android.appendLogJS(" file: Index2.html - PROC: getModels() - Dentro de function getModels(): " + i + " model : " + model);
+					
+	                var dataaux;
+	                for (var x in model) {
+	                	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + model[x].stub + "/data.json"+"';")), function(datax){
+	                		//alert("datax.name: "+datax.name);
+	                		if(datax.name.toLowerCase() == jsonModel.toLowerCase()){
+	                        	modelName=datax.name;
+	                        	existe=1;
+	                        	dataaux=datax.id;
+	                        	//alert("datax.id: "+datax.id);
+	                        	//alert("Submodel_1: "+jsonSubModel);
+								
+	                        	if(jsonSubModel==""){
+	                        		Android.appendLogJS(" file: Index2.html - PROC: getModels() - El Modelo definido es: " + modelName + " . Se llama al Proc: getSubModels(), para seleccionar de la lista el SubModelo:" + datax.id);
+	                        		
+	                        		getSubModels(i,datax.id);
+	                        	}else{
+	                        		Android.appendLogJS(" file: Index2.html - PROC: getModels() - El Modelo definido es: " + modelName + " . Se llama al Proc: getSubModels_2(), para procesar el SubModelo:" + datax.id);
+	                        		getSubModels_2(i,datax.id);
+	                        	}
+	
+	                        	//break;
+	                        }else{
+	                        	existe=0;
+	                        }
+	                       
+	                    });
+	                	if(existe==1){
+	                		break;
+	                	}
+	                	//alert("existe: "+existe);
+	                }
+	                //alert("existe: "+existe);
+	                if(existe==0){
+	                	//alert("Información Incorrecta para esta Marca: "+ jsonMark.toUpperCase()+ " Modelo: "+jsonModel.toUpperCase()+", Favor realizar la busqueda manual");
+	                	alert("Para el Modelo: "+ jsonSubModel + ", por favor realizar la busqueda manual");
+	                	vvMessage03 = "Modelo No Existe";
+	                	Android.appendLogJS(" file: Index2.html - PROC: getModels() - El Modelo: No existe. Se llama al Proc: getEstimate(), para finalizar la Aplicacion, luego de notificar al Usuario!");
+	                	//alert("jsonEstimator: "+jsonEstimator);
+	                	getEstimate();
+	                }/* else{
+	                	getSubModels(i,dataaux);
+	                } */
+	        	});
+ 				dojo.byId('modelheading').style.display = 'none';
+ 				dojo.byId('submodelheadingX').style.display = '';
+        }		
+        
+        var a_i = null;
+        var a_subModel = null;
+
+        // Función para buscar el SubModelo del vehículo, dado el año, la Marca, el Modelo y el SubModelo (year,jsonMark,jsonModel y subModel)
+        function getSubModels_2(i, subModel) {
+//         	alert("i: "+i)
+       		//alert("getSubModels_2: "+i+"-"+subModel)
+        	
+        	a_i = i;
+       		a_subModel = subModel;       		
+       		Android.appendLogJS(" file: Index2.html - PROC: getSubModels_2() - Dentro de function getSubModels_2(): " + i + " SubModel : " + subModel);
+        	//dojo.byId("progressLoader").style.display = "";
+            dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + subModel + "/data.json"+"';")), function(data){
+                var model = data.children;
+//                 alert("model en getModels(i): "+model);
+//                 alert("model.length: "+model.length);
+                //submodel_store.newItem({label: jsonSubModel, value:i, id:"submodel_"+i, submodel: datax.id, dataxs: datax.s, dataxbodyStyle:datax.bodyStyle, dataxname:datax.name});
+                //getTree(this.dataxs,b,this.dataxname)
+                if(model.length < 1){
+                	Android.goNormalApp();	
+                }else{
+	                for (var x in model) {
+	                	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + subModel + "/" + model[x].stub + "/data.json"+"';")), function(datax){
+	                        actualOEM = datax.o;
+// 	                        alert("datax.id: "+datax.id);
+// 	                        alert("dataxs: "+datax.s);
+// 	                        alert("dataxbodyStyle: "+datax.bodyStyle);
+// 	                        alert("dataxname: "+datax.name);
+// 	                        alert("Submodel_1: "+jsonSubModel.toLowerCase());
+	                        submodellabel=datax.name;
+// 	                        alert("submodellabel: "+submodellabel.toLowerCase());
+	                        if(submodellabel.toLowerCase() == jsonSubModel.toLowerCase()){
+	                        	var b = datax.bodyStyle;if(b=="null"){b=1;}
+	                        	//alert("b: "+b)
+	                        	submodellabel=datax.name;
+	                        	Android.appendLogJS(" file: Index2.html - PROC: getSubModels_2() - El SubModelo definido es: " + submodellabel + " . Se llama al Proc: getTree(), para procesar pantalla inicial!");
+ 	                        	//alert("b: "+b);
+// 		                        submodel_store.newItem({label: datax.name, 	moveTo: "treeSelector", value:i, id:"submodel_"+datax.id, submodel: datax.id, dataxs: datax.s, dataxbodyStyle:datax.bodyStyle, dataxname:datax.name});
+								dojo.byId('submodelheadingX').style.display = 'none';
+								dojo.byId('submodelheading').style.display = 'none';
+								Android.appendLogJS(" file: Index2.html - PROC: getSubModels() - El SubModelo seleccionado de la lista es: " + submodellabel + " . Se llama al Proc: getTree(), para procesar pantalla inicial!");
+ 		                        getTree(datax.s,b,submodellabel)
+ 		                        //break;
+	 	                        //dojo.connect(dijit.byId("submodel_"+datax.id),"onClick",function(){ var b = this.dataxbodyStyle;if(b=="null"){b=1;} submodellabel=datax.name; getTree(this.dataxs,b,this.dataxname) });
+	                        }
+	                        
+	                    });
+	               }
+                }
+        	});
+     
+            existe=1;     
+			//Android.SaveSubModel(jsonSubModel);
+        }
+        
+        // Función para buscar el SubModelo del vehículo, dado el año, la Marca, el Modelo y el SubModelo viene vacío (year,jsonMark,jsonModel y subModel=vacío)
+        function getSubModels(i, subModel) {
+//         	alert("i: "+i)
+        	//alert("getSubModels: "+i+"-"+subModel)
+        	a_i = i;
+       		a_subModel = subModel;
+       		/* submodellabel=subModel; */
+
+			Android.appendLogJS(" file: Index2.html - PROC: getSubModels() - Dentro de function getSubModels(): " + i + " SubModel : " + subModel);				
+			
+            dijit.byId("submodelList").setStore();
+            submodel_store.save();
+            submodel_store.clearOnClose=true;
+            submodel_store.close();
+			submodel_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+            dijit.byId("submodelList").setStore(submodel_store);
+
+//alert(carsSelector[i].id);
+
+            dojo.style(dojo.byId("submodelList").parentNode, "webkitTransform", "translate3d(0,0,0)"); 
+
+            dojo.byId("progressLoader").style.display = "";
+            dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + subModel + "/data.json"+"';")), function(data){
+                var model = data.children;
+//                 alert("model en getModels(i): "+model);
+//                 alert("model.length: "+model.length);
+                if(model.length < 1){
+                	Android.goNormalApp();	
+                }else{
+	                for (var x in model) {
+	                	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + subModel + "/" + model[x].stub + "/data.json"+"';")), function(datax){
+	                        actualOEM = datax.o;
+
+	                        //alert("x: "+x);
+	                        //alert("carsSelector[i].id: "+carsSelector[i].id);
+							//alert("actualOEM en getModels(i): "+actualOEM);
+							//alert("datax.s: "+datax.s);
+ 							//alert("datax.id: "+datax.id);
+ 							//alert("datax.name: "+datax.name);
+ 							//alert("dataxbodyStyle 1: "+this.dataxbodyStyle)
+ 							//alert("dataxbodyStyle: "+datax.bodyStyle);
+	                        submodel_store.newItem({label: datax.name, 	moveTo: "treeSelector", value:i, id:"submodel_"+datax.id, submodel: datax.id, dataxs: datax.s, dataxbodyStyle:datax.bodyStyle, dataxname:datax.name});
+	                        dojo.connect(dijit.byId("submodel_"+datax.id),"onClick",function(){ dojo.byId('submodelheadingX').style.display = 'none';dojo.byId('submodelheading').style.display = 'none';var b = this.dataxbodyStyle;if(b=="null"){b=1;} submodellabel=datax.name; getTree(this.dataxs,b,this.dataxname); Android.appendLogJS(" file: Index2.html - PROC: getSubModels() - El SubModelo seleccionado de la lista es: " + submodellabel + " . Se llama al Proc: getTree(), para procesar pantalla inicial!"); });
+	                        Android.appendLogJS(" file: Index2.html - PROC: getSubModels() - El SubModelo seleccionado de la lista es: " + submodellabel + " . Se llama al Proc: getTree() en el OnClick del SubModelo Seleccionado, para procesar pantalla inicial!");
+
+	                    });
+	                    								
+	                	//alert("dataxbodyStyle: "+dataxbodyStyle)
+	                }
+                }
+        	});
+     
+            existe=1;
+        }
+
+        function hideMade(){
+       	 dojo.byId("doContainer").style.display = "none";
+       	 dojo.byId("versionTitle").style.display = "none";
+ 		 dojo.byId("versionSubTitle").style.display = "none";
+       }
+
+       function showMade(){
+       	 dojo.byId("doContainer").style.display = "inline";
+       	 dojo.byId("versionTitle").style.display = "inline";
+       	 dojo.byId("versionSubTitle").style.display = "inline";
+       }
+       
+       function hideHomologa(){
+      	 dojo.byId("doHomologa").style.display = "none";
+      }
+
+      function showHomologa(){
+      	 dojo.byId("doHomologa").style.display = "inline";
+      }
+
+       function hideFlag(){
+//      	 dojo.byId("doChangeFlag").style.display = "none";
+//      	 dojo.byId("versionTitle").style.display = "none";
+//      	 if(actualFlag=="V")
+//      	 {
+//      		 srcflag = "B.D. GUATEMALA"
+//      		dojo.byId("flagImage").src="icons/guatemala_flag.png";
+//      		var div = document.getElementById('FlagtextV');
+//      		div.style.display = 'inline';
+//      		div = document.getElementById('FlagtextP');
+//      		div.style.display = 'none';
+//      		div = document.getElementById('FlagtextC');
+//      		div.style.display = 'none';
+//      	 }
+//      	 if(actualFlag=="P")
+//      	 {
+//      		 srcflag = "B.D. PANAMA"
+//      		dojo.byId("flagImage").src="icons/panamaflag2.png";
+//      		document.getElementById("FlagtextV").style.display = "none";
+//      		document.getElementById("FlagtextP").style.display = "inline";
+//      		document.getElementById("FlagtextC").style.display = "none";      		 
+//      	 }
+//      	 if(actualFlag=="C")
+//      	 {
+//      		 srcflag = "B.D. COSTA RICA"
+//      		dojo.byId("flagImage").src="icons/costaricaflag.png";
+//      		document.getElementById("FlagtextV").style.display = "none";
+//      		document.getElementById("FlagtextP").style.display = "none";
+//      		document.getElementById("FlagtextC").style.display = "inline";       		 
+//      	 }      	 
+// 		 Android.modulo_flags(actualFlag);
+ 		//dojo.byId("carTitle").style.display = "";
+ 	    //dojo.byId("imageTitle").style.display = "none";
+// 	   showTools();
+       }
+
+//	  function showFlags(){
+//		 dojo.byId("doChangeFlag").style.display = "inline";
+//		 dojo.byId("versionTitle").style.display = "inline";
+//	  }
+      
+        function viewsConstructorInternal(actualIndexInternal) {
+        	
+            dojo.byId("carTitle").style.display = "";
+            dojo.byId("imageTitle").style.display = "none";
+        	dojo.style(dojo.byId('viewNavigation'), {display: ""});
+            dojo.style(dojo.byId('imageCanvasInternal'), {
+                display: ""
+            });
+            dojo.style(dojo.byId('imageCanvasExternal'), {
+                display: "none"
+            });
+
+			// Se agregaron las siguientes  tres (3) lineas de codigo SOLO para la version 4.1
+            dojo.style(dojo.byId('imageCanvas'), {
+                display: "none"
+            });                      
+			// Se agregaron las anteriores  tres (3) lineas de codigo SOLO para la version 4.1
+            dijit.byId("buttonNavL").set("onClick",function(){ navigationControl("I","L") });
+            dijit.byId("buttonNavR").set("onClick",function(){ navigationControl("I","R") });
+
+            var view = viewsSelector[8];
+            //alert("view: "+view);
+
+            $('#internalImage').remove();
+            dojo.byId("originalMapInternals").innerHTML = "";
+            dojo.byId("mapInternals").innerHTML = "";
+            $("Div[id^='internalcallout_']").remove();
+            dojo.place('<img alt="INMA" id="internalImage" usemap="#mapInternals" src="http://' + localhost + '/final-sandbox/javascript/dojo/resources/blank.gif" style="position: relative; left: 0px; top: 0px; width:0px; height:0px; margin: 0pt; display: inline-block;-moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;  user-select: none;">', "imageCanvasInternal", "first");
+            dojo.style(dojo.byId('internalImage'), {
+                width: view[actualIndexInternal].w + "px"
+            });
+            dojo.style(dojo.byId('internalImage'), {
+                height: view[actualIndexInternal].h + "px"
+            });
+            var base64 = dojo.fromJson(Android.getDataViewSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/views/" + view[actualIndexInternal].i.replace("_", "") + ".json"+"';"));
+            //alert("base64: "+base64.i)
+            dojo.byId('internalImage').src = "data:image/png;base64," + base64.i;
+
+            
+            var coc = parseInt(view[actualIndexInternal].c);
+            //alert("coc: "+coc);
+            for (var c = 0; c < coc; c++) {
+                var arrCallOuts = JSON.parse(localStorage.getItem(view[actualIndexInternal].s + c));
+                dojo.place('<area alt="' + arrCallOuts.d + '" coords="' + arrCallOuts.x + ',' + arrCallOuts.y + ',' + arrCallOuts.w + ',' + arrCallOuts.h + '" shape="rect">', "mapInternals", "last");
+                dojo.place('<area coords="' + arrCallOuts.x + ',' + arrCallOuts.y + ',' + arrCallOuts.w + ',' + arrCallOuts.h + '" shape="rect">', "originalMapInternals", "last");
+                dojo.place('<div onclick="callOutOnView(\'' + arrCallOuts.d + '\')" id="internalcallout_' + c + '" style="position:absolute;background-color:lightgray;filter:alpha(opacity=30);-moz-opacity: 0.3;opacity: 0.3;"></div>', "imageCanvasInternal", "last");
+                
+                if (dijit.byId("tooltipinternalcallout_" + c)) {
+                    dijit.byId("tooltipinternalcallout_" + c).destroy();
+                }
+            }
+            $('#internalImage').zoomableInternal();
+            $('#internalImage').zoomableInternal('zoomFitToControl');
+
+        }
+
+
+        function viewsConstructor(viewToBuild) {
+        	//alert("viewsConstructor(viewToBuild)"+viewToBuild);
+        	dojo.style(dojo.byId('viewNavigation'), {display: ""});
+        	dojo.style(dojo.byId('imageCanvasInternal'), {
+                display: "none"
+            });
+            dojo.style(dojo.byId('imageCanvasExternal'), {
+                display: ""
+            });
+
+            dijit.byId("buttonNavL").set("onClick",function(){ navigationControl("E","L") });
+            dijit.byId("buttonNavR").set("onClick",function(){ navigationControl("E","R") });
+
+            $('#externalImage').remove();
+            dojo.byId("originalMapViews").innerHTML = "";
+            dojo.byId("mapViews").innerHTML = "";
+            $("Div[id^='viewcallout_']").remove();
+            dojo.place('<img alt="INMA" id="externalImage" usemap="#mapViews" src="http://' + localhost + '/final-sandbox/javascript/dojo/resources/blank.gif" style="position: relative; left: 0px; top: 0px; width:0px; height:0px; margin: 0pt; display: inline-block;-moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none;  user-select: none;">', "imageCanvasExternal", "first");
+            //dojo.byId('externalImage').src = 'http://' + localhost + '/services/views/' + viewToBuild[actualIndexView].i.replace("_", "") + '.png';
+            var base64 = dojo.fromJson(Android.getDataViewSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/views/" + viewToBuild[actualIndexView].i.replace("_", "") + ".json"+"';"));
+            //alert("base64: "+base64.i);
+            dojo.byId('externalImage').src = "data:image/png;base64," + base64.i;
+            dojo.style(dojo.byId('externalImage'), {
+                width: viewToBuild[actualIndexView].w + "px"
+            });
+            dojo.style(dojo.byId('externalImage'), {
+                height: viewToBuild[actualIndexView].h + "px"
+            });
+
+            var coc = parseInt(viewToBuild[actualIndexView].c);
+            //alert("coc: "+coc);
+
+            for (var c = 0; c < coc; c++) {
+                var arrCallOuts = JSON.parse(localStorage.getItem(viewToBuild[actualIndexView].s + c));
+                //alert("arrCallOuts: "+arrCallOuts);
+                dojo.place('<area alt="' + arrCallOuts.d + '" coords="' + arrCallOuts.x + ',' + arrCallOuts.y + ',' + arrCallOuts.w + ',' + arrCallOuts.h + '" shape="rect">', "mapViews", "last");
+                dojo.place('<area coords="' + arrCallOuts.x + ',' + arrCallOuts.y + ',' + arrCallOuts.w + ',' + arrCallOuts.h + '" shape="rect">', "originalMapViews", "last");
+                dojo.place('<div onclick="callOutOnView(\'' + arrCallOuts.d + '\')" id="viewcallout_' + c + '" style="position:absolute;background-color:lightgray;filter:alpha(opacity=30);-moz-opacity: 0.2;opacity: 0.2;"></div>', "imageCanvasExternal", "last");
+                if (dijit.byId("tooltipviewcallout_" + c)) {
+                    dijit.byId("tooltipviewcallout_" + c).destroy();
+                }
+            }
+            $('#externalImage').zoomableFixed();
+            $('#externalImage').zoomableFixed('zoomFitToControl');
+            dojo.style(dojo.byId('viewNavigation'), {
+                display: ""
+            });
+            dojo.byId("externalImage").focus();
+
+        }
+        
+        
+        function callOutOnView(node) {
+        	//alert("callOutOnView: "+node);
+
+            var parts = dojo.query(dijit.byId("partsList").domNode).query(".mblListItem");
+
+            var response = false;
+            
+            for(var i in parts){
+                try{
+
+                    if(node.toString().toLowerCase()==dijit.byId(dojo.query(dijit.byId("partsList").domNode).query(".mblListItem")[i].id).label.toLowerCase()){
+                        var item = dijit.byId(dojo.query(dijit.byId("partsList").domNode).query(".mblListItem")[i].id);
+                        //alert("item: "+item.length);
+                        dojo.when(item, function(items){
+                        	response = true;
+                        	if(items.items.length > 0){
+ 								if (items.items[0].r.toString().indexOf("_2") > 0) {	
+ 			                        hideTools();
+  			                       //alert(".indexOf(_2) items.value: "+items.value);
+  			                        //alert("items.label. "+items.label);
+//  			                        alert("items.items. "+items.items);
+//  			                        alert("items.url. "+items.url);
+  			                         //createNewList2(items.value,items.items,items.label,items.url,"partsList",true,items.value,items.value,items.value,items.value);
+ 		                        	dojo.when(createNewList(items.value,items.items,items.label,items.url,"partsList",true,items.value), function(data){dojo.byId("progressLoader").style.display = "none";});
+ 		                        	//createNewList3(items.value,items.items,items.label,items.url,"partsList",true,items.value);
+ 								}else{
+									//dojo.byId("progressLoader").style.display = "";
+
+                                    dojo.byId("BUTTON_MANODEOBRA").style.display = "none";
+                             		dojo.byId("BUTTON_PARTES").style.display = "none";
+                                 
+                             	
+                                    for (var e in items.items) {
+                                        try{
+                                        	if (items.items[e].r.toString().indexOf("_10") > 0) {
+                                        		items.manodeobra = items.items[e].r.toString();
+                                                dojo.byId("BUTTON_MANODEOBRA").style.display = ""; haveMO = true;
+                                        	}
+                                        }catch(e){
+                                        	Android.appendLogJS(" file: Index2.html - PROC: callOutOnView() - Error al intentar construir la lista de Mano de Obra " + e);
+                                        }
+                                        
+
+                                        try{
+                                        	if (items.items[e].r.toString().indexOf("_4") > 0) {
+                                        		items.partes = items.items[e].r.toString();
+                                         		dojo.byId("BUTTON_PARTES").style.display = ""; haveP = true;
+                                        	}
+                                        }catch(e){
+                                        	Android.appendLogJS(" file: Index2.html - PROC: callOutOnView() - Error al intentar construir la lista de PARTES " + e);
+                                        }
+                                    }
+ 								                                 
+									//alert("callOutOnView else: "+items.label)
+ 									
+ 									actualParts = items;
+                                    hideAllViews();
+                                    dojo.byId("treeSelector").style.display = "";
+                                    dojo.byId("imageCanvasInternal").style.display = "none";
+                                    dojo.byId("imageCanvasExternal").style.display = "none";
+                                    dojo.byId("imageCanvas").style.display = "";
+                                    showTools();
+                                    //alert("Despues de showTools");
+                                     var imageId = items.image.slice(0,items.image.length-1);
+                                    actualImages = imageId.split("|");
+                                    if(actualImages.length>1){
+                                   	 	 dojo.style(dojo.byId('viewNavigation'), {display: ""});
+                                    }else{
+                                      	 dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+                                    }
+	                             	dojo.byId("imageTitle").innerHTML = items.label;
+	                             	//alert("items.label: "+items.label)
+	                                dojo.byId("carTitle").style.display = "none";
+	                                dojo.byId("imageTitle").style.display = "";
+                                    getImage(actualImages[0], actualService); 
+                             }
+ 							}
+                        });	                        
+	
+                    }
+                }catch(e){
+                	//Android.appendLogJS(" file: Index2.html - PROC: callOutOnView() - Error al intentar construir la lista de PARTES/M.Obra!");
+                }
+            
+            }
+            
+            if(!response){
+				//alert("!response");
+            	vista="search";
+            	vistaEsp="";
+            	hideTools();
+            	searchItems(node.toString().split(" ")[0]);
+            }
+            
+        }
+        
+        function getBodyStyleViews(bodyStyle) {
+        	//alert("function getBodyStyleViews: "+bodyStyle)
+        	
+        	dojo.byId("carTitle").style.display = "";
+            dojo.byId("imageTitle").style.display = "none";
+            viewsConstructor(viewsSelector[bodyStyle - 1]);
+            actualView = bodyStyle;
+            //alert("bodyStyle: "+bodyStyle)
+            //alert("viewsSelector[bodyStyle - 1]: "+viewsSelector[bodyStyle - 1])
+            //dojo.byId("imageCanvas").style.display = "";			// Se agregó esta linea de codigo SOLO para la version 4.1
+        }
+
+        var viewInternal = 0;
+        
+        function navigationControl(type,direction) {
+            switch(type)
+            {
+            case "I": 
+                switch(direction)
+                {
+                case "L":
+                  if(viewInternal==1){
+                  	viewsConstructorInternal(1);
+                  	viewInternal = 0;
+                  }
+                  
+                  break;
+                case "R": 
+                    if(viewInternal==0){
+                      	viewsConstructorInternal(0);
+                      	viewInternal = 1;
+                      }
+                  break;
+                }
+              break;
+            case "E": 
+                switch(direction)
+                {
+                case "L": 
+                  previousView();
+                  break;
+                case "R": 
+                  nextView();
+                  break;
+                }
+              break;
+            case "P": 
+                switch(direction)
+                {
+                case "L":
+                	actualIndexImage--;
+               		if (actualIndexImage < 0) {
+                		actualIndexImage = actualImages.length-1;
+                    }
+                    dojo.byId("progressLoader").style.display = "";
+                    
+                	getImage(actualImages[actualIndexImage], actualService);
+                	//console.info(actualIndexImage);
+                  break;
+                case "R": 
+                	actualIndexImage++;
+               		if (actualIndexImage > actualImages.length-1) {
+                		actualIndexImage = 0;
+                    }
+                    dojo.byId("progressLoader").style.display = "";
+                    
+                	getImage(actualImages[actualIndexImage], actualService);
+                	//console.info(actualIndexImage);
+                  break;
+                }
+              break;
+            }   
+            //console.info(dojo.toJson(actualImages));
+            return true;
+
+        }
+
+
+        function nextView() {
+            var view = viewsSelector[actualView - 1];
+            actualIndexView++;
+
+            if (actualIndexView > 7) {
+                actualIndexView = 0;
+            }
+            viewsConstructor(view);
+        }
+
+        function principalView() {
+            var view = viewsSelector[actualView - 1];
+            actualIndexView = 0;
+            viewsConstructor(view);
+        }
+
+        function previousView() {
+            var view = viewsSelector[actualView - 1];
+            actualIndexView--;
+
+            if (actualIndexView < 0) {
+                actualIndexView = 7;
+            }
+
+            viewsConstructor(view);
+        }
+
+		function searchItems(criteria){
+		//alert("searchItems: "+criteria)
+				var s = '*'+criteria+'*';
+				try{
+					search_store.fetch( { query: { text: s},  queryOptions:{ignoreCase: true},
+			   		 	onComplete: gotItems
+					});
+				}catch(x){
+					alert("La Seccion no se encuentra bajo este nombre: " + criteria + ". Favor buscar por Lista!");
+					Android.appendLogJS(" file: Index2.html - PROC: searchItems() - Error al intentar ejecutar la Busqueda: " + criteria + " . La Seccion no se encuentra bajo este nombre. ");
+					inicio();
+				}
+				// Esta parte se agregó solo para la versión 4.1
+				//vista='';dojo.byId('h1').style.display = '';dojo.byId('h3').style.display = 'none';
+			    if (vista=="search"){
+			    	dojo.byId("h1").style.display = "none";
+			    	//dojo.byId("h1").style.fixed = "top"; 
+			    	if(dojo.byId("h3").style.display == ""){
+			    		dojo.byId("h3").style.display = "none";
+			    	}else{
+			    		dojo.byId("h3").style.display = "";
+			    	}
+			    }else{
+			    	dojo.byId("h1").style.display = "none";
+			    	dojo.byId("h3").style.display = "none";
+			    }				
+		}
+  
+	    
+	function verificaDB(dbId){
+		
+		Android.openDatabase_Version("Lic.db");
+		//alert("dbId: "+dbId);
+
+		dojo.when(Android.getDataVersion("SELECT * FROM check_db WHERE id_db = 'carselector.db';"), function(data){
+		    //alert("data: "+data)
+			var DataBaseSelectorLic = data;
+		    var tempLic = DataBaseSelectorLic.split("-");
+
+			dbServiceLic = tempLic[0];
+		    dbVersionLic = tempLic[1];
+		    dbChkLic	 = tempLic[2];
+			//alert("DB dbServiceLic: "+dbServiceLic);
+			//alert("DB dbVersionLic: "+dbVersionLic);
+		    //alert("DB dbChkLic: "+dbChkLic);
+	   	});
+		
+		//dojo.byId("versionTitle").innerHTML = "INMAEst Movil OCR-Fotos - Ver.: 4.1.2  -  Base de Datos - Ver.: " + dbVersionLic;		
+		dojo.byId("versionTitle").innerHTML = "INMAEst Movil OCR-Fotos - Ver.: 4.1.2";
+		dojo.byId("versionSubTitle").innerHTML = "Base de Datos - Ver.: " + dbVersionLic;
+		
+		dojo.when(Android.getDataVersion("SELECT * FROM check_db WHERE id_db = '"+dbId+".db';"), function(data){
+			//alert("verificaDB dbId data: "+data)
+			var DataBaseSelectorLicDB = data;
+		    var temp = DataBaseSelectorLicDB.split("-");
+
+			dbServiceLicDB = temp[0];
+		    dbVersionLicDB = temp[1];
+		    dbChkLicDB     = temp[2];
+
+//			alert("dbServiceLicDB: "+dbServiceLicDB);
+//			alert("dbVersionLicDB: "+dbVersionLicDB);
+//			alert("dbChkLicDB: "+dbChkLicDB);
+	   	});		
+		
+		if(dbChkLicDB==1){
+			Android.openDatabase_Version(dbId+".db");	
+
+			dojo.when(Android.getDataVersion("SELECT * FROM check_db WHERE id_db = '"+dbId+".db';"), function(data){
+
+				var DataBaseSelector = data;
+			    var tempDB = DataBaseSelector.split("-");
+
+				dbService = tempDB[0];
+			    dbVersion = tempDB[1];
+				dbChk	  = tempDB[2];
+					
+//				alert("DB dbService: "+dbService);
+//				alert("DB dbversion: "+dbVersion);
+//				alert("DB dbChk: "+dbChk);
+
+			 });			
+	
+			if(parseInt(dbVersion)<parseInt(dbVersionLicDB)){
+//				alert("*** La Base de Datos del Vehiculo: " + markName + " - " + modelName + ", ["+dbId+".db], no esta actualizada! ***");
+//				alert("*** Existe una version de: ["+dbId+".db], actualizada a: " + dbVersionLicDB + " ***");
+//				alert("*** Contacte al Administrador del Sistema ***");
+			}
+		}			
+		
+	}	 
+		
+function getTree(id, bodyStyle, model) {
+	//alert("gettree");
+	//bodyStyle=6;
+	//alert("getTree: "+id+" - "+bodyStyle+" - "+model)
+//	modelName="Orinoco";
+//	submodellabel="";
+	//dojo.byId("carTitle").innerHTML = markName + " " + modelName + " " + yearNode;
+    //Mod. Oc 20/09/2012
+    dojo.byId("carTitle").innerHTML= yearNode + " " + markName + " " + modelName + " " + submodellabel;
+	sannio = yearNode;
+	smarca = markName;
+	smodel = modelName;
+    sversion = submodellabel;
+    //alert("carTitle: "+carTitle.innerHTML)
+    Android.appendLogJS(" file: Index2.html - PROC: getTree() - Vehiculo seleccionado: " + yearNode + " - " + markName + " - " + modelName + " - " + submodellabel + ". ");
+    
+	dojo.byId("carTitle").style.display = "";
+    dojo.byId("imageTitle").style.display = "none";
+    
+    // Aqui se verificara si la base de Datos <id>.db del service: 'id', esta actualizada
+     //verificaDB("carselector.db");
+     verificaDB(id);
+
+	Android.openDatabase(id);
+	getHeadList(id);
+    showTools();
+    getBodyStyleViews(bodyStyle);
+    //alert("getTree Call getdata")
+   	dojo.when(Android.getData("SELECT * FROM SERVICES WHERE PATH  = '"+"/services/parts/4_" + actualOEM + "_" + actualService + "/index.json"+"';"), function(data){
+    //alert("data: "+data)
+		 var html = document.createElement("div");
+         html.innerHTML = data;
+		 data = dojo.fromJson(accentsTidy(html.innerHTML));
+		//alert("data: "+data)
+   		
+   	    var d = { 
+   				items:data.items
+   		};
+
+   	    
+   	    search_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(d)});
+   		
+   	});
+
+//	alert("getTree-submodellabel: "+submodellabel);
+//	alert("getTree-jsonSubModel: "+jsonSubModel);
+	// Se evalua si jsonSubModel esta vacio. Si es asi, se procede a guardar el valor
+	if(jsonSubModel==""){
+		//alert("yearNode"+yearNode);
+		//alert("anio"+anio);
+		jsonSubModel=submodellabel;	
+		
+		getIdEstimate(Plate);
+		
+		rutaAjuste = rutaAjuste + "/" + EstimateId + "/";
+		
+		jsonInput = "{'eObject': {'auto':{'Estimator':" + "'" + jsonEstimator + "'";
+
+		jsonInput = jsonInput + ",'Odometer':" + "'" + odometer + "'";
+
+		jsonInput = jsonInput + ",'SubModel':" + "'" + jsonSubModel + "'";
+
+		jsonInput = jsonInput + ",'anio':" + "'" + yearNode + "'";
+
+		jsonInput = jsonInput + ",'marca':" + "'" + jsonMark + "'";
+
+		jsonInput = jsonInput + ",'modelo':" + "'" + jsonModel + "'";
+
+		jsonInput = jsonInput + ",'placa':" + "'" + Plate + "'";
+
+		jsonInput = jsonInput + ",'serialCarroceria':" + "'" + vehicleIdNumber + "'";
+		
+		jsonInput = jsonInput + ",'rutaAjuste':" + "'" + rutaAjuste + "'";
+		
+		jsonInput = jsonInput + ",'perfil':" + "'" + jsonProfileName + "'";
+		
+		jsonInput = jsonInput + ",'taller':" + "'" + jsonTallerName + "'";
+		
+		jsonInput = jsonInput + ",'numSiniestro':" + "'" + jsonNumSiniestro + "'";
+		
+		jsonInput = jsonInput + "}}}";
+	
+		//var jsonText = JSON.stringify(jsonInput);
+		
+		//alert("getTree-jsonText ANTES: "+jsonInput);
+		
+		//var jsonText = dojo.toJson(jsonInput);
+		
+		//alert("getTree-jsonInput DESPUES: "+jsonInput);
+		
+		Android.save_SubModel(jsonInput);
+		Android.appendLogJS(" file: Index2.html - PROC: getTree() - Se llama al Proc.: save_SubModel(), para guardar el valor del SubModelo: " + jsonSubModel + " , en el archivo: FileJsonInput!");
+		
+	}
+	
+	//alert("mensaje: "+vvMessage03);
+	dojo.byId("reportMessageTextarea").value=vvMessage03;
+	
+}
+
+
+function callback(item) {
+    dijit.byId("finder").attr("value","Buscando...");
+    
+    alert(item.np);
+}
+
+function showTools(){
+	//alert("showtools")
+    hideAllViews();
+    dojo.byId("imageTitle").style.display = "";
+    dojo.byId("treeSelector").style.display = "";
+    dojo.byId("imageCanvasInternal").style.display = "none";
+    dojo.byId("imageCanvasExternal").style.display = "none";
+    dojo.byId("imageCanvas").style.display = "";
+	dojo.style(dojo.byId('tools'), {display: ""});
+     //dojo.style(dojo.byId('content'), {left: "151px",width: "530px"}); 		// Se comento esta linea. Esta linea es solo para la version 2.2.1 
+	dojo.style(dojo.byId('content'), {left: "151px",width: "900px"}); 				// Se agregó esta linea. Esta linea es solo para la version 4.1
+    dojo.style(dojo.byId('viewNavigation'), {display: ""});
+    dojo.byId("settings").style.display = "";
+    
+    if(actualImages.length>1){
+   	 dojo.style(dojo.byId('viewNavigation'), {display: ""});
+    }else{
+   	 dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+    }
+
+    //alert("dojo.byId(h1).style.display: "+dojo.byId("h1").style.display)
+    // Esta parte se agregó solo para la versión 4.1
+    if (vista=="" || vista=="search"){
+    	dojo.byId("h1").style.display = "none";
+    }else{
+        dojo.byId("h1").style.display = "";
+        dojo.byId("h1").style.fixed = "top";
+        dojo.byId("h3").style.display = "none";
+    }     
+    
+    if(haveMO)
+    	dojo.byId("BUTTON_MANODEOBRA").style.display = "";
+    if(haveP)
+    	dojo.byId("BUTTON_PARTES").style.display = "";
+
+    	dojo.byId("h1").style.display = "none";  	
+    	
+}
+
+function hideTools(){
+	//alert("hideTools")
+    dojo.byId("imageTitle").style.display = "none";
+    dojo.byId("carTitle").style.display = "none";
+    dojo.style(dojo.byId('tools'), {display: "none"});
+    dojo.style(dojo.byId('content'), {left: "0px",width: "100%"}); 
+    dojo.style(dojo.byId('viewNavigation'), {display: "none"});
+    dojo.byId("imageCanvasInternal").style.display = "none";
+    dojo.byId("imageCanvasExternal").style.display = "none";
+    dojo.byId("imageCanvas").style.display = "none";
+    
+//    alert("hideTools vista: "+vista);
+//    alert("hideTools vistaEsp: "+vistaEsp);
+//    alert("dojo.byId(h1).style.display: "+dojo.byId("h1").style.display)
+//    alert("dojo.byId(h3).style.display: "+dojo.byId("h3").style.display)
+
+// Esta parte se agregó solo para la versión 4.1
+    if (vista=="" || vista=="search" || vistaEsp=="Mensaje"){
+    	//if (dojo.byId("h1").style.display == "" && vista==""){
+    	dojo.byId("h1").style.display = "none";
+    	//vistaEsp="";
+    }else{
+    	if (vistaEsp=="Mensaje"){
+    		dojo.byId("h1").style.display = "none";
+    		//vistaEsp="";
+    	}
+    	else{
+			dojo.byId("h1").style.display = "";
+			dojo.byId("h1").style.fixed = "top";
+			//dojo.byId("h3").style.display = "none";
+    	}
+    }
+    if (vistaEsp=="Inicio"){
+    	dojo.byId("h1").style.display = "none";
+    	vistaEsp="";
+    	inicio();
+    }
+//    alert("vista: "+vista);
+//    alert("dojo.byId(h1).style.display: "+dojo.byId("h1").style.display)
+//    alert("dojo.byId(h3).style.display: "+dojo.byId("h3").style.display)
+//	if (dojo.byId("h3").style.display == "" && dojo.byId("finderControl").selected==true){
+//		dojo.byId("h3").style.display = "none";
+//	}else{
+//		if(vista=="search" || vista=="" || vista=="partlist"){
+//		 dojo.byId("h3").style.display = "none";
+//		}else{
+//			if(vista!="partlist"){
+//			 dojo.byId("h3").style.display = "";
+//			 dojo.byId("h3").style.fixed = "top";
+//			}
+//		}
+//		
+//	 }    
+	//alert("dojo.byId(h1).style.display: "+dojo.byId("h1").style.display)        
+}
+
+function hideTools2(){
+	
+    dojo.byId("imageCanvasInternal").style.display = "none";
+    dojo.byId("imageCanvasExternal").style.display = "none";
+    dojo.byId("imageCanvas").style.display = "none";
+}
+
+function showLoader(){
+    
+    dojo.byId("progressLoader").style.display = "";
+    //dojo.fadeOut({ node: dojo.byId("progressLoader") }).play();
+}
+
+function hideLoader(){
+    dojo.byId("main").style.display = "";
+    dojo.byId("progressLoader").style.display = "none";
+}
+
+function registerData(id,data){
+
+	dojo.when(dojo.fromJson(data), function(data){
+		DATAIMAGES[id] = data;
+	});
+
+	return true;
+}
+
+function showMeAllViews(id){
+	var views = dojo.query('.mblView');
+	for(var i in views){
+		if(typeof views[i] == 'object'&&views[i].id==id){
+			dojox.mobile.currentView = dojo.byId('modelSelector');
+			dojo.byId(views[i].id).style.display = "";
+		}else if(typeof views[i] == 'object'){
+			dojo.byId(views[i].id).style.display = "none";
+		}
+		if(typeof views[i] == 'object'){
+			//console.info("id: "+views[i].id+", display: "+dojo.byId(views[i].id).style.display+", showingView: "+dijit.byId(views[i].id).getShowingView());
+		}
+	}
+}
+
+	function createSubModelSelector(){
+
+				dijit.byId("submodelSelector").destroyRecursive(true);
+				
+                var view1 = new dojox.mobile.ScrollableView({
+                    id: "submodelSelector",
+                    selected: true,
+                    keepScrollPos: false
+                });
+
+                dojo.byId("content").appendChild(view1.domNode);
+
+                var heading1 = new dojox.mobile.Heading({
+                    label: "Submodelo",
+                    fixed: "top",
+                    //back:"Regresar",
+                    moveTo: "modelSelector",
+                    transition:"slide"
+                });
+
+
+                var reference = null;
+                var list1 = new dojox.mobile.RoundRectDataList();
+                dijit.byId("submodelSelector").addChild(list1);
+
+                view1.addChild(heading1);
+
+				// Se comentó la siguiente linea, la cual es solo para la versión 2.2.1
+                //var childWidget = new dojox.mobile.ToolBarButton({label:"Edit", style:{padding:"0px 14px",float:"right"}});
+
+				//*** Se agregó la siguiente linea. Cambio para Version 4.1
+                var childWidget = new dojox.mobile.ToolBarButton({label:"Edit", style:{padding:"0px 14px",float:"left"}});
+	            list1.setStore();
+	            submodel_store.save();
+	            submodel_store.clearOnClose=true;
+	            submodel_store.close();
+				submodel_store = new dojo.data.ItemFileWriteStore({data: dojo.clone(static_data)});
+	            list1.setStore(submodel_store);
+                
+                childWidget.connect(childWidget.domNode, "onclick", function(){
+
+				});
+                
+                dojo.place(childWidget.domNode,heading1.id,"first");
+                
+                 view1.startup();
+ 
+                dojo.byId("BUTTON_MANODEOBRA").style.display = "none";
+                dojo.byId("BUTTON_PARTES").style.display = "none";
+ 				hideTools();                
+                hideAllViews();
+                dijit.byId("submodelSelector").domNode.style.display = "";
+                dojo.byId("submodelSelector").style.left = 0;
+                dijit.byId("submodelSelector").selected = true;
+                dijit.byId("submodelSelector").startup();
+                
+                var i = a_i;
+                var subModel = a_subModel;
+                //alert("subModel: "+subModel);
+                
+                dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + subModel + "/data.json"+"';")), function(data){
+	                var model = data.children;
+	                //alert("model: "+model);
+	                for (var x in model) {
+	                	dojo.when(dojo.fromJson(Android.getDataCarSelector("SELECT * FROM SERVICES WHERE PATH = '"+"/services/cars/" + carsSelector[i].id + "/" + subModel + "/" + model[x].stub + "/data.json"+"';")), function(datax){
+	                        actualOEM = datax.o;
+	                        //alert("actualOEM en createSubModelSelector: "+actualOEM);
+	                        submodel_store.newItem({label: datax.name, 	moveTo: "treeSelector", value:i, id:"submodel_"+datax.id, submodel: datax.id, dataxs: datax.s, dataxbodyStyle:datax.bodyStyle, dataxname:datax.name});
+	                        dojo.connect(dijit.byId("submodel_"+datax.id),"onClick",function(){ getTree(this.dataxs,this.dataxbodyStyle,this.dataxname) });
+	                    });
+	                }
+	        	});
+	}
+
+
+	function hideAllViews(){
+		var views = dojo.query('.mblView');
+		for(var i in views){
+			if(typeof views[i] == 'object'&&views[i].id!='submodelSelectorX'){
+				dojo.byId(views[i].id).style.display = "none";
+			}
+		}
+	}
+
+	function cleanArray( actual ){
+	  var newArray = new Array();
+	  for( var i = 0, j = actual.length; i < j; i++ ){
+	      if ( actual[ i ] ){
+	        newArray.push( actual[ i ] );
+	    }
+	  }
+	  return newArray;
+	}
+
+	function deleteItemEstimates(){
+		var sId = "";
+		if(confirm("Esta de seguro de eliminar esta linea?"))
+		{	
+			partSelector_store.fetch( { query: { id: actualItem[9]},  
+			   onItem: function(item) {
+				   var includes = partSelector_store.getValue(item,"ai");
+				   var sIdpn = partSelector_store.getValue(item,"pn");
+				   sId = partSelector_store.getValue(item,"CEGDataIndex");
+			        //alert("sId 1era.: "+sId);
+//  			        alert("sIdpn 1era.: "+sIdpn);
+				   var sIdLabel = "";
+				   var sTitulo = "";
+				   var sPos="";
+				   var iPos=0;
+				   var iDescrip=0;
+				   if(sIdpn =="N/A"){
+					   sIndex="Normal";
+				   }
+				   var len = arrDescriptor.length;
+				   
+				   for (var j=0; j<=arrDescriptor.length; j++) {
+					   sIdLabel=String(arrDescriptor[j]);
+					   if(sIdLabel=="undefined"){ 
+							arrDescriptor.splice(j, 1);
+							cleanArray(arrDescriptor);
+							//alert("EEEXITOOO: "+sIdLabel);
+					   }	
+				   }			            	   
+				   
+				   for (var j=0; j<=arrDescriptor.length; j++) {
+					   sIdLabel=String(arrDescriptor[j]);
+					   var sCola = sIdLabel.substring(7);
+					   var sItem = String(item.id);
+					   var sColaItem = sItem.substring(7);	
+					   var temp = sIdLabel.split("|");
+					   if(temp.length>1){
+						   sIdLabel=temp[0];
+					   }
+// 			            alert("sIdLabel arrDescriptor: "+sIdLabel);
+// 			            alert("item: "+item.id);
+// 			            alert("sCola:"+sCola);
+// 			            alert("sColaItem:"+sColaItem);
+					   if(sCola==sColaItem){ 
+							arrDescriptor.splice(j, 1);
+							cleanArray(arrDescriptor);
+							//alert("EEEXITOOO: "+sIdLabel);
+					   }			            		   
+					   if(sIdLabel==sId){ 
+						   iDescrip=1;
+					   }
+				   }
+				   
+				   
+				   //*******************************  DEFINITIVO  ***********************************************
+				   // El codigo que estaba en esta area se puede ubicar en versiones anteriores a Julio 2013						
+				   //*******************************  DEFINITIVO  ***********************************************	
+				   
+					//***********************************************************************************
+					//*** Aqui se itera el 'partBackUp_Mod_store', para eliminar el Item con ti = sId
+					//** se invoca la Funcion de AutoSave de Modificaciones: 'SaveUpdateToJson2' ***
+					//***********************************************************************************
+//					partBackUp_Mod_store.fetch( { query: { ti: sId},  
+//						onItem: function(item) {
+//							partBackUp_Mod_store.deleteItem(item);
+//							alert("Registro: "+sId+ ", Eliminado!");
+//						}
+//					});
+//						
+//					SaveUpdateToJson2("deleteItemEstimates");
+					
+					//***********************************************************************************
+				   
+					
+					//console.info(dojo.toJson(includes));
+				   if(includes!=undefined){ 
+					   try{
+						   var inc = includes.item.split("|");
+						for(var i = 0 in inc){
+							var url = inc[i];
+							dojo.when(dojo.fromJson(Android.getData("SELECT * FROM SERVICES WHERE PATH = '"+url+"';")), function(data){
+								partSelector_store.fetch( { query: { value: data.id},  
+									   onItem: function(items) {
+											//alert("data.id: "+data.id);
+											//sId = partSelector_store.getValue(item,"CEGDataIndex");
+											partSelector_store.deleteItem(items);
+											Android.appendLogJS(" file: Index2.html - PROC: deleteItemEstimates() - Se elimino del partSelector_store, el Item: " + data.id + " . ");
+											//deleteItemBackUp_Mod_store(sId);
+											//***********************************************************************************
+											//*** Aqui se itera el 'partBackUp_Mod_store', para eliminar el Item con ti = sId
+											//** se invoca la Funcion de AutoSave de Modificaciones: 'SaveUpdateToJson2' ***
+											//***********************************************************************************
+	//										partBackUp_store.fetch( { query: { id: data.id},  
+	//											onItem: function(items) {
+	//											 	 //alert("Include Mod_store item: "+item.id);
+	//											partBackUp_store.deleteItem(items);
+	//												//alert("Registro de Include: "+data.id+ ", Eliminado!");
+	//											}
+	//										});			
+
+											partBackUp_Mod_store.fetch( { query: { id: data.id},  
+												onItem: function(items) {
+													//alert("Include Mod_store item: "+item.id);
+													partBackUp_Mod_store.deleteItem(items);
+													Android.appendLogJS(" file: Index2.html - PROC: deleteItemEstimates() - Se elimino del partBackUp_Mod_store, el Item: " + data.id + " . ");
+													//alert("Registro de Include: "+data.id+ ", Eliminado!");
+													partBackUp_Mod_store.save();
+												}
+											});	
+								
+											//SaveUpdateToJson2("deleteItemEstimates");
+								
+										//***********************************************************************************			
+										
+									   }
+								});
+							});
+						}
+					   }catch(x){}
+					   }
+					partSelector_store.deleteItem(item);
+					Android.appendLogJS(" file: Index2.html - PROC: deleteItemEstimates() - Se elimino del partSelector_store, el Item: " + actualItem[9] + " . ");
+					//alert("item: "+item.id);
+					
+				//***********************************************************************************
+				//*** Aqui se itera el 'partBackUp_Mod_store', para eliminar el Item con ti = sId
+				//** se invoca la Funcion de AutoSave de Modificaciones: 'SaveUpdateToJson2' ***
+				//***********************************************************************************
+				// partBackUp_Mod_store.fetch( { query: { ti: sId},  
+					// onItem: function(item) {
+						// partBackUp_Mod_store.deleteItem(item);
+					// }
+				// });
+					
+				// SaveUpdateToJson2("deleteItemEstimates");
+					
+				//***********************************************************************************
+
+					hideAllViews();
+					dijit.byId("partSelector").domNode.style.display = "";
+					dojo.byId("partSelector").style.left = 0;
+					dijit.byId("partSelector").selected = true;
+					dijit.byId("partSelector").startup();
+					Android.showToast("Se ha eliminado el registro!");
+				
+				}
+			});
+			//alert("Antes de partBackUp_Mod_store.fetch: "+sId);
+			deleteItemBackUp_Mod_store(sId);
+			//***********************************************************************************
+			//*** Aqui se itera el 'partBackUp_Mod_store', para eliminar el Item con ti = sId
+			//** se invoca la Funcion de AutoSave de Modificaciones: 'SaveUpdateToJson2' ***
+			//***********************************************************************************
+//			 partBackUp_Mod_store.fetch( { query: { ti: sId},  
+//				 onItem: function(item) {
+//				 item = dojo.fromJson(itemToJSON(partBackUp_Mod_store,item));
+//				 alert("Mod_store item: "+item.id);
+//					 //partBackUp_Mod_store.deleteItem(item);
+//					 //partBackUp_Mod_store.save();
+//					 alert("Registro de partBackUp_Mod_store.fetch: "+sId+ ", Eliminado!");
+//				 }
+//			 });
+				
+			// SaveUpdateToJson2("deleteItemEstimates");
+				
+			//***********************************************************************************			
+			
+		} 
+
+	}
+	
+	function deleteItemBackUp_Mod_store(id){
+		//***********************************************************************************
+		//*** Aqui se itera el 'partBackUp_Mod_store', para eliminar el Item con ti = sId
+		//** se invoca la Funcion de AutoSave de Modificaciones: 'SaveUpdateToJson2' ***
+		//***********************************************************************************
+		//alert("Dentro dedeleteItemBackUp_Mod_store: "+id);
+		var sId2 = String(id);//  Id Item - data.id / this.id
+		var lt = "";	//  Line Type='L' / 'S'
+		var lo = ""; 	//  CEGLabOp
+		var lc = ""; 	//  CEGLabCat
+		var na = "";	//  name/label/parentlabel/html.innerHTML
+		var pn = "";	//  CEGPartNumber
+		var p0 = "";	//  price - GECPrice
+		var lh = "";	//  Labor Hours
+		var h0 = "";	//  CEGLabor
+		var pr = "";	//  PRTC
+		var pi = "";	//  PartId
+		var ai = "";	//  ai
+		var ti = "";	//  this.id  -  String(sIdReg.replace(_4;).replace(_10;));
+		var la = ""; 	//  Label / html.innerHTM 
+		var ori= "";	//  Origen
+		var pt = "";	//  Part Type /
+		var rt = "";	//  Repair Time
+		var oh = "";	//  OverDrive Hours /
+		var ol = "";	//  Labor OverDrive / LabOpOverride
+		var oc = "";	//  LabCatOverride
+		var od = "";	//  Override Description
+		var no = "";	//  Override PartNumber
+		var op = "";	//  Override Price
+		var nt = "";	//  Notes
+		var pd = false; //  Previous Damage / Daño Previo / bException [True / False]	
+		
+		//alert("sId2: "+sId2);
+		// Eliminamos todos los registros de partBackUp_store (Si es que quedaba alguno)
+		partBackUp_store.fetch( { query: { id: '*'},  
+			onItem: function(item) {
+				//alert("Include Mod_store item: "+item.id);
+				partBackUp_store.deleteItem(item);
+				partBackUp_store.save();
+				//alert("Registro de Include: "+data.id+ ", Eliminado!");
+			}
+		});			
+
+		var iIndexOf = sId2.indexOf('-');	
+		// Evaluamos si el Id tiene el sufijo '_XX', si es asi, tomamos el numero 'xx' del sufijo 
+		if(iIndexOf>0){	
+			partBackUp_Mod_store.fetch( { query: { id: sId2},  
+				 onItem: function(item) {
+						 lt = partBackUp_Mod_store.getValue(item,"lt");
+						 lo = partBackUp_Mod_store.getValue(item,"lo");
+						 lc = partBackUp_Mod_store.getValue(item,"lc");
+						 na = partBackUp_Mod_store.getValue(item,"na");
+						 pn = partBackUp_Mod_store.getValue(item,"pn");
+						 p0 = partBackUp_Mod_store.getValue(item,"p0");
+						 lh = partBackUp_Mod_store.getValue(item,"lh");
+						 h0 = partBackUp_Mod_store.getValue(item,"h0");
+						 pr = partBackUp_Mod_store.getValue(item,"pr");
+						 pi = partBackUp_Mod_store.getValue(item,"pi");
+						 ai = partBackUp_Mod_store.getValue(item,"ai");
+						 ti = partBackUp_Mod_store.getValue(item,"ti");
+						 la = partBackUp_Mod_store.getValue(item,"la");
+						 ori= partBackUp_Mod_store.getValue(item,"or");
+						 pt = partBackUp_Mod_store.getValue(item,"pt");
+						 rt = partBackUp_Mod_store.getValue(item,"rt");
+						 oh = partBackUp_Mod_store.getValue(item,"oh");
+						 ol = partBackUp_Mod_store.getValue(item,"ol");
+						 oc = partBackUp_Mod_store.getValue(item,"oc");
+						 od = partBackUp_Mod_store.getValue(item,"od");
+						 no = partBackUp_Mod_store.getValue(item,"no");
+						 op = partBackUp_Mod_store.getValue(item,"op");
+						 nt = partBackUp_Mod_store.getValue(item,"nt");
+						 pd = partBackUp_Mod_store.getValue(item,"pd");
+					 partBackUp_Mod_store.save();
+				 }
+			  });
+		}
+		
+		partBackUp_Mod_store.fetch( { query: { id: sId2},  
+			 onItem: function(item) {
+				//alert("Mod_store item: "+item.id);
+				 partBackUp_Mod_store.deleteItem(item);
+				 //alert("Registro de partBackUp_Mod_store.fetch: "+sId2+ ", Eliminado!");
+				 partBackUp_Mod_store.save();
+			 }
+		  });
+		SaveUpdateToJson2("deleteItemEstimates");
+		var inum=0;
+		var strId = "";
+		var sCola = "";
+		var iIndexOf = sId2.indexOf('-');
+		// Evaluamos si el Id tiene el sufijo '_XX', si es asi, tomamos el numero 'xx' del sufijo 
+		if(iIndexOf>0){
+
+			var iExiste = 0;
+			// Tomamos el numero 'xx' del sufijo y le sumamos una unidad
+			inum=parseInt(sId2.substring(iIndexOf+1));
+
+			var sId3 = sId2;
+			var conta = inum-1;
+			while(iExiste == 0){
+				inum=inum+1;
+				// Construimos asi el Id del registro siguiente, si es que existe
+				strId = sId2.substring(0,sId2.length-2)+"-"+String(inum); 
+				//strId = sId2.substring(0,sId2.length-2);
+				//alert("strId: "+strId);
+				//alert("inum: "+String(inum));
+				//alert("iExiste: "+iExiste);
+				// Efectuamos una consulta en partBackUp_Mod_store, para averiguar si existe este registro
+					partBackUp_Mod_store.fetch( { query: { id: strId},  
+						onItem: function(item) {
+							sCola = partBackUp_Mod_store.getValue(item,"id");
+							//alert("sCola.length dentro: "+sCola.length);
+							partBackUp_Mod_store.deleteItem(item);
+							partBackUp_Mod_store.save();
+							SaveUpdateToJson2("deleteItemEstimates");
+						}
+					});
+					//SaveUpdateToJson2("deleteItemEstimates");
+
+
+					
+					if(sCola.length>0){
+						sId3 = sId2.substring(0,sId2.length-2)+"-"+String(inum-1);
+						//conta = (inum-1);
+						//alert("strId: "+strId);
+						//alert("sId3: "+sId3);
+
+						partBackUp_Mod_store.newItem({
+							"lt":lt,	// Line Type='L'
+							"id":sId3,	//  this.id
+							"lo":lo, 	// CEGLabOp
+							"lc":lc, 	// CEGLabCat
+							"na":na,	// name/label/parentlabel/html.innerHTML
+							"pn":pn,	// CEGPartNumber
+							"p0":p0,	// price - GECPrice
+							"lh":lh,	// Labor Hours
+							"h0":h0,	// CEGLabor
+							"pr":pr,	// PRTC
+							"pi":pi,	// PartId
+							"ai":ai,	// ai
+							"ti":sId3,	// this.id
+							"la":la, 	// label 
+							"or":ori,	// Origen
+							"pt":pt,	// Part Type /
+							"rt":rt,	// Repair Time
+							"oh":oh,	// OverDrive Hours /
+							"ol":ol,	// Labor OverDrive / LabOpOverride
+							"oc":oc,	// LabCatOverride
+							"od":od,	// Override Description
+							"no":no,	// Override PartNumber
+							"op":op,	// Override Price
+							"nt":nt,	// Notes
+							"pd":pd});	// Previous Damage / Daño Previo / bException [True / False]
+
+							sCola = 0;
+					}else{
+						// Como NO existe, se establece la variable de control y saldra del loop del while
+						iExiste = 1;
+						inum=inum-1;
+						//strId = sId2.substring(0,sId2.length-2)+"_"+String(inum-1);
+						sId3 = sId2.substring(0,sId2.length-2)+"-"+String(inum-1);
+						//break;
+					}						
+					sCola = 0;
+					//sId2 = strId;
+					SaveUpdateToJson2("deleteItemEstimates");
+			}
+			conta = (inum-1);
+			id=id.substring(0,id.length-2);
+
+
+			//alert("sId3 arrVeces: "+sId3);
+			//alert("conta arrVeces: "+String(conta));
+			//arrVeces[parseInt(sId3)]=parseInt(conta);
+			arrVeces[id]=parseInt(conta);
+
+		}
+					
+		Android.appendLogJS(" file: Index2.html - PROC: deleteItemBackUp_Mod_store() - Se elimino del partBackUp_store y del partBackUp_Mod_store, el Item: " + sId2 + " . ");
+		//SaveUpdateToJson2("deleteItemEstimates");
+			
+		//***********************************************************************************			
+		
+	}
+	
+	function modulo_fotos(){
+		//alert("EstimateId: "+EstimateId);
+		Android.modulo_fotos(EstimateId);
+	}
+	
+	function modulo_flags(){
+		
+		Android.modulo_flags(actualFlag);
+	}	
+	
+//	  function transcribe(words) {
+//	  document.getElementById("speech").value = words;
+//	  document.getElementById("mic").value = "";
+//	}
+//    function obtenerTexto( input ) {
+//      if ( ! confirm ( '¿Has dicho ' + input.value + '?' ) ) input.value = '';
+//      
+//    }
+	
+		</script>
+  </head>
+  <body onload="init();" id="stage" class="theme">
+	<div id="progressLoader" style="left:200px; display:none;padding:5px; background-color:white;bottom: 0;overflow: auto;position: fixed;width: 550px; z-index:999999999999999;" ><div style="float:left"></div></div>
+		
+		<div id="main" dojoType="dojox.mobile.FixedSplitter" orientation="H">
+
+			<div id="tools" dojoType="dojox.mobile.FixedSplitterPane" style="width:150px;border-right:1px solid black;">
+				<div id="settings" dojoType="dojox.mobile.View" selected="true">
+					<h1 id="headerTitle" dojoType="dojox.mobile.Heading" fixed="top" transition="slide" style="font-size: 14px; font-weight: normal;">
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;font=" moveTo="finderControl" onclick="dojo.byId('h1').style.display = '';vista='';hideTools();" icon="icons/search.png"></div>
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" icon="icons/lock.png" onclick="getEstimate()"></div>
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" moveTo="partSelector" onclick=";vista='';hideTools();" icon="icons/application.png"></div>
+					</h1>
+ 
+					<ul dojoType="dojox.mobile.EdgeToEdgeList" transition="none" >
+<!-- 						<li dojoType="dojox.mobile.ListItem" onClick="createSubModelSelector()">
+							Regresar<font style='color:#DBDDE2;'>000000000000000000000</font>
+						</li> -->
+						<li dojoType="dojox.mobile.ListItem" onclick="viewsConstructorInternal(0); return true;">
+							Interno<font style='color:#DBDDE2;'></font>
+						</li>
+						<li dojoType="dojox.mobile.ListItem" onclick="getBodyStyleViews(actualView); return true;">
+							Externo<font style='color:#DBDDE2;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+						</li>
+						<li id="BUTTON_LISTA" dojoType="dojox.mobile.ListItem" onclick="dojo.byId('h1').style.display = '';vista='partlist';back='';dojo.byId('h3').style.display = 'none';hideTools();dijit.byId('partsList').show();dijit.byId('partsList').startup(); return true;"> 
+						<!--<li id="BUTTON_LISTA" dojoType="dojox.mobile.ListItem" onclick="vista='partlist';dojo.byId('h3').style.display = '';hideTools();dijit.byId('partsList').show();dijit.byId('partsList').startup(); return true;">-->
+							Lista<font style='color:#DBDDE2;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+						</li>						
+						<li id="BUTTON_MANODEOBRA" style="display:none;" dojoType="dojox.mobile.ListItem" onclick="vista='';back='';hideTools();dijit.byId('partsList').show();createNewList(actualParts.value,actualParts.manodeobra,'MANO DE OBRA',actualParts.url,actualParts._id.toString(),true,actualParts.parentCat,actualParts.id,actualParts.id,actualParts.actualCategory);return true;">
+							Mano de Obra
+						</li>
+						<li id="BUTTON_PARTES" style="display:none;" dojoType="dojox.mobile.ListItem" onclick="vista='';back='';hideTools();dijit.byId('partsList').show();createNewList(actualParts.value,actualParts.partes,'PARTES',actualParts.url,actualParts._id.toString(),true,actualParts.parentCat,actualParts.id,actualParts.id,actualParts.actualCategory);return true;">
+							Partes<font style='color:#DBDDE2;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+						</li>
+						<li id="BUTTON_FOTOS" style="" dojoType="dojox.mobile.ListItem" onclick="hideTools();dojo.byId('h1').style.display = '';showHomologa();">
+						Ingreso
+						</br>
+						Manual
+						<font style='color:#DBDDE2;'>;</font>
+						</li>	
+						<!--<li id="BUTTON_FLAG" style="display:inline; top: 550px;" dojoType="dojox.mobile.ListItem" onclick="">
+							<img alt="INMA" id="flagImage" title="B.D.GUATEMALA" usemap="#mapViews" src="icons/logoguatemalafondoblanco.png" style="position: fixed;
+											left: 0px; top: 330px; margin: 0pt; width: 130px; height: 30px; display: inline-block;">
+						</li>	-->			
+						<div style="height:150px; left: 0px; top: 355px; padding:21px; background-color:#FFFFFF; font-family:arial; position: fixed;width: 107px;" >	 
+						</div>
+					</ul>
+				</div>
+			</div>
+
+			<div id="pieces" dojoType="dojox.mobile.FixedSplitterPane" style="width:150px;border-right:1px solid black; display:none;">
+				<div id="settings2" dojoType="dojox.mobile.View" selected="true">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" transition="slide">Vista 3D</h1>
+
+					<ul dojoType="dojox.mobile.EdgeToEdgeList" transition="none" stateful="true"  >
+						<li dojoType="dojox.mobile.ListItem" onclick="hideTools();dijit.byId('submodelSelector').show(); return true;">
+							Regresar
+						</li>
+						<li dojoType="dojox.mobile.ListItem" onclick="hideTools();dijit.byId(dojo.byId(actualMano).parentNode.parentNode.parentNode.id).show(); return true;">
+							Mano de O
+						</li>
+						<li dojoType="dojox.mobile.ListItem" onclick="hideTools();dijit.byId(dojo.byId(actualMano).parentNode.parentNode.parentNode.id).show(); return true;">
+							Partes
+						</li>
+						<li dojoType="dojox.mobile.ListItem" onclick="vista='partlist';hideTools();dijit.byId('partsList').show(); return true;">
+							Lista
+						</li>
+
+					</ul>
+				</div>
+			</div>
+
+			<div id="content" dojoType="dojox.mobile.FixedSplitterPane">
+
+				<div id="worksSelector" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="bottom" back="Regresar" moveTo="itemEditor">
+					<div id="worksSelectorMain" dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Trabajos</h1>
+					<ul dojoType="dojox.mobile.RoundRectDataList">
+						<li id="w0" dojoType="dojox.mobile.ListItem" rightText="" wid="0" moveTo="panelTypeSelector" noArrow="true">
+							Reparaci&oacute;n Automatica											   
+						</li>												   
+						<li id="w1" dojoType="dojox.mobile.ListItem" rightText="" moveTo="hourEditor" wid="1" noArrow="true">
+							Reparaci&oacute;n
+						</li>
+						<li id="w2" dojoType="dojox.mobile.ListItem" rightText="" moveTo="partSelector" wid="2" noArrow="true">
+							Desmontar y Cambiar
+						</li>
+						<li id="w3" dojoType="dojox.mobile.ListItem" rightText="" moveTo="partSelector" wid="3" noArrow="true">
+							Desmontar y Montar
+						</li>
+						<li id="w4" dojoType="dojox.mobile.ListItem" rightText="" moveTo="partSelector" wid="4" noArrow="true">
+							Revisar y Ajustar
+						</li>
+						<li id="w5" dojoType="dojox.mobile.ListItem" rightText="" moveTo="partSelector" wid="5" noArrow="true">
+							Pintar
+						</li>
+						<li id="w6" dojoType="dojox.mobile.ListItem" rightText="" moveTo="partSelector" wid="6" noArrow="true">
+							Reparaci&oacute;n General
+						</li>
+						<li id="w7" dojoType="dojox.mobile.ListItem" rightText="" moveTo="partSelector" wid="7" noArrow="true">
+							Alinear
+						</li>
+					</ul>
+				</div>
+
+				<div id="itemEditor" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="bottom" back="Regresar" moveTo="partSelector">
+					<div id="itemEditorMain" dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;"  onclick="inicio();" icon="icons/home.png"></div>
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="deleteItemEstimates()" icon="icons/button-cross.png"></div>
+					
+					Editar</h1>
+					<ul dojoType="dojox.mobile.RoundRectDataList">
+						<li id="workType" dojoType="dojox.mobile.ListItem" rightText="0">
+							Trabajo											   
+						</li>												   
+						<li id="workforceType" dojoType="dojox.mobile.ListItem" rightText="0">
+							Tipo M/O
+						</li>
+						<li id="description" dojoType="dojox.mobile.ListItem" rightText="1024">
+							Descripci&oacute;n
+						</li>
+						<li id="partType" dojoType="dojox.mobile.ListItem" rightText="10">
+							Tipo
+						</li>
+						<li id="partNumber" dojoType="dojox.mobile.ListItem" rightText="96">
+							N&uacute;mero
+						</li>
+						<li id="price" dojoType="dojox.mobile.ListItem" rightText="2">
+							Precio
+						</li>
+						<li id="labourHours" dojoType="dojox.mobile.ListItem" rightText="29.3 BG">
+							Unidad M
+						</li>
+						<li id="hours" dojoType="dojox.mobile.ListItem" rightText="28.0 BG">
+							BD
+						</li>
+						<li id="notes" dojoType="dojox.mobile.ListItem" rightText="3.0 (7A341)">
+							Notas
+						</li>
+						<!--  NO DISPONIBLE EN LA VERSION MERCANTIL -->
+						
+						<li id="previousDamage" dojoType="dojox.mobile.ListItem" >Sin Relaci&oacute;n(DP)<div id="pd" class="mblSwRoundShape1 float" dojoType="dojox.mobile.Switch"  value="off" style="float:right;padding-top: 10px;margin-top: 7px;
+position: relative; left: 60px;" leftLabel="Si" rightLabel="No"></div></li>
+						<!--	<li id="separatedPart" dojoType="dojox.mobile.ListItem" rightText="">Pieza por separado<div id="sp" class="mblSwRoundShape1 float" dojoType="dojox.mobile.Switch" value="off" style="float:right;padding-top: 10px;margin-top: 7px;margin-left: 50px;" leftLabel="S&iacute;" rightLabel="No"></div></li>
+						-->
+					</ul>
+					<!-- <div dojoType="dojox.mobile.RoundRect">
+Horas <input type="text" name="q" size="34" maxlength="255" id="sbi" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 284px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
+Horas <input type="text" name="q" size="34" maxlength="255" id="sbi" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 284px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
+Horas <input type="text" name="q" size="34" maxlength="255" id="sbi" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 284px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
+    </div>-->
+    
+				</div>
+
+				<div id="panelTypeSelector" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 id="panelTypeSelectorHeader" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="worksSelector">
+
+					<div id="panelTypeSelectorMain" dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;"  onclick="showTools()" icon="icons/home.png"></div>
+					Tipo de Panel</h1>
+</br></br>
+					<ul  id="panelTypeList" dojoType="dojox.mobile.RoundRectDataList" transition="slide" store="panelType_store" query="{label: '*'}">
+				</div>
+
+
+
+
+				<div id="panelDamageTypeSelector" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 id="panelDamageTypeSelectorHeader" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="panelTypeSelector">
+					<div id="panelDamageTypeSelectorMain" dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Tipo de Da&ntilde;o</h1>
+</br></br>
+					<ul  id="panelDamageTypeList" dojoType="dojox.mobile.RoundRectDataList" transition="slide" store="panelDamageType_store" query="{label: '*'}">
+					</ul>
+				</div>
+
+				<div id="DAMAGESIZEIDSelector" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 id="DAMAGESIZEIDHeader" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="panelDamageTypeSelector">
+					<div id="DAMAGESIZEIDSelectorMain" dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;"  onclick="showTools()" icon="icons/home.png"></div>
+					Tama&ntilde;o del da&ntilde;o</h1>
+					</br></br>
+					<ul  id="DAMAGESIZEIDList" dojoType="dojox.mobile.RoundRectDataList" transition="slide" store="DAMAGESIZEID_store" query="{label: '*'}">
+					</ul>
+				</div>
+				
+				<div id="REPAIRTIMESelector" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 id="REPAIRTIMEHeader" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="panelDamageTypeSelector">
+					<div id="REPAIRTIMESelectorMain" dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;"  onclick="showTools()" icon="icons/home.png"></div>
+					Tiempo de reparaci&oacute;n</h1>
+					</br></br>
+					<ul  id="REPAIRTIMEList" dojoType="dojox.mobile.RoundRectDataList" transition="slide" store="REPAIRTIME_store" query="{label: '*'}">
+					</ul>
+				</div>				
+
+				<h1 id="yearheading" dojoType="dojox.mobile.Heading" fixed="Top" style="display:'none';">
+					Seleccione el a&ntilde;o
+				</h1>			
+				 <div id="yearSelector" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;" disableFlashScrollBar="true" >
+					</br></br>
+					<ul  id="yearList" dojoType="dojox.mobile.RoundRectDataList" store="year_store" query="{label: '*'}">
+					</ul>
+				</div> 
+
+				<div id="markSelector" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;" disableFlashScrollBar="true" >
+					<h1 id="markheading" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="yearSelector" style="display:none;">Seleccione la marca</h1>
+					</br></br>				
+					<ul  id="markList" dojoType="dojox.mobile.RoundRectDataList" store="mark_store" query="{label: '*'}">
+					</ul>
+				</div>
+
+				<div id="modelSelector" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;" disableFlashScrollBar="true">
+					<h1 id="modelheading" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="markSelector" style="display:none;">Seleccione el Modelo</h1>
+					</br></br>
+					<ul  id="modelList" dojoType="dojox.mobile.RoundRectDataList" transition="none" store="model_store" query="{label: '*'}">
+					</ul>
+				</div>
+
+				<div id="submodelSelector" dojoType="dojox.mobile.ScrollableView" back="Regresar"moveTo="modelSelector" selected="true" style="overflow: auto;">
+					<h1 id="submodelheading" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="modelSelector" style="display:none;">Seleccione la Versi&oacute;n</h1>
+					</br></br>
+					<ul  id="submodelList" dojoType="dojox.mobile.RoundRectDataList" transition="none" store="submodel_store" query="{label: '*'}">
+					</ul>
+				</div>
+				
+				<div id="submodelSelectorX" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;">
+					<h1 id="submodelheadingX" dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" transition="none" moveTo="modelSelector" style="display:none;">Seleccione la Versi&oacute;n</h1>
+					</br></br>
+					<ul id="submodelListx"  dojoType="dojox.mobile.RoundRectDataList" transition="none" store="submodelx_store" query="{label: '*'}">
+					</ul>
+				</div>
+
+				<h1 id="h1" dojoType="dojox.mobile.Heading" style="display:none;" back="" transition="none" moveTo=""  return true;">
+					Lista
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" onclick="dojo.byId('h1').style.display = 'none';inicio()" style="float:right;" icon="icons/home.png"></div>
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" moveTo="finderControl" onclick="vista='';dojo.byId('h1').style.display='';hideTools();" icon="icons/search.png"></div>						
+				</h1>						
+
+				<div id="partsList" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;" disableFlashScrollBar="true">
+					</br></br>
+					<ul  id="categoryList" dojoType="dojox.mobile.RoundRectDataList"  store="category_store" query="{label: '*'}">
+					</ul>
+				</div>			
+					
+				<div id="estimateEditor" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="partSelector">
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="dojo.byId('h1').style.display='none';inicio();" icon="icons/home.png"></div>
+						Editar Estimaci&oacute;n
+					</h1>
+					<br></br>
+					<br></br>
+					<ul dojoType="dojox.mobile.RoundRectDataList">
+						<li id="reportMessage" dojoType="dojox.mobile.ListItem" rightText="<a href='javascript:;' onclick='descriptionMessageTextarea()'>Modificar</a>" >
+							Mensaje del reporte
+						</li>
+						<!-- <li id="totalLoss" dojoType="dojox.mobile.ListItem" rightText="">Perdida Total<div id="tl" class="mblSwRoundShape1 float" dojoType="dojox.mobile.Switch" value="off" style="float:right;padding-top: 10px;margin-top: 7px;margin-left: 150px; " leftLabel="S&iacute;" rightLabel="No"></div></li> -->
+					</ul>
+				</div>
+
+
+				<div id="reportMessageEditor" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="" >
+					</br></br>
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Mensaje del Reporte</h1>
+				<div dojoType="dojox.mobile.RoundRect" shadow="true">			
+
+				<table width="100%">
+
+					<tr>
+
+						<td><span class="bold" style="vertical-align: top;">Mensaje</span></td>
+
+						<td align="right"><textarea id="reportMessageTextarea" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 300px;height: 80px;"></textarea></td>
+
+					</tr>
+					<tr>
+					
+						<td><span class="bold"></span></td>
+					
+						<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeReportMessage()">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="cancelChangeMessageReport()">Cancelar</button></td>
+
+					</tr>
+
+				</table>
+
+			</div>
+				</div>
+
+				<div id="partSelector" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back=""  transition="none">				
+						Estimaci&oacute;n  <div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton twetviewRefresh" tabinex="-1" style="float:right;" onclick="showMade()" icon="icons/information.png"></div>
+
+					</h1>
+					<br></br>
+					<ul id="partSelectorList" dojoType="dojox.mobile.RoundRectDataList" store="partSelector_store" query="{label: '*'}">
+					</ul>
+					<h1 dojoType="dojox.mobile.Heading" fixed="bottom" back="Regresar" transition="none" moveTo="partsList" onclick="vista='partslist';dojo.byId('h1').style.display = '';dojo.byId('h3').style.display = 'none';hideTools();">
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" moveTo="estimateEditor" onclick="vistaEsp='Mensaje';" icon="icons/document-edit.png"></div>
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" moveTo="finderControl" onclick="vistaEsp='Mensaje';vista='';dojo.byId('h1').style.display = '';dojo.byId('h3').style.display = 'none';hideTools();" icon="icons/search.png"></div>
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="getEstimate();vistaEsp='Mensaje';" icon="icons/lock.png"></div>
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="vistaEsp='Inicio';inicio();" icon="icons/home.png"></div>
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="vista='';dojo.byId('h1').style.display='none';manualEntry();" icon="icons/toggle-expand.png"></div>
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" id="fot" style="float:right; display:none;" onclick="vista='';back='';hideTools();modulo_fotos();" icon="icons/camarablue.png"></div>
+					</h1>
+
+				</div>
+
+
+				<div id="workforceTypeSelector" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="bottom" back="Regresar" moveTo="itemEditor" onclick="dojo.byId('h1').style.display = 'none'">
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Tipo de Mano de Obra</h1>
+					<ul dojoType="dojox.mobile.RoundRectDataList">
+						<li id="wt0" dojoType="dojox.mobile.ListItem" rightText="" wtid="0" noArrow="true">
+							Carroceria											   
+						</li>												   
+						<li id="wt1" dojoType="dojox.mobile.ListItem" rightText="" wtid="4" noArrow="true">
+							Mecanica
+						</li>
+						<li id="wt2" dojoType="dojox.mobile.ListItem" rightText="" wtid="6"noArrow="true">
+							Pintura
+						</li>
+						<li id="wt3" dojoType="dojox.mobile.ListItem" rightText="" wtid="10"noArrow="true">
+							Cristal
+						</li>
+						<li id="wt4" dojoType="dojox.mobile.ListItem" rightText="" wtid="11"noArrow="true">
+							Chasis
+						</li>
+						<li id="wt5" dojoType="dojox.mobile.ListItem" rightText="" wtid="12"noArrow="true">
+							Carroceria-Estructura
+						</li>
+					</ul>
+				</div>
+					
+					<h1 id="h3" dojoType="dojox.mobile.Heading" style="display:none;" fixed="top" back="" transition="none" moveTo="" return true;">
+						Resultado de la busqueda
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" onclick="vista='';dojo.byId('h3').style.display='none';inicio()" style="float:right;" icon="icons/home.png"></div>
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" moveTo="finderControl" onclick="vista='';dojo.byId('h1').style.display='';hideTools();"  icon="icons/search.png"></div>					
+					</h1>
+					<div id="searchResultView" dojoType="dojox.mobile.ScrollableView" style="overflow: auto;">
+						</br></br>
+						<ul  id="searchResultList" dojoType="dojox.mobile.RoundRectDataList"  store="searchResult_store" query="{label: '*'}">
+
+						</ul>
+					</div>
+
+				<div id="partTypex" dojoType="dojox.mobile.ScrollableView" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="bottom" back="Regresar" moveTo="itemEditor">
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Tipo de Parte</h1>
+					<ul dojoType="dojox.mobile.RoundRectDataList">
+						<li id="t0" dojoType="dojox.mobile.ListItem" rightText="" tid="0" noArrow="true">
+							Nueva											   
+						</li>												   
+						<li id="t1" dojoType="dojox.mobile.ListItem" rightText="" tid="1" noArrow="true">
+							Misma
+						</li>
+						<li id="t2" dojoType="dojox.mobile.ListItem" rightText="" tid="2"noArrow="true">
+							Usada
+						</li>
+						<li id="t3" dojoType="dojox.mobile.ListItem" rightText="" tid="3"noArrow="true">
+							Altern
+						</li>
+						<li id="t4" dojoType="dojox.mobile.ListItem" rightText="" tid="17"noArrow="true">
+							Servicios Externos
+						</li>
+						<li id="t5" dojoType="dojox.mobile.ListItem" rightText="" tid="18"noArrow="true">
+							Ajuste 1
+						</li>
+						<li id="t6" dojoType="dojox.mobile.ListItem" rightText="" tid="19"noArrow="true">
+							Ajuste 2
+						</li>
+						<li id="t7" dojoType="dojox.mobile.ListItem" rightText="" tid="20"noArrow="true">
+							Ajuste 3
+						</li>
+						<li id="t8" dojoType="dojox.mobile.ListItem" rightText="" tid="21"noArrow="true">
+							Remanufacturada
+						</li>
+					</ul>
+				</div>
+				<div id="priceEditor" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="" >
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png">
+						</div>
+						Ingrese el Precio
+					</h1>
+					<div dojoType="dojox.mobile.RoundRect" shadow="true">
+						<table width="100%">
+
+							<tr>
+
+								<td><span class="bold">Precio Nuevo:</span>
+								</td>
+
+								<td align="right">
+									<input type="number" size="34" maxlength="255" id="precio" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 284px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;">
+								</td>
+
+							</tr>
+							<tr>
+					
+								<td><span class="bold"></span></td>
+					
+								<td align="right">
+									<button dojoType="dojox.mobile.Button" onclick="changePrice()">Aceptar
+									</button>
+									<button dojoType="dojox.mobile.Button" onclick="cancelChangePrice()">Cancelar
+									</button>
+								</td>
+
+							</tr>
+
+						</table>
+
+					</div>
+				</div>		
+				<div id="hourEditor" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="" >
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Ingrese las horas de Mano de Obra</h1>
+						<div dojoType="dojox.mobile.RoundRect" shadow="true">			
+		
+						<table width="100%">
+		
+							<tr>
+		
+								<td><span class="bold">Tiempo de reparaci&oacute;n</span></td>
+		
+								<td align="right"><input type="number" size="34" maxlength="255" id="horas" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 284px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;"></td>
+		
+							</tr>
+							<tr>
+							
+								<td><span class="bold"></span></td>
+							
+								<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeHours()">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="cancelChangeHours()">Cancelar</button></td>
+		
+							</tr>
+		
+						</table>
+		
+					</div>
+				</div>
+
+				<div id="hourEditor2" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="" >
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Ingrese las horas de Mano de Obra</h1>
+						<div dojoType="dojox.mobile.RoundRect" shadow="true">			
+		
+						<table width="100%">
+		
+							<tr>
+		
+								<td><span class="bold">Tiempo de reparaci&oacute;n</span></td>
+		
+								<td align="right"><input type="number" size="34" maxlength="255" id="horas2" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 284px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;"></td>
+		
+							</tr>
+							<tr>
+							
+								<td><span class="bold"></span></td>
+							
+								<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeHours2()">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="cancelChangeHours()">Cancelar</button></td>
+		
+							</tr>
+		
+						</table>
+		
+					</div>
+				</div>
+
+				<div id="finderControl" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="">
+						<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="dojo.byId('h1').style.display = 'none';inicio()" icon="icons/home.png"></div>
+						Buscador
+					</h1>
+						<div dojoType="dojox.mobile.RoundRect" shadow="true">			
+		
+						<table width="100%">
+		
+							<tr>
+		
+								<td><input type="text" size="60" maxlength="255" id="finder" style="border: 1px solid #C7C7C7;background-color: white;height: 18px;width: 550px;padding: 5px 7px;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;"></td>
+								<td align="right"><button dojoType="dojox.mobile.Button" moveTo="searchResultView" onclick="vista='search';dojo.byId('h3').style.display = 'none';searchItems(dojo.byId('finder').value)" >*</button></td>
+		
+							</tr>
+		
+						</table>
+		
+					</div>
+				</div>
+
+				<div id="descriptionEditor" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="" >
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Modificar la Descripci&oacute;n</h1>
+						<div dojoType="dojox.mobile.RoundRect" shadow="true">			
+		
+						<table width="100%">
+		
+							<tr>
+		
+								<td><span class="bold" style="vertical-align: top;">Descripci&oacute;n </span></td>
+		
+		
+								<td align="right"><textarea id="descriptionTA" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 300px;height: 80px;" onfocus="limpiatextarea()"></textarea></td>
+		
+							</tr>
+							<tr>
+							
+								<td><span class="bold"></span></td>
+							
+								<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeDescription()">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="cancelChangeHours()">Cancelar</button></td>
+		
+							</tr>
+		
+						</table>
+		
+					</div>
+				</div>
+
+				<div id="noteEditor" dojoType="dojox.mobile.View" selected="false">
+					<h1 dojoType="dojox.mobile.Heading" fixed="top" back="" >
+					<div dojoType="dojox.mobile.ToolBarButton" class="mblDomButton tweetviewRefresh" tabindex="-1" style="float:right;" onclick="showTools()" icon="icons/home.png"></div>
+					Agregar/Modificar la Nota</h1>
+						<div dojoType="dojox.mobile.RoundRect" shadow="true">			
+		
+						<table width="100%">
+		
+							<tr>
+		
+								<td><span class="bold" style="vertical-align: top;">Nota  </span></td>
+		
+								<td align="right"><textarea id="note" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 300px;height: 80px;"></textarea></td>
+		
+							</tr>
+							<tr>
+							
+								<td><span class="bold"></span></td>
+							
+								<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeNote()">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="cancelChangeHours()">Cancelar</button></td>
+		
+							</tr>
+		
+						</table>
+		
+					</div>
+				</div>
+
+			   <div id="doContainer" class="container" dojoType="dojox.mobile.View" selected="false">
+					<img alt="INMA" id="madeInma" usemap="#map" src="icons/LogoInmaEst.png " style="position: relative;  margin-left:20px;left: 0px; top: 0px; margin: 0pt; width: 350px; height: 90px; display: inline-block;">						
+					<div id="versionTitle" style="font-family: Tahoma;font-size: 14px;position: relative; margin-left:50px; top:5px;padding:2px;width:280px;height:40px; text-align: center;color: blue;"></div>
+					<br>
+					<div id="versionSubTitle" style="font-family: Tahoma;font-size: 14px;position: relative; margin-left:40px; top:0px;padding:2px;width:280px;height:10px; text-align: center;color: blue;"></div>
+					<br>	
+					<font style="font-family: Tahoma;font-size: 10px;margin-left:60px">Powered by Grupo INMA, C.A. Copyright© 2015/2016</font>
+
+					<br>
+					<br>				 
+					<button dojoType="dojox.mobile.Button"  style="margin-left:160px;" onclick="hideMade()">Aceptar</button>
+				</div>				
+					
+			   <div id="doHomologa" class="containerh" dojoType="dojox.mobile.View" selected="false">
+						<img alt="INMA" id="madeInma" usemap="#map" src="icons/LogoInmaEst.png " style="position: relative;  margin-left:20px;left: 0px; top: 0px; margin: 0pt; width: 350px; height: 90px; display: inline-block;">						
+						<font style="font-family: Tahoma;font-size: 14px;margin-left:35px">SELECCIONE EL VEHICULO A HOMOLOGAR:</font>
+						<table>
+							<tr>
+								<td><span class="bold" style="vertical-align: top;">Año: </span></td>
+
+								<td align="right"><textarea id="aniomanual" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 50px;height: 15px;"></textarea></td>
+							</tr>	
+							<tr>
+
+								<td><span class="bold" style="vertical-align: top;">Marca: </span></td>
+
+								<td align="right"><textarea id="marcamanual" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 170px;height: 15px;"></textarea></td>
+
+							</tr>
+						<tr>
+
+							<td><span class="bold" style="vertical-align: top;">Modelo: </span></td>
+
+							<td align="right"><textarea id="modelomanual" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 170px;height: 15px;"></textarea></td>
+
+						</tr>
+						<tr>
+
+							<td><span class="bold" style="vertical-align: top;">Version: </span></td>
+
+							<td align="right"><textarea id="submodmanual" style="-webkit-appearance: textarea;background-color: white;border: 1px solid;-webkit-rtl-ordering: logical;-webkit-user-select: text;-webkit-box-orient: vertical;cursor: auto;padding: 5px;white-space: pre-wrap;word-wrap: break-word;outline: 0;font-size: 13px;color: #747472;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;width: 290px;height: 15px;"></textarea></td>
+
+						</tr>						
+							<tr>
+							
+								<td><span class="bold"></span></td>
+							
+								<td align="right"><button dojoType="dojox.mobile.Button" onclick="changeVehicle();">Aceptar</button><button dojoType="dojox.mobile.Button" onclick="inicio()">Cancelar</button></td>
+
+							</tr>									
+						
+						</table>
+				</div>										
+								
+				<div id="treeSelector" dojoType="dojox.mobile.View" style="background-color:white;
+				                        position: RELATIVE; overflow: hidden; width: 100%; padding: 0; vertical-align: middle; text-align: center; display: table-cell;">										
+
+
+					<!--<h1 dojoType="dojox.mobile.Heading" fixed="top" back="Regresar" moveTo="submodelSelector">Seleccione la Versi&oacute;n</h1>-->
+                    <!--<div id="treeContainer" style="position: absolute; width: 97%; padding: 7px;">  </div>-->
+                    <div id="imageCanvasExternal" style="position: RELATIVE; overflow: scroll; width: 750px; top: 100px; right: 620px; left: 5px;
+                                        height: 700px; padding: 0; vertical-align: middle; text-align: center; display: table-cell;
+                                        overflow: hidden;">
+                                        <img alt="INMA" id="externalImage" usemap="#mapViews" src="../../icons/inmawait.png" style="position: relative;
+                                            left: 10px; top: 0px; margin: 0pt; width: 700px; height: 50px; display: inline-block;">
+                    </div>
+                    <div id="imageCanvasInternal" style="position: RELATIVE; overflow: hidden; width: 700px; top: 80px; right: 280px; left: 20px;
+                                        height: 900px; padding: 0; vertical-align: middle; text-align: center; display: table-cell">
+
+                                        <img alt="INMA" id="internalImage" usemap="#mapInternals" src="../../icons/inmawait.png" style="position: relative;
+                                            left: 30px; top: 0px; margin: 0pt; width: 750px; height: 50px; display: inline-block;">
+                    </div>
+                    <div id="imageCanvas" style="position: RELATIVE; overflow: hidden; width: 850px; top: 80px; right: 180px; left: 0px;
+                                        height: 900px; padding: 0; vertical-align: middle; text-align: center; display: table-cell;
+                                        overflow: hidden;">
+                                        <img alt="INMA" id="image" usemap="#map" src="" style="position: relative;
+                                            left: 0px; top: 100px; margin: 0pt; width: 740px; height: 50px; display: inline-block;">
+                    </div>
+                </div>
+                    
+
+
+			</div>
+
+		</div>
+		            <img alt="" id="fakeImage" usemap="#originalMap" src="icons/inmawait.png" style="width: 0px; height: 0px; position: relative; left: 0px; top: 0px; margin: 0pt; display: inline-block;">
+                    <map id="map" name="map">
+                    </map>
+                    <map id="originalMap" name="originalMap">
+                    </map>
+                    <map id="mapViews" name="mapViews">
+                    </map>
+                    <map id="originalMapViews" name="originalMapViews">
+                    </map>
+                    <map id="mapInternals" name="mapInternals">
+                    </map>
+                    <map id="originalMapInternals" name="originalMapInternals">
+                    </map>
+
+                    
+                    <div id="viewNavigation" style="display:none;padding:10px; background-color:#5d7ffe; font-family:arial; bottom: 0;overflow: auto;position: fixed;width: 130px; z-index:999999999999;" >
+					<div style="float:left">
+						<button style="width: 60px; height:60px"  dojotype="dojox.mobile.Button" id="buttonNavL" class="mblButton mblBlueButton" widgetid="buttonNavL" ><
+						</button>
+					</div>
+						<div style="float:left;">&nbsp;&nbsp;
+						</div>
+						<div style="float:left">
+							<button style="width: 60px; height:60px" dojotype="dojox.mobile.Button" id="buttonNavR" class="mblButton mblBlueButton" widgetid="buttonNavR">>
+							</button>
+						</div>
+					</div>
+                    <div id="imageTitle" style="display:none;padding:0px; background-color:#5d7ffe; bottom: 0;overflow: auto;position: fixed;width: 900px; z-index:999999999999; LEFT:151px;height: 25px; text-align: center;color: white;" >
+					</div>
+                   <!--  Mod. OC 20/09/2012  -->
+                    <div id="carTitle" style="display:none;padding:25px; background-color:#5d7ffe;font-family:arial;font-size:22px; bottom: 0;overflow: auto;position: fixed;width: 900px; z-index:999999999999; LEFT:151px;height: 28px; text-align: left;color: white;" >
+					</div>
+
+   <!-- 
+   <h1>Welcome to PhoneGap!</h1>
+    <h2>this file is located at assets/www/index.html</h2>
+    <div id="info">
+        <h4>Platform: <span id="platform"> &nbsp;</span>,   Version: <span id="version">&nbsp;</span></h4>
+        <h4>UUID: <span id="uuid"> &nbsp;</span>,   Name: <span id="name">&nbsp;</span></h4>
+        <h4>Width: <span id="width"> &nbsp;</span>,   Height: <span id="height">&nbsp;
+                   </span>, Color Depth: <span id="colorDepth"></span></h4>
+     </div>
+    <dl id="accel-data">
+      <dt>X:</dt><dd id="x">&nbsp;</dd>
+      <dt>Y:</dt><dd id="y">&nbsp;</dd>
+      <dt>Z:</dt><dd id="z">&nbsp;</dd>
+    </dl>
+    <a href="#" class="btn large" onclick="toggleAccel();">Toggle Accelerometer</a>
+    <a href="#" class="btn large" onclick="getLocation();">Get Location</a>
+	<a href="tel://411" class="btn large">Call 411</a>
+    <a href="#" class="btn large" onclick="beep();">Beep</a>
+    <a href="#" class="btn large" onclick="vibrate();">Vibrate</a>
+    <a href="#" class="btn large" onclick="show_pic();">Get a Picture</a>
+    <a href="#" class="btn large" onclick="get_contacts();">Get Phone's Contacts</a>
+    <a href="#" class="btn large" onclick="check_network();">Check Network</a>
+    <div id="viewport" class="viewport" style="display: none;">       
+      <img style="width:60px;height:60px" id="test_img" src="" />
+    </div> 
+    
+     -->
+     <input type="hidden" id="f1" value="0" /> 
+     <input type="hidden" id="f2" value="0" /> 
+     <input type="hidden" id="f3" value="0" /> 
+  </body>
+</html>

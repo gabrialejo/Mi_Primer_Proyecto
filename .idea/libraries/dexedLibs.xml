@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpcore-nio-4.3.2-df09bf725bfc5044df14a2122ba06bea.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/json_simple-1.1-483a154188d949e5944c5619e9bfa567.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/android-support-v4-8134bd13fc2e89e1a53b23f84d8f8822.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpcore-4.3.2-90edf6b94af09ae260ed3e48e268fec6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/gson-2.2-85f5eef797eece0111bde76a7415d8b4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpasyncclient-4.0.1-054c727bbedf3d0ca84c8e29e692af55.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/commons-codec-1.3-684ea59581cf106e46781c4258bc305e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/tess-two-a2b61c3ed7dd1789505bb6b47f8b17a2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpclient-cache-4.3.1-f2d537f7eb1eddf8e32395e6be2e0abe.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/microsoft-translator-java-api-0.6-mod-905c63d31decc2269e8e2231648d4872.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpasyncclient-cache-4.0.1-6d092b3206953dfe27b066def1f9aa7b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-api-translate-java-0.98-mod2-1e31658d0870e82ba113eede568b029b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpmime-4.2.4-c069e4d28893d46a2bf3abd5adf837d5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/ksoap2-android-assembly-2.6.0-jar-with-dependencies-362df8fe2b5630a463a439bbcfd89d88.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/annotations-66fd7b32e52b0f9dd377428cc7b8aa8b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/jtar-1.0.4-762debe422d5981c4698ee77be68666b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/httpclient-4.3.2-ef4e23a25f5d0da206f73815b413a979.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/commons-lang3-3.1-f388b1b4ea90ee9e8b3f94bd2fb48557.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

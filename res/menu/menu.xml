@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/about" 
+        android:icon="@drawable/about"
+        android:title="About App">
+        <menu xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:id="@+id/submenu" 
+                android:title="Submenú de &amp;quot;About App&amp;quot;"/>
+        </menu>
+    </item>
+    <item android:id="@+id/quit"
+        android:title="Quit App" 
+        android:icon="@drawable/quit"/>
+</menu>

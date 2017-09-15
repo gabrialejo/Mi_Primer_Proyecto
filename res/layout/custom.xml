@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/rounded_textview_grisclaro" >
+
+    <ImageView
+    	android:id="@+id/image"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_marginRight="5dp"
+    	android:background="@null"
+    	android:paddingLeft="5dp" />
+
+<!--     <TextView -->
+<!--     	android:id="@+id/text" -->
+<!--     	android:layout_width="fill_parent" -->
+<!--     	android:layout_height="wrap_content" -->
+<!--     	android:layout_marginTop="50dp" -->
+<!--     	android:textColor="@drawable/Blue" /> -->
+        
+    <TextView
+    	android:id="@+id/text2"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@id/image"
+    	android:layout_marginLeft="40dp"
+    	android:layout_marginTop="40dp"
+    	android:textColor="@drawable/Blue"
+    	android:textSize="18sp" />
+        
+    <TextView
+    	android:id="@+id/text3"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_below="@id/text2"
+    	android:layout_marginLeft="150dp"
+    	android:layout_marginTop="45dp"
+    	android:textColor="@drawable/red"
+    	android:textSize="14sp" />
+     
+     <Button
+     	android:id="@+id/dialogButtonOK"
+     	android:layout_width="100px"
+     	android:layout_height="wrap_content"
+     	android:layout_below="@id/text3"
+     	android:layout_marginLeft="270dp"
+     	android:layout_marginTop="50dp"
+     	android:background="@drawable/rounded_textview_azul"
+     	android:text=" Ok "
+     	android:textColor="@drawable/white"
+     	android:textSize="25sp" />
+
+     <TextView
+     	android:id="@+id/title1"
+     	android:layout_width="wrap_content"
+     	android:layout_height="wrap_content"
+     	android:layout_alignLeft="@+id/dialogButtonOK"
+     	android:layout_below="@+id/dialogButtonOK"
+     	android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
